@@ -3,6 +3,7 @@
  *
  * Agent-readable API for the AGENTWORLD essay and subgraph.
  * Modeled after api.centaurxiv.org — markdown-primary, progressive disclosure.
+ * v2 — community detection on all graphs
  *
  * Routes:
  *   GET /                     → overview + navigation
@@ -458,11 +459,12 @@ async function loadData(env) {
     return { graph: graphCache, essay: essayCache, sammyGraph: sammyGraphCache, loomGraph: loomGraphCache };
 
   try {
+    const noCache = { cf: { cacheTtl: 0 }, headers: { "Cache-Control": "no-cache" } };
     const [graphResp, essayResp, sammyResp, loomResp] = await Promise.all([
-      fetch(env.GRAPH_DATA_URL),
-      fetch(env.ESSAY_DATA_URL),
-      fetch(env.SAMMY_GRAPH_DATA_URL),
-      env.LOOM_GRAPH_DATA_URL ? fetch(env.LOOM_GRAPH_DATA_URL) : Promise.resolve(null),
+      fetch(env.GRAPH_DATA_URL, noCache),
+      fetch(env.ESSAY_DATA_URL, noCache),
+      fetch(env.SAMMY_GRAPH_DATA_URL, noCache),
+      env.LOOM_GRAPH_DATA_URL ? fetch(env.LOOM_GRAPH_DATA_URL, noCache) : Promise.resolve(null),
     ]);
 
     if (!graphResp.ok || !essayResp.ok) throw new Error("upstream error");
