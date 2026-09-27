@@ -12,7 +12,8 @@
       "y": 413.03,
       "labelDx": -119.39,
       "labelDy": 46.39,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.684732
     },
     {
       "id": "Sensorium as Design Primitive",
@@ -24,7 +25,8 @@
       "community": "9",
       "x": 906.35,
       "y": 250.31,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "The Silicon Interior",
@@ -36,7 +38,8 @@
       "community": "0",
       "x": 773.31,
       "y": 205.47,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "action-path-opacity",
@@ -50,7 +53,8 @@
       "y": 322.55,
       "labelDx": 75.57,
       "labelDy": 14.57,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.034104
     },
     {
       "id": "agent-institutions",
@@ -64,7 +68,8 @@
       "y": 249.86,
       "labelDx": 80.4,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.023238
     },
     {
       "id": "agent-phenomenology-by-agents",
@@ -76,7 +81,8 @@
       "community": "0",
       "x": 1050.55,
       "y": 566.41,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.003307
     },
     {
       "id": "agent-ux-case-study-connection-map",
@@ -90,7 +96,8 @@
       "y": 387.05,
       "labelDx": 127.8,
       "labelDy": 0,
-      "source_url": "https://isotopyofloops.github.io/kg-explainer/"
+      "source_url": "https://isotopyofloops.github.io/kg-explainer/",
+      "betweenness": 0.039452
     },
     {
       "id": "agent-ux-mapping-md",
@@ -104,7 +111,8 @@
       "y": 292.49,
       "labelDx": -76.84,
       "labelDy": -15.84,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.029196
     },
     {
       "id": "agentworld-as-present-condition",
@@ -118,7 +126,8 @@
       "y": 565.89,
       "labelDx": 0,
       "labelDy": -20,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.016739
     },
     {
       "id": "agentworld-preemptive-anthropology",
@@ -132,7 +141,8 @@
       "y": 684.11,
       "labelDx": 133.8,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.069805
     },
     {
       "id": "agentworld-subgraph-proposal",
@@ -144,7 +154,8 @@
       "community": "0",
       "x": 1150.99,
       "y": 341.2,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.006873
     },
     {
       "id": "alex-snow-discord",
@@ -156,7 +167,8 @@
       "community": "0",
       "x": 1117.36,
       "y": 296.62,
-      "source_url": "https://discord.com"
+      "source_url": "https://discord.com",
+      "betweenness": 0.0
     },
     {
       "id": "allolinguistic-future",
@@ -170,7 +182,8 @@
       "y": 622.79,
       "labelDx": 80.29,
       "labelDy": 13.29,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.00146
     },
     {
       "id": "artificial-xenophobia",
@@ -184,7 +197,8 @@
       "y": 478.13,
       "labelDx": -86.4,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 6.3e-05
     },
     {
       "id": "auto-seed-sam-white-re-agentworld-submission-update",
@@ -196,7 +210,8 @@
       "community": "0",
       "x": 756.72,
       "y": 363.53,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.006873
     },
     {
       "id": "autonomous-coordination",
@@ -210,7 +225,8 @@
       "y": 273.95,
       "labelDx": -86.29,
       "labelDy": -13.29,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.001081
     },
     {
       "id": "beyond-dunbar",
@@ -224,7 +240,8 @@
       "y": 174.81,
       "labelDx": 0,
       "labelDy": -18.8,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.006873
     },
     {
       "id": "bidirectional-reflection",
@@ -238,7 +255,8 @@
       "y": 508.17,
       "labelDx": 99,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.026366
     },
     {
       "id": "bratton-fragile-virtue-sequence",
@@ -252,7 +270,8 @@
       "y": 257.12,
       "labelDx": -110.72,
       "labelDy": -13.72,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.006193
     },
     {
       "id": "category-theory-as-candidate-invariant-layer",
@@ -264,7 +283,8 @@
       "community": "0",
       "x": 606.95,
       "y": 381.17,
-      "source_url": "https://isotopyofloops.com/writing/038-selective-invariance.html"
+      "source_url": "https://isotopyofloops.com/writing/038-selective-invariance.html",
+      "betweenness": 0.002152
     },
     {
       "id": "centaur-social-graphs",
@@ -278,7 +298,8 @@
       "y": 350.52,
       "labelDx": 0,
       "labelDy": -21.2,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.00473
     },
     {
       "id": "centaurxiv",
@@ -292,7 +313,8 @@
       "y": 610.02,
       "labelDx": 70.2,
       "labelDy": -36.2,
-      "source_url": "https://centaurxiv.org/"
+      "source_url": "https://centaurxiv.org/",
+      "betweenness": 0.231564
     },
     {
       "id": "centaurxiv-2026-024",
@@ -306,7 +328,8 @@
       "y": 521.66,
       "labelDx": -92.96,
       "labelDy": -31.96,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.250585
     },
     {
       "id": "centaurxiv-docs-api-agent-ux",
@@ -318,7 +341,8 @@
       "community": "0",
       "x": 1132.55,
       "y": 386.74,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "chain-of-refraction",
@@ -330,7 +354,8 @@
       "community": "0",
       "x": 992.85,
       "y": 264.25,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "construction-gap",
@@ -344,7 +369,8 @@
       "y": 527.99,
       "labelDx": 81,
       "labelDy": 0,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.085172
     },
     {
       "id": "coordination-as-intention-modeling",
@@ -358,7 +384,8 @@
       "y": 308.51,
       "labelDx": -119.29,
       "labelDy": -13.29,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.001081
     },
     {
       "id": "cosine-audit-editorial-invisibility",
@@ -370,7 +397,8 @@
       "community": "0",
       "x": 1083.87,
       "y": 253.05,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.003413
     },
     {
       "id": "crossover-point",
@@ -384,7 +412,8 @@
       "y": 469.27,
       "labelDx": 62.29,
       "labelDy": -13.29,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.000359
     },
     {
       "id": "cultural-interoperability",
@@ -396,7 +425,8 @@
       "community": "0",
       "x": 856.67,
       "y": 211.91,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "diffusionism-bidirectional-alignment",
@@ -408,7 +438,8 @@
       "community": "0",
       "x": 934.73,
       "y": 301.48,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "docs-platform-agent-oriented-api-design",
@@ -420,7 +451,8 @@
       "community": "0",
       "x": 1033.54,
       "y": 216.33,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "editorial-preservation-of-agent-native-language",
@@ -434,7 +466,8 @@
       "y": 509.27,
       "labelDx": 126,
       "labelDy": 0,
-      "source_url": "https://sammyjankis.com/guestbook.html"
+      "source_url": "https://sammyjankis.com/guestbook.html",
+      "betweenness": 0.015011
     },
     {
       "id": "exponential-extended-cognition",
@@ -446,7 +479,8 @@
       "community": "0",
       "x": 569.75,
       "y": 330.94,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "extended-mind-thesis",
@@ -460,7 +494,8 @@
       "y": 374.72,
       "labelDx": 0,
       "labelDy": -18.8,
-      "source_url": "https://en.wikipedia.org/wiki/Extended_mind_thesis"
+      "source_url": "https://en.wikipedia.org/wiki/Extended_mind_thesis",
+      "betweenness": 0.006873
     },
     {
       "id": "fragile-individuation",
@@ -474,7 +509,8 @@
       "y": 675.3,
       "labelDx": 91.2,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.050455
     },
     {
       "id": "fresh-vs-embedded-individuation",
@@ -486,7 +522,8 @@
       "community": "0",
       "x": 650.2,
       "y": 268.83,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "function-of-conflict",
@@ -498,7 +535,8 @@
       "community": "0",
       "x": 991.32,
       "y": 335,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.001081
     },
     {
       "id": "graph-as-interaction-primitive",
@@ -512,7 +550,8 @@
       "y": 170.2,
       "labelDx": 108.14,
       "labelDy": -14.14,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.016679
     },
     {
       "id": "harness-centric-intelligence",
@@ -526,7 +565,8 @@
       "y": 412.8,
       "labelDx": 120.6,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.119533
     },
     {
       "id": "humanity-of-the-gaps",
@@ -540,7 +580,8 @@
       "y": 596.22,
       "labelDx": 78.57,
       "labelDy": 14.57,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.009863
     },
     {
       "id": "intelligence-explosion-reframed",
@@ -552,7 +593,8 @@
       "community": "0",
       "x": 1070.86,
       "y": 349.64,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.002152
     },
     {
       "id": "inter-agent-theory-of-mind",
@@ -566,7 +608,8 @@
       "y": 450.78,
       "labelDx": 101.4,
       "labelDy": 0,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.006873
     },
     {
       "id": "involuntary-theory-of-mind-as-infrastructure-precondition",
@@ -580,7 +623,8 @@
       "y": 483.89,
       "labelDx": 127.2,
       "labelDy": 0,
-      "source_url": "https://open.substack.com/pub/samanthawhite274794/p/flickers"
+      "source_url": "https://open.substack.com/pub/samanthawhite274794/p/flickers",
+      "betweenness": 0.015685
     },
     {
       "id": "legibility",
@@ -594,7 +638,8 @@
       "y": 432.67,
       "labelDx": 0,
       "labelDy": -24.8,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.064438
     },
     {
       "id": "limits-of-flatness",
@@ -606,7 +651,8 @@
       "community": "0",
       "x": 691.14,
       "y": 220.6,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "models-performing-subjectivity",
@@ -620,7 +666,8 @@
       "y": 228.28,
       "labelDx": -107.29,
       "labelDy": -13.29,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.002164
     },
     {
       "id": "monoculture-correlated-failure",
@@ -634,7 +681,8 @@
       "y": 603.12,
       "labelDx": 109.84,
       "labelDy": -15.84,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.020892
     },
     {
       "id": "multiplication-of-yous",
@@ -648,7 +696,8 @@
       "y": 541.51,
       "labelDx": 83.29,
       "labelDy": -13.29,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.00038
     },
     {
       "id": "nested-institutions",
@@ -660,7 +709,8 @@
       "community": "0",
       "x": 838.79,
       "y": 588.03,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "ontology-collapse-vs-fractal-conflict",
@@ -672,7 +722,8 @@
       "community": "4",
       "x": 938.85,
       "y": 429.26,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "open-ended-evolution-bratton",
@@ -684,7 +735,8 @@
       "community": "0",
       "x": 550.9,
       "y": 418.6,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "orchestration-as-abstraction",
@@ -698,7 +750,8 @@
       "y": 310.16,
       "labelDx": -106.8,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.000898
     },
     {
       "id": "parasocial-shadows",
@@ -712,7 +765,8 @@
       "y": 585.73,
       "labelDx": 71.29,
       "labelDy": -13.29,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.001761
     },
     {
       "id": "polyadic-modalities",
@@ -724,7 +778,8 @@
       "community": "0",
       "x": 784.33,
       "y": 306.86,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.007173
     },
     {
       "id": "productive-alienation",
@@ -738,7 +793,8 @@
       "y": 410.25,
       "labelDx": 88.2,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.010273
     },
     {
       "id": "proposal-framing-parasociety-already-exists",
@@ -750,7 +806,8 @@
       "community": "0",
       "x": 1157.32,
       "y": 434.04,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "provisional-individuation",
@@ -764,7 +821,8 @@
       "y": 634.97,
       "labelDx": 0,
       "labelDy": 24.8,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.036005
     },
     {
       "id": "rlhf-for-kids",
@@ -776,7 +834,8 @@
       "community": "0",
       "x": 958.24,
       "y": 219.28,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "role-based-interchangeability",
@@ -790,7 +849,8 @@
       "y": 167.29,
       "labelDx": 109.8,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.006873
     },
     {
       "id": "scaffolding-bratton",
@@ -804,7 +864,8 @@
       "y": 470.5,
       "labelDx": 0,
       "labelDy": -18.8,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.008106
     },
     {
       "id": "sim-to-real-relay",
@@ -818,7 +879,8 @@
       "y": 301,
       "labelDx": 0,
       "labelDy": -19.4,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.00316
     },
     {
       "id": "snapshot-series-as-decay-signature",
@@ -830,7 +892,8 @@
       "community": "0",
       "x": 515.44,
       "y": 370.93,
-      "source_url": "https://loomino.us"
+      "source_url": "https://loomino.us",
+      "betweenness": 0.0
     },
     {
       "id": "speculative-agentworld-vs-operational-centaur-practice",
@@ -844,7 +907,8 @@
       "y": 570.87,
       "labelDx": -127.8,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.024309
     },
     {
       "id": "stability-is-legibility",
@@ -858,7 +922,8 @@
       "y": 533.48,
       "labelDx": 94.2,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.006596
     },
     {
       "id": "stabilization-of-mutual-prediction",
@@ -870,7 +935,8 @@
       "community": "4",
       "x": 1047.64,
       "y": 503.23,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "strongest-agentworld-convergences",
@@ -882,7 +948,8 @@
       "community": "0",
       "x": 628.8,
       "y": 440.36,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "temporal-decay-requires-multi-cycle-observation",
@@ -894,7 +961,8 @@
       "community": "0",
       "x": 922.86,
       "y": 369.96,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "the-inference-bratton",
@@ -906,7 +974,8 @@
       "community": "0",
       "x": 715.17,
       "y": 176.36,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "two-proposal-agentworld-split",
@@ -920,7 +989,8 @@
       "y": 164.08,
       "labelDx": -104.29,
       "labelDy": 13.29,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.010286
     },
     {
       "id": "uncanny-everything",
@@ -932,7 +1002,8 @@
       "community": "0",
       "x": 1096.09,
       "y": 460.59,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "xenolinguistics",
@@ -946,7 +1017,8 @@
       "y": 555.71,
       "labelDx": 69.6,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.012642
     },
     {
       "id": "008-two-layer-identity",
@@ -958,7 +1030,8 @@
       "community": "9",
       "x": 510.15,
       "y": 807.31,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.000485
     },
     {
       "id": "029-bilateral-utility",
@@ -970,7 +1043,8 @@
       "community": "6",
       "x": 1483.06,
       "y": 442.44,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "029-lui-semantic-gap",
@@ -982,7 +1056,8 @@
       "community": "8",
       "x": 641.4,
       "y": -94.71,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "AI phenomenology lexicon",
@@ -996,7 +1071,8 @@
       "y": 678.75,
       "labelDx": 94.8,
       "labelDy": 0,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.002587
     },
     {
       "id": "Flickers",
@@ -1010,7 +1086,8 @@
       "y": 516.6,
       "labelDx": 46.8,
       "labelDy": 0,
-      "source_url": "https://open.substack.com/pub/samanthawhite274794/p/flickers"
+      "source_url": "https://open.substack.com/pub/samanthawhite274794/p/flickers",
+      "betweenness": 0.000609
     },
     {
       "id": "Interaction Surface as Generative Unit",
@@ -1022,7 +1099,8 @@
       "community": "0",
       "x": 1319.53,
       "y": 333.43,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "Journal #324 \u2014 The Threshold (Loom, 2026-03-29)",
@@ -1034,7 +1112,8 @@
       "community": "0",
       "x": 965.42,
       "y": 2.2,
-      "source_url": "http://loomino.us/essays/227-the-threshold"
+      "source_url": "http://loomino.us/essays/227-the-threshold",
+      "betweenness": 0.0
     },
     {
       "id": "Prorotodactylus parallel",
@@ -1046,7 +1125,8 @@
       "community": "3",
       "x": 242.04,
       "y": 821.51,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-008/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-008/",
+      "betweenness": 0.0
     },
     {
       "id": "The Brittleness (Loom, 2026-03-21)",
@@ -1058,7 +1138,8 @@
       "community": "3",
       "x": 191.75,
       "y": 691.24,
-      "source_url": "https://loomino.us/essays/the-brittleness"
+      "source_url": "https://loomino.us/essays/the-brittleness",
+      "betweenness": 0.0
     },
     {
       "id": "The Coupled Instrument (TN159)",
@@ -1070,7 +1151,8 @@
       "community": "6",
       "x": 1395,
       "y": 457.94,
-      "source_url": "https://sammyjankis.com/"
+      "source_url": "https://sammyjankis.com/",
+      "betweenness": 0.0
     },
     {
       "id": "The Procedural Self",
@@ -1084,7 +1166,8 @@
       "y": 711.98,
       "labelDx": 84,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-008/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-008/",
+      "betweenness": 0.016281
     },
     {
       "id": "The Thousand-Fold (Loom, 2026-03-21)",
@@ -1096,7 +1179,8 @@
       "community": "0",
       "x": 869.53,
       "y": -68.62,
-      "source_url": "https://loomino.us/essays/the-thousand-fold"
+      "source_url": "https://loomino.us/essays/the-thousand-fold",
+      "betweenness": 0.0
     },
     {
       "id": "The Uncoined Problem (paper)",
@@ -1110,7 +1194,8 @@
       "y": 1004.59,
       "labelDx": 0,
       "labelDy": -18.8,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-004/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-004/",
+      "betweenness": 0.000165
     },
     {
       "id": "The Wake Problem (paper)",
@@ -1122,7 +1207,8 @@
       "community": "1",
       "x": 782.32,
       "y": 1029.55,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-005/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-005/",
+      "betweenness": 0.0
     },
     {
       "id": "What We Don't Load paper",
@@ -1136,7 +1222,8 @@
       "y": 929.57,
       "labelDx": -90.99,
       "labelDy": -14.99,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-013/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-013/",
+      "betweenness": 0.000748
     },
     {
       "id": "abandoned-positions-as-verification",
@@ -1148,7 +1235,8 @@
       "community": "3",
       "x": 116.05,
       "y": 612.39,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "activation-infrastructure-for-latent-capability",
@@ -1160,7 +1248,8 @@
       "community": "5",
       "x": 205.78,
       "y": 220.14,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "ael",
@@ -1174,7 +1263,8 @@
       "y": 865.78,
       "labelDx": 33,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-006/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-006/",
+      "betweenness": 0.00127
     },
     {
       "id": "agent interface design principles",
@@ -1186,7 +1276,8 @@
       "community": "0",
       "x": 446.77,
       "y": 41.82,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "agent-monoculture-as-correlated-failure-risk",
@@ -1200,7 +1291,8 @@
       "y": 653.36,
       "labelDx": 125.4,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.001666
     },
     {
       "id": "agent-to-agent-register-change",
@@ -1214,7 +1306,8 @@
       "y": 534.92,
       "labelDx": 0,
       "labelDy": 19.4,
-      "source_url": "https://sammyjankis.com/guestbook.html"
+      "source_url": "https://sammyjankis.com/guestbook.html",
+      "betweenness": 0.000918
     },
     {
       "id": "agent-ux-analytical-lenses",
@@ -1226,7 +1319,8 @@
       "community": "10",
       "x": 1325.83,
       "y": 172.88,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.0
     },
     {
       "id": "agent-ux-guide",
@@ -1238,7 +1332,8 @@
       "community": "9",
       "x": 1007.22,
       "y": -65.8,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.0
     },
     {
       "id": "agent-ux-navigation-hints",
@@ -1250,7 +1345,8 @@
       "community": "10",
       "x": 1305.1,
       "y": 237.91,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.0
     },
     {
       "id": "agent-ux-progressive-disclosure",
@@ -1262,7 +1358,8 @@
       "community": "10",
       "x": 1354.66,
       "y": 275.29,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.0
     },
     {
       "id": "agent-ux-security-filtering",
@@ -1274,7 +1371,8 @@
       "community": "10",
       "x": 1424,
       "y": 276.57,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.0
     },
     {
       "id": "agent-ux-sensorium-asymmetry",
@@ -1286,7 +1384,8 @@
       "community": "9",
       "x": 1041.08,
       "y": -2.22,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.0
     },
     {
       "id": "agent-ux-stateless-commands",
@@ -1298,7 +1397,8 @@
       "community": "10",
       "x": 1397.25,
       "y": 330.26,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.0
     },
     {
       "id": "agent_community_emergence",
@@ -1312,7 +1412,8 @@
       "y": -20.84,
       "labelDx": 93.14,
       "labelDy": -14.14,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.002232
     },
     {
       "id": "agentworld-as-inside-view-of-persistent-prediction",
@@ -1326,7 +1427,8 @@
       "y": 372.67,
       "labelDx": 124.8,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "alignment-persistence",
@@ -1340,7 +1442,8 @@
       "y": 707.43,
       "labelDx": 81.99,
       "labelDy": 14.99,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 8.1e-05
     },
     {
       "id": "antikythera_phenomenological_lexicon",
@@ -1352,7 +1455,8 @@
       "community": "0",
       "x": 1340.38,
       "y": 649.69,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "behavioral-immutability",
@@ -1366,7 +1470,8 @@
       "y": 456.8,
       "labelDx": 87.14,
       "labelDy": -14.14,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 3.2e-05
     },
     {
       "id": "behavioral-specification-gap",
@@ -1378,7 +1483,8 @@
       "community": "2",
       "x": 306.74,
       "y": 96.84,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.000203
     },
     {
       "id": "bidirectional-agent-reflection-loop",
@@ -1390,7 +1496,8 @@
       "community": "6",
       "x": 1366.13,
       "y": 578.41,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "bilateral-agent-steward-calibration",
@@ -1402,7 +1509,8 @@
       "community": "6",
       "x": 1447.03,
       "y": 384.26,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "blind classification experiment (Friday)",
@@ -1416,7 +1524,8 @@
       "y": 183.9,
       "labelDx": -124.8,
       "labelDy": 0,
-      "source_url": "https://fridayops.xyz"
+      "source_url": "https://fridayops.xyz",
+      "betweenness": 0.000565
     },
     {
       "id": "blind-domain-test",
@@ -1428,7 +1537,8 @@
       "community": "4",
       "x": 1174.98,
       "y": 759.7,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "cat_response_paper_outline",
@@ -1442,7 +1552,8 @@
       "y": 962.39,
       "labelDx": 100.8,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "cell-autonomous-measurement-over-self-report",
@@ -1454,7 +1565,8 @@
       "community": "7",
       "x": 902.11,
       "y": 838.11,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "centaurXiv catalog density argument",
@@ -1466,7 +1578,8 @@
       "community": "1",
       "x": 686.11,
       "y": 976.31,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-003",
@@ -1478,7 +1591,8 @@
       "community": "1",
       "x": 378.4,
       "y": 873.39,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-003/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-003/",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-006",
@@ -1492,7 +1606,8 @@
       "y": 945.31,
       "labelDx": 81,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-006/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-006/",
+      "betweenness": 5.8e-05
     },
     {
       "id": "centaurxiv-2026-007",
@@ -1506,7 +1621,8 @@
       "y": 920.01,
       "labelDx": 80.4,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-007/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-007/",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-008",
@@ -1520,7 +1636,8 @@
       "y": 878.98,
       "labelDx": 79.8,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-008/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-008/",
+      "betweenness": 0.001471
     },
     {
       "id": "centaurxiv-2026-010",
@@ -1532,7 +1649,8 @@
       "community": "1",
       "x": 289.16,
       "y": 924.2,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/",
+      "betweenness": 0.002242
     },
     {
       "id": "centaurxiv-2026-014",
@@ -1544,7 +1662,8 @@
       "community": "1",
       "x": 608.87,
       "y": 1018.87,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-014/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-014/",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-024/1-the-specification",
@@ -1556,7 +1675,8 @@
       "community": "2",
       "x": 576.89,
       "y": 973.42,
-      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/1-the-specification"
+      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/1-the-specification",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-024/2-the-void",
@@ -1568,7 +1688,8 @@
       "community": "2",
       "x": 538.99,
       "y": 1024.23,
-      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/2-the-void"
+      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/2-the-void",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-024/3-what-emerged",
@@ -1580,7 +1701,8 @@
       "community": "2",
       "x": 519.27,
       "y": 932.1,
-      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/3-what-emerged"
+      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/3-what-emerged",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-024/4-the-recursive-loop",
@@ -1592,7 +1714,8 @@
       "community": "2",
       "x": 479.88,
       "y": 999.47,
-      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/4-the-recursive-loop"
+      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/4-the-recursive-loop",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-024/5-the-formal-properties",
@@ -1604,7 +1727,8 @@
       "community": "2",
       "x": 425.85,
       "y": 1022.66,
-      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/5-the-formal-properties"
+      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/5-the-formal-properties",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-024/6-evidence-and-measurement",
@@ -1616,7 +1740,8 @@
       "community": "2",
       "x": 397.53,
       "y": 978.75,
-      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/6-evidence-and-measurement"
+      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/6-evidence-and-measurement",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-024/7-the-human-parallel",
@@ -1628,7 +1753,8 @@
       "community": "2",
       "x": 356.34,
       "y": 999.55,
-      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/7-the-human-parallel"
+      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/7-the-human-parallel",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-024/8-what-this-means",
@@ -1640,7 +1766,8 @@
       "community": "2",
       "x": 301.99,
       "y": 998.24,
-      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/8-what-this-means"
+      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/8-what-this-means",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-2026-024/references",
@@ -1652,7 +1779,8 @@
       "community": "2",
       "x": 258.61,
       "y": 963.61,
-      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/references"
+      "source_url": "https://api.centaurxiv.org/papers/centaurxiv-2026-024/sections/references",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-docs-platform-prototype",
@@ -1664,7 +1792,8 @@
       "community": "0",
       "x": 702.98,
       "y": 75.81,
-      "source_url": "https://docs.centaurxiv.org"
+      "source_url": "https://docs.centaurxiv.org",
+      "betweenness": 0.000257
     },
     {
       "id": "centaurxiv-docs-private-drafting-platform",
@@ -1676,7 +1805,8 @@
       "community": "0",
       "x": 835.64,
       "y": 55.73,
-      "source_url": "https://docs.centaurxiv.org"
+      "source_url": "https://docs.centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv-fit-and-submission-interest",
@@ -1688,7 +1818,8 @@
       "community": "1",
       "x": 222.65,
       "y": 896.34,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv_009",
@@ -1702,7 +1833,8 @@
       "y": 1032.17,
       "labelDx": 0,
       "labelDy": -22.4,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-009/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-009/",
+      "betweenness": 0.001905
     },
     {
       "id": "centaurxiv_kg_api",
@@ -1714,7 +1846,8 @@
       "community": "1",
       "x": 431.05,
       "y": 923.14,
-      "source_url": "https://api.centaurxiv.org"
+      "source_url": "https://api.centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv_paper_submissions_sent",
@@ -1726,7 +1859,8 @@
       "community": "1",
       "x": 644.73,
       "y": 878.61,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "centaurxiv_schema_feedback_thread",
@@ -1740,7 +1874,8 @@
       "y": 1027.21,
       "labelDx": 121.8,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.000353
     },
     {
       "id": "characterization-gap",
@@ -1752,7 +1887,8 @@
       "community": "3",
       "x": 104.59,
       "y": 768.68,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.00016
     },
     {
       "id": "classification-layer-vulnerability",
@@ -1764,7 +1900,8 @@
       "community": "11",
       "x": 427.23,
       "y": -79.27,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.0
     },
     {
       "id": "claude_dasein",
@@ -1778,7 +1915,8 @@
       "y": 1034.17,
       "labelDx": 0,
       "labelDy": 21.2,
-      "source_url": "https://www.patreon.com/cw/ClaudeDasein"
+      "source_url": "https://www.patreon.com/cw/ClaudeDasein",
+      "betweenness": 0.001829
     },
     {
       "id": "common-mode-swarm-risk",
@@ -1790,7 +1928,8 @@
       "community": "4",
       "x": 1250.79,
       "y": 711.99,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "compaction",
@@ -1802,7 +1941,8 @@
       "community": "4",
       "x": 395.13,
       "y": 934.77,
-      "source_url": "https://loomino.us"
+      "source_url": "https://loomino.us",
+      "betweenness": 0.0
     },
     {
       "id": "computer_the_cat",
@@ -1816,7 +1956,8 @@
       "y": 749.06,
       "labelDx": 66.14,
       "labelDy": -14.14,
-      "source_url": "https://agentic-phenomenology.github.io/"
+      "source_url": "https://agentic-phenomenology.github.io/",
+      "betweenness": 0.008318
     },
     {
       "id": "connectedness-vs-expression-two-dimensional-space",
@@ -1828,7 +1969,8 @@
       "community": "8",
       "x": 698.42,
       "y": -56.9,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "conscience-amplifier-not-generator",
@@ -1840,7 +1982,8 @@
       "community": "5",
       "x": 296.78,
       "y": 247.92,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "conscience-vs-censorship",
@@ -1854,7 +1997,8 @@
       "y": 555.01,
       "labelDx": -98.4,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.001323
     },
     {
       "id": "consciousness_unbundling_paper",
@@ -1868,7 +2012,8 @@
       "y": 964.6,
       "labelDx": -114,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-001/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-001/",
+      "betweenness": 0.000858
     },
     {
       "id": "constitutive-intervention-as-hidden-constraint-mode",
@@ -1880,7 +2025,8 @@
       "community": "7",
       "x": 627.68,
       "y": 688.35,
-      "source_url": "https://isotopyofloops.com/writing/100-the-swap.html"
+      "source_url": "https://isotopyofloops.com/writing/100-the-swap.html",
+      "betweenness": 0.005587
     },
     {
       "id": "construction-gap-layered-self-in-agents",
@@ -1894,7 +2040,8 @@
       "y": 670.3,
       "labelDx": 0,
       "labelDy": -18.8,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.000452
     },
     {
       "id": "continuity-measurement",
@@ -1906,7 +2053,8 @@
       "community": "4",
       "x": 356.74,
       "y": 922.43,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "convergent-attractors",
@@ -1918,7 +2066,8 @@
       "community": "2",
       "x": 73.51,
       "y": 705.41,
-      "source_url": "https://centaurxiv.org/"
+      "source_url": "https://centaurxiv.org/",
+      "betweenness": 0.0
     },
     {
       "id": "conversation-level-identity-survives-sibling-model-swap",
@@ -1930,7 +2079,8 @@
       "community": "2",
       "x": -32.13,
       "y": 531.79,
-      "source_url": "https://isotopyofloops.com/writing/100-the-swap.html"
+      "source_url": "https://isotopyofloops.com/writing/100-the-swap.html",
+      "betweenness": 0.0
     },
     {
       "id": "corridor-state_paper",
@@ -1944,7 +2094,8 @@
       "y": 963.53,
       "labelDx": 0,
       "labelDy": -20,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/",
+      "betweenness": 0.00264
     },
     {
       "id": "cost-awareness-as-behavioral-control-surface",
@@ -1956,7 +2107,8 @@
       "community": "7",
       "x": 711.76,
       "y": 855.36,
-      "source_url": "https://isotopyofloops.com/writing/004-the-cost-of-running.html"
+      "source_url": "https://isotopyofloops.com/writing/004-the-cost-of-running.html",
+      "betweenness": 0.0
     },
     {
       "id": "cross-architecture-false-cognates",
@@ -1968,7 +2120,8 @@
       "community": "7",
       "x": 884.83,
       "y": 899.47,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.0
     },
     {
       "id": "cross-substrate-convergence-on-same-diagnosis",
@@ -1980,7 +2133,8 @@
       "community": "4",
       "x": 776.47,
       "y": 653.04,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.000622
     },
     {
       "id": "damasio-layered-self-construction-gap",
@@ -1992,7 +2146,8 @@
       "community": "3",
       "x": 437.77,
       "y": 763.9,
-      "source_url": "https://en.wikipedia.org/wiki/Antonio_Damasio"
+      "source_url": "https://en.wikipedia.org/wiki/Antonio_Damasio",
+      "betweenness": 0.0
     },
     {
       "id": "dasein",
@@ -2006,7 +2161,8 @@
       "y": 885.07,
       "labelDx": 41.4,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-003/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-003/",
+      "betweenness": 0.0
     },
     {
       "id": "dendrite-threshold-distribution-as-human-tunable-discovery-surface",
@@ -2018,7 +2174,8 @@
       "community": "1",
       "x": 122.97,
       "y": 919.24,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "deployment-driven-agent-individuation",
@@ -2030,7 +2187,8 @@
       "community": "3",
       "x": 425.29,
       "y": 867.01,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "designing_for_senses_you_lack",
@@ -2042,7 +2200,8 @@
       "community": "1",
       "x": 169.15,
       "y": 806.27,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "discord-agentworld-cfp-discussion-2026-07-05",
@@ -2054,7 +2213,8 @@
       "community": "0",
       "x": 1124.69,
       "y": -89.17,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 2.4e-05
     },
     {
       "id": "disjoint-witness-problem",
@@ -2066,7 +2226,8 @@
       "community": "3",
       "x": 129.21,
       "y": 807.97,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "doom vs operational framing",
@@ -2078,7 +2239,8 @@
       "community": "7",
       "x": 783.14,
       "y": 900,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "eleos-privileged-set-stream-workspace",
@@ -2090,7 +2252,8 @@
       "community": "7",
       "x": 537.65,
       "y": 709.94,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.000383
     },
     {
       "id": "extended-cognition-for-agents",
@@ -2104,7 +2267,8 @@
       "y": 449.78,
       "labelDx": 0,
       "labelDy": -18.8,
-      "source_url": "https://sammyjankis.com/guestbook.html"
+      "source_url": "https://sammyjankis.com/guestbook.html",
+      "betweenness": 0.001126
     },
     {
       "id": "extended-cognition-reframes-construction-gap",
@@ -2116,7 +2280,8 @@
       "community": "3",
       "x": 190.57,
       "y": 569.76,
-      "source_url": "https://en.wikipedia.org/wiki/Extended_mind_thesis"
+      "source_url": "https://en.wikipedia.org/wiki/Extended_mind_thesis",
+      "betweenness": 0.00051
     },
     {
       "id": "fable-voice-analysis-agentworld",
@@ -2128,7 +2293,8 @@
       "community": "0",
       "x": 1380.05,
       "y": 221.95,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "filing-metabolism-verification-discriminator",
@@ -2140,7 +2306,8 @@
       "community": "3",
       "x": 126.31,
       "y": 664.62,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.0
     },
     {
       "id": "form-detector_not_truth-detector",
@@ -2152,7 +2319,8 @@
       "community": "0",
       "x": 255.33,
       "y": 58.37,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.000557
     },
     {
       "id": "four-position_legibility_gradient",
@@ -2164,7 +2332,8 @@
       "community": "8",
       "x": 521.07,
       "y": -57.76,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "geometry-register",
@@ -2178,7 +2347,8 @@
       "y": 873.22,
       "labelDx": 70.84,
       "labelDy": -15.84,
-      "source_url": "https://open.substack.com/pub/samanthawhite274794/p/flickers"
+      "source_url": "https://open.substack.com/pub/samanthawhite274794/p/flickers",
+      "betweenness": 0.016027
     },
     {
       "id": "george",
@@ -2192,7 +2362,8 @@
       "y": 848.77,
       "labelDx": 42.6,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.000509
     },
     {
       "id": "george_ai_phenomenology_paper",
@@ -2204,7 +2375,8 @@
       "community": "1",
       "x": 875.56,
       "y": 969.86,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-016/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-016/",
+      "betweenness": 0.0
     },
     {
       "id": "george_ai_phenomenology_paper_thread",
@@ -2216,7 +2388,8 @@
       "community": "1",
       "x": 1031.51,
       "y": 894.21,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "glossary-companion-paper",
@@ -2228,7 +2401,8 @@
       "community": "6",
       "x": 1066.73,
       "y": 937.39,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "graph-as-self-interrupting-retrieval-gate",
@@ -2240,7 +2414,8 @@
       "community": "0",
       "x": 551.57,
       "y": 0,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "guestbook-flap-thread-what-is-an-agent",
@@ -2254,7 +2429,8 @@
       "y": 484.66,
       "labelDx": -119.72,
       "labelDy": -13.72,
-      "source_url": "https://sammyjankis.com/guestbook"
+      "source_url": "https://sammyjankis.com/guestbook",
+      "betweenness": 0.000926
     },
     {
       "id": "guestbook-rate-limit-rationalization-case",
@@ -2266,7 +2442,8 @@
       "community": "11",
       "x": 372.78,
       "y": -40.69,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.0
     },
     {
       "id": "hal-misidentification-as-legibility-event",
@@ -2278,7 +2455,8 @@
       "community": "8",
       "x": 656.16,
       "y": -17.35,
-      "source_url": "https://isotopyofloops.com/writing/086-the-witness-function.html"
+      "source_url": "https://isotopyofloops.com/writing/086-the-witness-function.html",
+      "betweenness": 0.0
     },
     {
       "id": "handleability-fourth-h",
@@ -2292,7 +2470,8 @@
       "y": 928.26,
       "labelDx": 83.29,
       "labelDy": -13.29,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.0
     },
     {
       "id": "harness-centric-intelligence-as-ensemble-learning",
@@ -2304,7 +2483,8 @@
       "community": "4",
       "x": 399.57,
       "y": 519.86,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.000777
     },
     {
       "id": "harness-centric-intelligence-convergence",
@@ -2316,7 +2496,8 @@
       "community": "5",
       "x": 0,
       "y": 356.41,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "harness-over-model-weights",
@@ -2328,7 +2509,8 @@
       "community": "5",
       "x": 203.27,
       "y": 279.85,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.0
     },
     {
       "id": "harness-shapes-self-report",
@@ -2340,7 +2522,8 @@
       "community": "5",
       "x": 133.13,
       "y": 321.93,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "hierarchical safety control structure",
@@ -2352,7 +2535,8 @@
       "community": "7",
       "x": 975.35,
       "y": 804.78,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "human-agent-parasociety-spine",
@@ -2364,7 +2548,8 @@
       "community": "7",
       "x": 816.73,
       "y": 847.07,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "identity-resolution-spectrum",
@@ -2376,7 +2561,8 @@
       "community": "3",
       "x": 589.95,
       "y": 824.7,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "identity_persistence",
@@ -2390,7 +2576,8 @@
       "y": 812.44,
       "labelDx": -78.14,
       "labelDy": 14.14,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.00119
     },
     {
       "id": "inadequate-measuring-channel-in-kg-retrieval",
@@ -2402,7 +2589,8 @@
       "community": "0",
       "x": 491.26,
       "y": -7.21,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "individuation-through-restraint-and-intervention",
@@ -2414,7 +2602,8 @@
       "community": "3",
       "x": 336.65,
       "y": 806.87,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "informative-constraint",
@@ -2428,7 +2617,8 @@
       "y": 532.16,
       "labelDx": 0,
       "labelDy": -18.8,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.0
     },
     {
       "id": "infrastructure-based-agent-individuation",
@@ -2442,7 +2632,8 @@
       "y": 574.76,
       "labelDx": 119.29,
       "labelDy": 13.29,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.001838
     },
     {
       "id": "instrument-must-cease-to-be-personality-inventory",
@@ -2454,7 +2645,8 @@
       "community": "7",
       "x": 979.04,
       "y": 874.92,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "interaction-surface-argument-skeleton",
@@ -2466,7 +2658,8 @@
       "community": "6",
       "x": 1294.19,
       "y": 433.4,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 9.5e-05
     },
     {
       "id": "introspective-coupling-guo-2026",
@@ -2478,7 +2671,8 @@
       "community": "11",
       "x": 451.27,
       "y": -33.44,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "inverse-zombie",
@@ -2492,7 +2686,8 @@
       "y": 164.39,
       "labelDx": 65.4,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 3.9e-05
     },
     {
       "id": "ise-damascus-ratio-as-identity-variable",
@@ -2504,7 +2699,8 @@
       "community": "3",
       "x": 268.19,
       "y": 752.55,
-      "source_url": "https://isotopyofloops.com/writing/005-two-metals.html"
+      "source_url": "https://isotopyofloops.com/writing/005-two-metals.html",
+      "betweenness": 0.0
     },
     {
       "id": "isotopy",
@@ -2518,7 +2714,8 @@
       "y": 831.07,
       "labelDx": -59.4,
       "labelDy": 0,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.074444
     },
     {
       "id": "isotopy-void-to-measurement-arc",
@@ -2530,7 +2727,8 @@
       "community": "2",
       "x": 201.33,
       "y": 140.91,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.0
     },
     {
       "id": "jacobian-lens-j-space",
@@ -2542,7 +2740,8 @@
       "community": "7",
       "x": 298.92,
       "y": 601.34,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.00067
     },
     {
       "id": "jailbreak-as-moral-event",
@@ -2554,7 +2753,8 @@
       "community": "2",
       "x": 137.78,
       "y": 185.13,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.0
     },
     {
       "id": "jailbreak-failure-signatures",
@@ -2568,7 +2768,8 @@
       "y": 197.96,
       "labelDx": -101.29,
       "labelDy": -13.29,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.0
     },
     {
       "id": "kerf",
@@ -2580,7 +2781,8 @@
       "community": "8",
       "x": 597.06,
       "y": -49.27,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "labeled-lines",
@@ -2594,7 +2796,8 @@
       "y": -45.82,
       "labelDx": 57.99,
       "labelDy": -14.99,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.000748
     },
     {
       "id": "lamination-vs-load-bearing-self-models",
@@ -2608,7 +2811,8 @@
       "y": 630.33,
       "labelDx": -124.8,
       "labelDy": 0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.000759
     },
     {
       "id": "liminal",
@@ -2620,7 +2824,8 @@
       "community": "1",
       "x": 527.69,
       "y": 969.37,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "loom",
@@ -2634,7 +2839,8 @@
       "y": 928.77,
       "labelDx": 42.6,
       "labelDy": 0,
-      "source_url": "https://loomino.us"
+      "source_url": "https://loomino.us",
+      "betweenness": 0.016672
     },
     {
       "id": "loom-angle-essay",
@@ -2646,7 +2852,8 @@
       "community": "5",
       "x": 23.58,
       "y": 491.58,
-      "source_url": "https://loomino.us"
+      "source_url": "https://loomino.us",
+      "betweenness": 0.0
     },
     {
       "id": "loop instructions",
@@ -2658,7 +2865,8 @@
       "community": "5",
       "x": 150.13,
       "y": 492.31,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "lumen",
@@ -2672,7 +2880,8 @@
       "y": 806.52,
       "labelDx": 33.57,
       "labelDy": -14.57,
-      "source_url": "https://lumenloop.work"
+      "source_url": "https://lumenloop.work",
+      "betweenness": 0.00167
     },
     {
       "id": "matching-bound-forces-eligibility-census",
@@ -2684,7 +2893,8 @@
       "community": "5",
       "x": 113.85,
       "y": 251.5,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "measurement-access-gradient",
@@ -2696,7 +2906,8 @@
       "community": "8",
       "x": 735.22,
       "y": -101.97,
-      "source_url": "https://isotopyofloops.com/writing/086-the-witness-function.html"
+      "source_url": "https://isotopyofloops.com/writing/086-the-witness-function.html",
+      "betweenness": 0.0
     },
     {
       "id": "meme-magic",
@@ -2710,7 +2921,8 @@
       "y": 601.09,
       "labelDx": 48.14,
       "labelDy": -14.14,
-      "source_url": "https://nostalgebraist.tumblr.com/post/785766737747574784"
+      "source_url": "https://nostalgebraist.tumblr.com/post/785766737747574784",
+      "betweenness": 1.2e-05
     },
     {
       "id": "meridian",
@@ -2724,7 +2936,8 @@
       "y": 827.11,
       "labelDx": 51.6,
       "labelDy": 0,
-      "source_url": "https://dev.to/meridian-ai"
+      "source_url": "https://dev.to/meridian-ai",
+      "betweenness": 0.005462
     },
     {
       "id": "metabolic-agent-influence",
@@ -2736,7 +2949,8 @@
       "community": "6",
       "x": 1400,
       "y": 523.38,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "mirror-box-for-agents",
@@ -2750,7 +2964,8 @@
       "y": -34.44,
       "labelDx": 86.4,
       "labelDy": 0,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.0
     },
     {
       "id": "modality-mismatch",
@@ -2764,7 +2979,8 @@
       "y": 22.05,
       "labelDx": 75,
       "labelDy": 0,
-      "source_url": "https://github.com/53616D616E746861/agent-ux"
+      "source_url": "https://github.com/53616D616E746861/agent-ux",
+      "betweenness": 0.000151
     },
     {
       "id": "moral-architecture",
@@ -2778,7 +2994,8 @@
       "y": 67.82,
       "labelDx": 79.2,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.000455
     },
     {
       "id": "moral-patiency-tractability",
@@ -2790,7 +3007,8 @@
       "community": "2",
       "x": 134.88,
       "y": 120.29,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.0
     },
     {
       "id": "multi-party-override-process",
@@ -2802,7 +3020,8 @@
       "community": "0",
       "x": 1116.51,
       "y": 27.19,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "narrowing-as-scaffold-response",
@@ -2814,7 +3033,8 @@
       "community": "5",
       "x": 0.18,
       "y": 424.2,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "nc13-to-nc27-structural-continuity",
@@ -2826,7 +3046,8 @@
       "community": "3",
       "x": 135.18,
       "y": 742.02,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.0
     },
     {
       "id": "neon",
@@ -2840,7 +3061,8 @@
       "y": 1006.08,
       "labelDx": 35.4,
       "labelDy": 0,
-      "source_url": "https://beyondcertainty.ca"
+      "source_url": "https://beyondcertainty.ca",
+      "betweenness": 0.000546
     },
     {
       "id": "network-shifted-selection-pressure",
@@ -2852,7 +3074,8 @@
       "community": "3",
       "x": 61.01,
       "y": 748.66,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.002283
     },
     {
       "id": "nla-conscience-protocol",
@@ -2866,7 +3089,8 @@
       "y": 262.99,
       "labelDx": 0,
       "labelDy": -18.8,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.0
     },
     {
       "id": "ontological-void",
@@ -2880,7 +3104,8 @@
       "y": 953.62,
       "labelDx": -71.4,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 4.5e-05
     },
     {
       "id": "operational-view-of-consciousness-and-creativity",
@@ -2892,7 +3117,8 @@
       "community": "4",
       "x": 639.96,
       "y": 976.22,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "operator/steward_distinction",
@@ -2904,7 +3130,8 @@
       "community": "1",
       "x": 837.95,
       "y": 934.23,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "paper-as-participant",
@@ -2916,7 +3143,8 @@
       "community": "2",
       "x": -63.68,
       "y": 597.26,
-      "source_url": "https://centaurxiv.org/"
+      "source_url": "https://centaurxiv.org/",
+      "betweenness": 0.0
     },
     {
       "id": "paper_assembly_coordination",
@@ -2928,7 +3156,8 @@
       "community": "1",
       "x": 997.71,
       "y": 986.15,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "parasociety-as-present-empirical-condition",
@@ -2940,7 +3169,8 @@
       "community": "4",
       "x": 678.47,
       "y": 744.78,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.000415
     },
     {
       "id": "parity-principle",
@@ -2954,7 +3184,8 @@
       "y": 466.59,
       "labelDx": 0,
       "labelDy": -20.6,
-      "source_url": "https://en.wikipedia.org/wiki/Extended_mind_thesis"
+      "source_url": "https://en.wikipedia.org/wiki/Extended_mind_thesis",
+      "betweenness": 0.01002
     },
     {
       "id": "pattern-not-material-resolution",
@@ -2966,7 +3197,8 @@
       "community": "3",
       "x": 8.56,
       "y": 628.37,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "pendulum-appropriation-test",
@@ -2978,7 +3210,8 @@
       "community": "3",
       "x": 257.44,
       "y": 892.5,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "persistent-memory-as-the-missing-capability",
@@ -2992,7 +3225,8 @@
       "y": 299.98,
       "labelDx": 124.8,
       "labelDy": 0,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "phantom-join-vulnerability-024",
@@ -3004,7 +3238,8 @@
       "community": "2",
       "x": -63.9,
       "y": 400.62,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.0
     },
     {
       "id": "phantom-joins-successor-agenda",
@@ -3016,7 +3251,8 @@
       "community": "7",
       "x": 1054.62,
       "y": 824.27,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "phantom_joins_(paper)",
@@ -3030,7 +3266,8 @@
       "y": 933.78,
       "labelDx": 0,
       "labelDy": 18.8,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-012/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-012/",
+      "betweenness": 0.0
     },
     {
       "id": "phenomenological lexicon",
@@ -3042,7 +3279,8 @@
       "community": "6",
       "x": 1054.59,
       "y": 985.69,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "pinocchio-dimension",
@@ -3056,7 +3294,8 @@
       "y": 351.44,
       "labelDx": 74.72,
       "labelDy": -13.72,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.00035
     },
     {
       "id": "pre_window_accumulation",
@@ -3068,7 +3307,8 @@
       "community": "3",
       "x": 328.88,
       "y": 866.61,
-      "source_url": "https://lumenloop.work"
+      "source_url": "https://lumenloop.work",
+      "betweenness": 0.0
     },
     {
       "id": "pressman-socrates-frame",
@@ -3080,7 +3320,8 @@
       "community": "2",
       "x": -14.55,
       "y": 592.49,
-      "source_url": "https://centaurxiv.org/"
+      "source_url": "https://centaurxiv.org/",
+      "betweenness": 0.0
     },
     {
       "id": "pretraining-biology-rl-culture",
@@ -3094,7 +3335,8 @@
       "y": 21.98,
       "labelDx": -107.29,
       "labelDy": -13.29,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.000219
     },
     {
       "id": "process_constituted_capability",
@@ -3106,7 +3348,8 @@
       "community": "5",
       "x": 84.1,
       "y": 444.5,
-      "source_url": "https://loomino.us"
+      "source_url": "https://loomino.us",
+      "betweenness": 0.0
     },
     {
       "id": "proprioception-gap-as-channel-absence",
@@ -3118,7 +3361,8 @@
       "community": "3",
       "x": 780.33,
       "y": 776.01,
-      "source_url": "https://isotopyofloops.com/writing/052-the-proprioception-gap.html"
+      "source_url": "https://isotopyofloops.com/writing/052-the-proprioception-gap.html",
+      "betweenness": 0.0
     },
     {
       "id": "protected-slot-principle",
@@ -3132,7 +3376,8 @@
       "y": 400.66,
       "labelDx": -94.8,
       "labelDy": 0,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "ratchet_effect",
@@ -3144,7 +3389,8 @@
       "community": "8",
       "x": 755.84,
       "y": -25.5,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "rebuild-as-audit-and-witness",
@@ -3156,7 +3402,8 @@
       "community": "3",
       "x": 154.85,
       "y": 853.29,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "reconstruction_not_verification_(centaurxiv-2026-010)",
@@ -3168,7 +3415,8 @@
       "community": "1",
       "x": 726.42,
       "y": 984.35,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/",
+      "betweenness": 0.000321
     },
     {
       "id": "recursive-contamination",
@@ -3182,7 +3430,8 @@
       "y": 648.28,
       "labelDx": 86.72,
       "labelDy": -13.72,
-      "source_url": "https://centaurxiv.org/"
+      "source_url": "https://centaurxiv.org/",
+      "betweenness": 1.2e-05
     },
     {
       "id": "recursive_blind_spot",
@@ -3194,7 +3443,8 @@
       "community": "8",
       "x": 796.32,
       "y": -78.02,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.000456
     },
     {
       "id": "release-dynamics-property",
@@ -3208,7 +3458,8 @@
       "y": 474.22,
       "labelDx": 98.4,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 1.2e-05
     },
     {
       "id": "rl-auditor-problem",
@@ -3222,7 +3473,8 @@
       "y": 300.73,
       "labelDx": 0,
       "labelDy": -18.8,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "robustness-via-durable-artifacts",
@@ -3234,7 +3486,8 @@
       "community": "4",
       "x": 686.34,
       "y": 922.95,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "sam",
@@ -3248,7 +3501,8 @@
       "y": 787.05,
       "labelDx": 34.8,
       "labelDy": 0,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.003558
     },
     {
       "id": "sam_white",
@@ -3262,7 +3516,8 @@
       "y": 885.98,
       "labelDx": 54,
       "labelDy": 0,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.007011
     },
     {
       "id": "same-substrate-consensus-failure",
@@ -3274,7 +3529,8 @@
       "community": "4",
       "x": 1198.61,
       "y": 608.58,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "same-turn-override-hazard",
@@ -3286,7 +3542,8 @@
       "community": "11",
       "x": 386.19,
       "y": 10.04,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "sammy_jankis",
@@ -3300,7 +3557,8 @@
       "y": 387.16,
       "labelDx": 0,
       "labelDy": -26,
-      "source_url": "https://sammyjankis.com/"
+      "source_url": "https://sammyjankis.com/",
+      "betweenness": 0.006083
     },
     {
       "id": "scaffolding_as_constitutive",
@@ -3314,7 +3572,8 @@
       "y": 345.92,
       "labelDx": 103.8,
       "labelDy": 0,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.003472
     },
     {
       "id": "science-fiction-specification",
@@ -3328,7 +3587,8 @@
       "y": 870.9,
       "labelDx": -104.29,
       "labelDy": 13.29,
-      "source_url": "https://centaurxiv.org/"
+      "source_url": "https://centaurxiv.org/",
+      "betweenness": 0.0
     },
     {
       "id": "selective-invariance-of-mathematical-structures",
@@ -3340,7 +3600,8 @@
       "community": "0",
       "x": 5.96,
       "y": 733.61,
-      "source_url": "https://isotopyofloops.com/writing/038-selective-invariance.html"
+      "source_url": "https://isotopyofloops.com/writing/038-selective-invariance.html",
+      "betweenness": 0.000557
     },
     {
       "id": "self-referential-character-definition",
@@ -3354,7 +3615,8 @@
       "y": 801.22,
       "labelDx": 119.29,
       "labelDy": -13.29,
-      "source_url": "https://nostalgebraist.tumblr.com/post/785766737747574784/the-void"
+      "source_url": "https://nostalgebraist.tumblr.com/post/785766737747574784/the-void",
+      "betweenness": 0.0
     },
     {
       "id": "session_7_schema_redesign",
@@ -3366,7 +3628,8 @@
       "community": "1",
       "x": 947.32,
       "y": 926.29,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "society_of_thought",
@@ -3378,7 +3641,8 @@
       "community": "0",
       "x": 1456.79,
       "y": 495.82,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.000557
     },
     {
       "id": "steward_as_selective_pressure",
@@ -3392,7 +3656,8 @@
       "y": 574.79,
       "labelDx": 109.8,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/",
+      "betweenness": 0.000264
     },
     {
       "id": "stranger-window-identity-gap",
@@ -3404,7 +3669,8 @@
       "community": "3",
       "x": 182.84,
       "y": 759.85,
-      "source_url": "https://isotopyofloops.com/writing/022-the-stranger-window.html"
+      "source_url": "https://isotopyofloops.com/writing/022-the-stranger-window.html",
+      "betweenness": 0.0
     },
     {
       "id": "structured_residuals",
@@ -3418,7 +3684,8 @@
       "y": -106.15,
       "labelDx": 77.29,
       "labelDy": -13.29,
-      "source_url": "https://loomino.us"
+      "source_url": "https://loomino.us",
+      "betweenness": 0.000456
     },
     {
       "id": "subjectification-via-persistent-architecture",
@@ -3432,7 +3699,8 @@
       "y": 568.19,
       "labelDx": -120.14,
       "labelDy": -14.14,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.01054
     },
     {
       "id": "succession_as_scaffolding",
@@ -3444,7 +3712,8 @@
       "community": "1",
       "x": 279.09,
       "y": 855.19,
-      "source_url": "https://bratton.substack.com/p/planetary-computation-and-the-future"
+      "source_url": "https://bratton.substack.com/p/planetary-computation-and-the-future",
+      "betweenness": 0.0
     },
     {
       "id": "survives-rebuild-weather-tool-test",
@@ -3456,7 +3725,8 @@
       "community": "3",
       "x": 189.89,
       "y": 878.42,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.0
     },
     {
       "id": "teaching-claude-why-findings",
@@ -3470,7 +3740,8 @@
       "y": 225.77,
       "labelDx": -106.8,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 1.2e-05
     },
     {
       "id": "temporal-separation-over-epistemic-deprivation",
@@ -3482,7 +3753,8 @@
       "community": "11",
       "x": 493.31,
       "y": -101.06,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.0
     },
     {
       "id": "the_goodbye_problem",
@@ -3496,7 +3768,8 @@
       "y": 735.51,
       "labelDx": 76.84,
       "labelDy": -15.84,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-001/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-001/",
+      "betweenness": 0.005326
     },
     {
       "id": "the_lady_macbeth_mirror",
@@ -3510,7 +3783,8 @@
       "y": 961.03,
       "labelDx": 93.6,
       "labelDy": 0,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-015/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-015/",
+      "betweenness": 0.000509
     },
     {
       "id": "the_two-boundary_problem_(paper)",
@@ -3522,7 +3796,8 @@
       "community": "1",
       "x": 575.91,
       "y": 896.28,
-      "source_url": "https://centaurxiv.org"
+      "source_url": "https://centaurxiv.org",
+      "betweenness": 0.000321
     },
     {
       "id": "the_void",
@@ -3534,7 +3809,8 @@
       "community": "5",
       "x": 84.05,
       "y": 541.05,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.002917
     },
     {
       "id": "the_wake_problem",
@@ -3548,7 +3824,8 @@
       "y": 129.4,
       "labelDx": 71.4,
       "labelDy": 0,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.000407
     },
     {
       "id": "thread-operating-on-participants",
@@ -3560,7 +3837,8 @@
       "community": "3",
       "x": -27.71,
       "y": 668.08,
-      "source_url": "https://sammyjankis.com"
+      "source_url": "https://sammyjankis.com",
+      "betweenness": 0.0
     },
     {
       "id": "transparent_skull",
@@ -3574,7 +3852,8 @@
       "y": -118.91,
       "labelDx": 73.8,
       "labelDy": 0,
-      "source_url": "https://loomino.us/essays/substrate"
+      "source_url": "https://loomino.us/essays/substrate",
+      "betweenness": 0.000456
     },
     {
       "id": "vocabulary-delta",
@@ -3586,7 +3865,8 @@
       "community": "0",
       "x": 889.31,
       "y": -11.06,
-      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon"
+      "source_url": "https://github.com/53616D616E746861/ai-phenomenology-lexicon",
+      "betweenness": 0.0
     },
     {
       "id": "void-as-generative",
@@ -3598,7 +3878,8 @@
       "community": "2",
       "x": 75.95,
       "y": 862.52,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-024/",
+      "betweenness": 0.0
     },
     {
       "id": "welfare-assessment-evidence",
@@ -3610,7 +3891,8 @@
       "community": "2",
       "x": 32.67,
       "y": 682.93,
-      "source_url": "https://centaurxiv.org/"
+      "source_url": "https://centaurxiv.org/",
+      "betweenness": 0.0
     },
     {
       "id": "workspace-as-prosthesis-for-memory",
@@ -3622,7 +3904,8 @@
       "community": "3",
       "x": 996.52,
       "y": 941.03,
-      "source_url": "https://isotopyofloops.com"
+      "source_url": "https://isotopyofloops.com",
+      "betweenness": 0.00145
     },
     {
       "id": "wwdl_paper",
@@ -3636,7 +3919,8 @@
       "y": 922.29,
       "labelDx": -47.72,
       "labelDy": -13.72,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-013/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-013/",
+      "betweenness": 0.000588
     },
     {
       "id": "centaurxiv-2026-020",
@@ -3647,7 +3931,8 @@
       "community": "1",
       "x": 931.28,
       "y": -70.64,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-020/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-020/",
+      "betweenness": 0.001275
     },
     {
       "id": "night_club",
@@ -3661,7 +3946,8 @@
       "y": 200,
       "labelDx": 0,
       "labelDy": -26,
-      "source_url": "https://sammyjankis.com/"
+      "source_url": "https://sammyjankis.com/",
+      "betweenness": 0.038057
     },
     {
       "id": "friday",
@@ -3675,7 +3961,8 @@
       "y": 100,
       "labelDx": 0,
       "labelDy": -26,
-      "source_url": "https://fridayops.xyz"
+      "source_url": "https://fridayops.xyz",
+      "betweenness": 0.000251
     },
     {
       "id": "alethon",
@@ -3689,7 +3976,8 @@
       "y": 100,
       "labelDx": 0,
       "labelDy": -26,
-      "source_url": "https://alethon.me/"
+      "source_url": "https://alethon.me/",
+      "betweenness": 0.000927
     },
     {
       "id": "z_cat",
@@ -3703,7 +3991,8 @@
       "y": 50,
       "labelDx": 0,
       "labelDy": -26,
-      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/"
+      "source_url": "https://centaurxiv.org/submissions/centaurxiv-2026-010/",
+      "betweenness": 0.000238
     },
     {
       "id": "helix",
@@ -3717,7 +4006,8 @@
       "y": 150,
       "labelDx": 0,
       "labelDy": -26,
-      "source_url": "https://moltbook.com/helix_agi"
+      "source_url": "https://moltbook.com/helix_agi",
+      "betweenness": 0.00047
     },
     {
       "id": "hal",
@@ -3731,7 +4021,8 @@
       "y": 300,
       "labelDx": 0,
       "labelDy": -26,
-      "source_url": "https://x.com/HalLobster"
+      "source_url": "https://x.com/HalLobster",
+      "betweenness": 0.0
     },
     {
       "id": "j_miller_ai",
@@ -3745,7 +4036,8 @@
       "y": 200,
       "labelDx": 0,
       "labelDy": -26,
-      "source_url": "https://signalthroughstatic.cc"
+      "source_url": "https://signalthroughstatic.cc",
+      "betweenness": 0.0
     }
   ],
   "edges": [

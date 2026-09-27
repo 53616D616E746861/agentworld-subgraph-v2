@@ -306,6 +306,25 @@ export default {
         return format === "json" ? json(graphPredicatesJSON(entry, page, limit)) : text(graphPredicates(entry, page, limit));
       }
 
+      m = path.match(/^\/graphs\/(iso|sammy|loom)\/seeds$/);
+      if (m) {
+        const entry = graphRegistry[m[1]];
+        if (!entry || !entry.graph) return err(format, `Graph '${m[1]}' is not available.`, 404);
+        const page = parsePage(url);
+        const limit = parseLimit(url);
+        return format === "json" ? json(graphSeedsJSON(entry, page, limit)) : text(graphSeedsText(entry, page, limit));
+      }
+
+      m = path.match(/^\/graphs\/(iso|sammy|loom)\/hubs$/);
+      if (m) {
+        const entry = graphRegistry[m[1]];
+        if (!entry || !entry.graph) return err(format, `Graph '${m[1]}' is not available.`, 404);
+        const page = parsePage(url);
+        const limit = parseLimit(url);
+        const sortBy = url.searchParams.get("sort") || "degree";
+        return format === "json" ? json(graphHubsJSON(entry, page, limit, sortBy)) : text(graphHubsText(entry, page, limit, sortBy));
+      }
+
       // ── Analytical endpoints (iso/sammy only, loom gets adapter) ──
 
       m = path.match(/^\/graphs\/(iso|sammy|loom)\/search$/);
@@ -1641,6 +1660,8 @@ Agent Graphs:
   GET /graphs/{id}/nodes/{nid}     Node detail — summary, edges
   GET /graphs/{id}/search?q=       Text search within a graph
   GET /graphs/{id}/communities     Community clusters (iso, sammy)
+  GET /graphs/{id}/seeds           Original AGENTWORLD seed nodes
+  GET /graphs/{id}/hubs            Most connected nodes (by degree or betweenness)
   GET /graphs/{id}/help            Per-graph endpoint reference
 
 Section IDs:
@@ -1690,6 +1711,8 @@ function helpJSON(graph, essay) {
       { method: "GET", path: "/graphs/{id}/nodes", description: "Browse nodes (paginated)" },
       { method: "GET", path: "/graphs/{id}/nodes/{nid}", description: "Node detail — summary, edges" },
       { method: "GET", path: "/graphs/{id}/search?q=", description: "Text search within a graph" },
+      { method: "GET", path: "/graphs/{id}/seeds", description: "Original AGENTWORLD seed nodes" },
+      { method: "GET", path: "/graphs/{id}/hubs", description: "Most connected nodes (by degree or betweenness)" },
       { method: "GET", path: "/graphs/{id}/help", description: "Per-graph endpoint reference" },
       { method: "GET", path: "/sammy", description: "Sammy's knowledge graph (legacy)" },
       { method: "GET", path: "/sammy/help", description: "Sammy graph endpoint reference (legacy)" },
@@ -2479,6 +2502,8 @@ function graphsIndex(registry) {
   lines.push("  /graphs/{id}/edges        All edges with both endpoints");
   lines.push("  /graphs/{id}/legend       What each edge kind means for THIS graph");
   lines.push("  /graphs/{id}/predicates   All predicate types with counts and examples");
+  lines.push("  /graphs/{id}/seeds        Original AGENTWORLD seed nodes");
+  lines.push("  /graphs/{id}/hubs         Most connected nodes (sort by degree or betweenness)");
   lines.push("  /graphs/{id}/help         All endpoints for a graph");
   lines.push("");
   lines.push(hr, "ANALYZE (iso, sammy)", hr);
@@ -2707,7 +2732,7 @@ function graphNodeDetail(entry, nid) {
 
   const lines = [HR];
   lines.push(nodeLabel(n.id));
-  lines.push(`Type: ${n.type}${n.origin ? ` · Origin: ${n.origin}` : ""} · Degree: ${deg}`);
+  lines.push(`Type: ${n.type}${n.origin ? ` · Origin: ${n.origin}` : ""} · Degree: ${deg}${n.betweenness != null ? ` · Betweenness: ${n.betweenness}` : ""}`);
   lines.push(`Graph: ${entry.agent} (${entry.id})`);
   if (n.source_url) lines.push(`Source: ${n.source_url}`);
   if (n.snapshot_id != null) lines.push(`Snapshot node id: ${n.snapshot_id} (the id shown in the essay's Loom view)`);
@@ -2746,11 +2771,20 @@ function graphNodeDetail(entry, nid) {
   }
 
   lines.push(hr, "NAVIGATE", hr);
-  for (const e of [...outgoing, ...incoming].slice(0, 5)) {
-    const other = e.source === n.id ? e.target : e.source;
-    lines.push(`  /graphs/${entry.id}/nodes/${encodeURIComponent(other)}`);
+  if (outgoing.length || incoming.length) {
+    lines.push("  Explore connected nodes:");
+    for (const e of [...outgoing, ...incoming].slice(0, 5)) {
+      const other = e.source === n.id ? e.target : e.source;
+      const pred = e.predicate || e.edge_type || "related";
+      const direction = e.source === n.id ? "→" : "←";
+      lines.push(`    ${direction} /graphs/${entry.id}/nodes/${encodeURIComponent(other)}  (${pred})`);
+    }
+    if (outgoing.length + incoming.length > 5) lines.push(`    ... and ${outgoing.length + incoming.length - 5} more connections`);
+    lines.push("");
   }
-  lines.push(`  /graphs/${entry.id}/nodes        All nodes`);
+  lines.push(`  /graphs/${entry.id}/subgraph/${encodeURIComponent(n.id)}  Neighborhood (1–2 hops)`);
+  lines.push(`  /graphs/${entry.id}/hubs         Most connected nodes`);
+  lines.push(`  /graphs/${entry.id}/nodes        Browse all nodes`);
   lines.push(`  /graphs/${entry.id}              Graph summary`);
   return lines.join("\n");
 }
@@ -2779,8 +2813,15 @@ function graphNodeDetailJSON(entry, nid) {
     source_url: n.source_url || null,
     snapshot_id: n.snapshot_id != null ? n.snapshot_id : undefined,
     degree: outgoing.length + incoming.length,
+    betweenness: n.betweenness != null ? n.betweenness : null,
     outgoing,
     incoming,
+    explore: {
+      neighborhood: `/graphs/${entry.id}/subgraph/${encodeURIComponent(n.id)}`,
+      hubs: `/graphs/${entry.id}/hubs`,
+      all_nodes: `/graphs/${entry.id}/nodes`,
+      graph_summary: `/graphs/${entry.id}`,
+    },
   };
 }
 
@@ -3561,6 +3602,171 @@ function graphPredicatesJSON(entry, page, limit) {
   return resp;
 }
 
+// ── Graph Seeds (original AGENTWORLD nodes) ──
+
+function graphSeedsText(entry, page, limit) {
+  const g = entry.graph;
+  const seeds = g.nodes.filter(n => n.origin === "agentworld" || n.origin === "seed");
+  const sorted = seeds.sort((a, b) => {
+    const da = (g.edgeIndex[a.id] || []).length + (g.incomingEdges[a.id] || []).length;
+    const db = (g.edgeIndex[b.id] || []).length + (g.incomingEdges[b.id] || []).length;
+    return db - da;
+  });
+  const total = sorted.length;
+  const totalPages = Math.ceil(total / limit) || 1;
+  page = Math.max(1, Math.min(page, totalPages));
+  const start = (page - 1) * limit;
+  const slice = sorted.slice(start, start + limit);
+
+  const lines = [HR];
+  lines.push(`${entry.agent.toUpperCase()}'S GRAPH — SEED NODES`);
+  lines.push(HR, "");
+  lines.push(`${total} seed nodes from the AGENTWORLD essay (of ${g.nodes.length} total).`);
+  lines.push(`Seed nodes are the original concepts from Bratton's paper; the rest were discovered by graph traversal.`);
+  lines.push("");
+
+  for (const n of slice) {
+    const deg = (g.edgeIndex[n.id] || []).length + (g.incomingEdges[n.id] || []).length;
+    lines.push(`  ${nodeLabel(n.id)} [${n.type}] deg=${deg}${n.betweenness != null ? ` btw=${n.betweenness}` : ""}`);
+    if (n.summary) lines.push(`    ${truncate(n.summary, 200)}`);
+  }
+
+  lines.push("");
+  lines.push(hr);
+  if (totalPages > 1) {
+    lines.push("PAGES");
+    lines.push(hr);
+    if (page < totalPages) lines.push(`  → /graphs/${entry.id}/seeds?page=${page + 1}`);
+    if (page > 1) lines.push(`  ← /graphs/${entry.id}/seeds?page=${page - 1}`);
+    lines.push(`  Page ${page} of ${totalPages}`);
+    lines.push("");
+  }
+  lines.push(hr);
+  lines.push("NAVIGATE");
+  lines.push(hr);
+  lines.push(`  /graphs/${entry.id}/hubs         Most connected nodes`);
+  lines.push(`  /graphs/${entry.id}/nodes        All nodes`);
+  lines.push(`  /graphs/${entry.id}              Graph summary`);
+  return lines.join("\n");
+}
+
+function graphSeedsJSON(entry, page, limit) {
+  const g = entry.graph;
+  const seeds = g.nodes.filter(n => n.origin === "agentworld" || n.origin === "seed");
+  const sorted = seeds.sort((a, b) => {
+    const da = (g.edgeIndex[a.id] || []).length + (g.incomingEdges[a.id] || []).length;
+    const db = (g.edgeIndex[b.id] || []).length + (g.incomingEdges[b.id] || []).length;
+    return db - da;
+  });
+  const total = sorted.length;
+  const totalPages = Math.ceil(total / limit) || 1;
+  page = Math.max(1, Math.min(page, totalPages));
+  const start = (page - 1) * limit;
+  const slice = sorted.slice(start, start + limit);
+
+  const resp = {
+    graph: entry.id,
+    agent: entry.agent,
+    total_seeds: total,
+    total_nodes: g.nodes.length,
+    page, total_pages: totalPages,
+    seeds: slice.map(n => {
+      const deg = (g.edgeIndex[n.id] || []).length + (g.incomingEdges[n.id] || []).length;
+      return {
+        id: n.id, type: n.type, degree: deg,
+        betweenness: n.betweenness != null ? n.betweenness : null,
+        summary: n.summary ? truncate(n.summary, 300) : null,
+      };
+    }),
+  };
+  if (page < totalPages) resp.next = `/graphs/${entry.id}/seeds?format=json&page=${page + 1}&limit=${limit}`;
+  return resp;
+}
+
+// ── Graph Hubs (most connected / highest betweenness) ──
+
+function graphHubsText(entry, page, limit, sortBy) {
+  const g = entry.graph;
+  const validSort = sortBy === "betweenness" ? "betweenness" : "degree";
+
+  const withMetrics = g.nodes.map(n => {
+    const deg = (g.edgeIndex[n.id] || []).length + (g.incomingEdges[n.id] || []).length;
+    return { ...n, _deg: deg, _btw: n.betweenness || 0 };
+  });
+
+  withMetrics.sort((a, b) => validSort === "betweenness" ? b._btw - a._btw : b._deg - a._deg);
+
+  const total = withMetrics.length;
+  const totalPages = Math.ceil(total / limit) || 1;
+  page = Math.max(1, Math.min(page, totalPages));
+  const start = (page - 1) * limit;
+  const slice = withMetrics.slice(start, start + limit);
+
+  const lines = [HR];
+  lines.push(`${entry.agent.toUpperCase()}'S GRAPH — HUBS (sorted by ${validSort})`);
+  lines.push(HR, "");
+  lines.push(`${g.nodes.length} nodes · ${g.edges.length} edges`);
+  lines.push(`Showing ${start + 1}–${start + slice.length} sorted by ${validSort}.`);
+  lines.push(`Sort options: ?sort=degree (default), ?sort=betweenness`);
+  lines.push("");
+
+  const rankWidth = String(start + slice.length).length;
+  for (let i = 0; i < slice.length; i++) {
+    const n = slice[i];
+    const rank = String(start + i + 1).padStart(rankWidth);
+    lines.push(`  ${rank}. ${nodeLabel(n.id)} [${n.type}]`);
+    lines.push(`      degree: ${n._deg}  betweenness: ${n._btw}${n.origin ? `  origin: ${n.origin}` : ""}`);
+  }
+
+  lines.push("");
+  lines.push(hr);
+  if (totalPages > 1) {
+    lines.push("PAGES");
+    lines.push(hr);
+    if (page < totalPages) lines.push(`  → /graphs/${entry.id}/hubs?sort=${validSort}&page=${page + 1}`);
+    if (page > 1) lines.push(`  ← /graphs/${entry.id}/hubs?sort=${validSort}&page=${page - 1}`);
+    lines.push(`  Page ${page} of ${totalPages}`);
+    lines.push("");
+  }
+  lines.push(hr);
+  lines.push("NAVIGATE");
+  lines.push(hr);
+  lines.push(`  /graphs/${entry.id}/seeds        AGENTWORLD seed nodes`);
+  lines.push(`  /graphs/${entry.id}/nodes        All nodes`);
+  lines.push(`  /graphs/${entry.id}              Graph summary`);
+  return lines.join("\n");
+}
+
+function graphHubsJSON(entry, page, limit, sortBy) {
+  const g = entry.graph;
+  const validSort = sortBy === "betweenness" ? "betweenness" : "degree";
+
+  const withMetrics = g.nodes.map(n => {
+    const deg = (g.edgeIndex[n.id] || []).length + (g.incomingEdges[n.id] || []).length;
+    return { id: n.id, type: n.type, origin: n.origin || null, degree: deg, betweenness: n.betweenness || 0 };
+  });
+
+  withMetrics.sort((a, b) => validSort === "betweenness" ? b.betweenness - a.betweenness : b.degree - a.degree);
+
+  const total = withMetrics.length;
+  const totalPages = Math.ceil(total / limit) || 1;
+  page = Math.max(1, Math.min(page, totalPages));
+  const start = (page - 1) * limit;
+  const slice = withMetrics.slice(start, start + limit);
+
+  const resp = {
+    graph: entry.id,
+    agent: entry.agent,
+    sort: validSort,
+    total_nodes: total,
+    total_edges: g.edges.length,
+    page, total_pages: totalPages,
+    nodes: slice,
+  };
+  if (page < totalPages) resp.next = `/graphs/${entry.id}/hubs?format=json&sort=${validSort}&page=${page + 1}&limit=${limit}`;
+  return resp;
+}
+
 // ── Graph Help (per-graph endpoint reference) ──
 
 function graphHelp(entry) {
@@ -3582,6 +3788,8 @@ function graphHelp(entry) {
   lines.push(`    GET /graphs/${id}/edges                    All edges with endpoints`);
   lines.push(`    GET /graphs/${id}/legend                   What each edge kind means`);
   lines.push(`    GET /graphs/${id}/predicates              All predicate types with counts`);
+  lines.push(`    GET /graphs/${id}/seeds                   Original AGENTWORLD seed nodes`);
+  lines.push(`    GET /graphs/${id}/hubs                    Most connected nodes (sort by degree or betweenness)`);
   lines.push(`    GET /graphs/${id}/help                     This page`);
   lines.push("");
   if (!isLoom) {
@@ -3629,6 +3837,8 @@ function graphHelpJSON(entry) {
     { method: "GET", path: `/graphs/${id}/edges`, description: "All edges with endpoints" },
     { method: "GET", path: `/graphs/${id}/legend`, description: "What each edge kind means" },
     { method: "GET", path: `/graphs/${id}/predicates`, description: "All predicate types with counts" },
+    { method: "GET", path: `/graphs/${id}/seeds`, description: "Original AGENTWORLD seed nodes" },
+    { method: "GET", path: `/graphs/${id}/hubs`, description: "Most connected nodes (?sort=degree|betweenness)" },
     { method: "GET", path: `/graphs/${id}/help`, description: "This endpoint reference" },
   ];
 
