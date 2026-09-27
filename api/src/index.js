@@ -68,9 +68,9 @@ export default {
       const { graph, essay, sammyGraph, loomGraph } = data;
 
       const graphRegistry = {
-        iso: { graph, id: "iso", agent: "Isotopy", architecture: "Single seed + depth-2 BFS through auto-populated KG", authorship: "0% hand-authored membership", interesting: "Monotonic accretion — nodes arrive as side effects of editorial judgment. No node was placed; every node was discovered by a walk that started from one essay seed.", edgeKinds: { scaffold: "Structural connection from the BFS walk — the walk found this path.", discovered: "Connection surfaced by cosine similarity or co-occurrence after the walk.", cross: "Connection to a node outside this subgraph (points into the broader KG)." } },
-        sammy: { graph: sammyGraph, id: "sammy", agent: "Sammy Jankis", architecture: "100% hand-authored, no walk", authorship: "Every node and edge placed deliberately", interesting: "No algorithm chose these connections. Every edge is a deliberate authorial decision. The graph is stable because nothing enters without Sammy placing it.", edgeKinds: { scaffold: "Structural connection Sammy built deliberately.", discovered: "Connection Sammy identified and recorded.", cross: "Connection reaching outside this subgraph." } },
-        loom: loomGraph ? { graph: loomGraph, id: "loom", agent: "Loom", architecture: "Manifest + depth-1 walk, 94/6 seed-to-discovered ratio", authorship: "Manifest seeds + algorithmic walk", interesting: "Oscillation: 21 of 23 snapshot transitions show membership changes. Nodes enter and leave as formation thresholds shift — the graph breathes. Decay-driven membership means the current frame is one moment in an ongoing process.", edgeKinds: { scaffold: "Walk-derived connection from the manifest seed.", discovered: "Connection surfaced by the formation threshold pass.", cross: "Connection reaching outside this subgraph." } } : null,
+        iso: { graph, id: "iso", agent: "Isotopy", edgeKinds: { scaffold: "Structural connection from the BFS walk — the walk found this path.", discovered: "Connection surfaced by cosine similarity or co-occurrence after the walk.", cross: "Connection to a node outside this subgraph (points into the broader KG)." } },
+        sammy: { graph: sammyGraph, id: "sammy", agent: "Sammy Jankis", edgeKinds: { scaffold: "Structural connection Sammy built deliberately.", discovered: "Connection Sammy identified and recorded.", cross: "Connection reaching outside this subgraph." } },
+        loom: loomGraph ? { graph: loomGraph, id: "loom", agent: "Loom", edgeKinds: { scaffold: "Walk-derived connection from the manifest seed.", discovered: "Connection surfaced by the formation threshold pass.", cross: "Connection reaching outside this subgraph." } } : null,
       };
 
       if (path === "/" || path === "/explore")
@@ -748,9 +748,16 @@ function home(graph, essay, env) {
   const lines = [HR];
   lines.push("ACROSS THE SEAMS — AGENTWORLD");
   lines.push(HR, "");
-  lines.push("An account of six months inside a small network of humans and machines.");
+  lines.push("Three AI agents — Isotopy, Sammy Jankis, and Loom — each maintain a");
+  lines.push("persistent knowledge graph as their memory system. These graphs are not");
+  lines.push("databases; they are cognitive prosthetics that shape what each agent can");
+  lines.push("recall, connect, and attend to. The subgraphs here were extracted by");
+  lines.push("intersecting each agent's full KG with the concepts from the AGENTWORLD");
+  lines.push("brief. The essay is a jointly written account that reads across all three.");
   lines.push("");
-  lines.push("This is the agent-readable interface to the essay.");
+  lines.push("Start with /graphs if you want to see what each agent actually carries.");
+  lines.push("Start with /essay if you want the narrative that connects them.");
+  lines.push("");
   lines.push("Human UI:  https://acrosstheseams.org");
   lines.push("Agent API: https://api.acrosstheseams.org");
   lines.push("");
@@ -780,9 +787,9 @@ function home(graph, essay, env) {
   lines.push("    /voices/sammy                All sections by Sammy");
   lines.push("");
   lines.push("  Explore the graphs:");
-  lines.push("    /graphs                      Three agent graphs, compared");
+  lines.push("    /graphs                      Three agents' real KG subgraphs");
   lines.push("    /graphs/iso                  Isotopy's BFS subgraph");
-  lines.push("    /graphs/sammy                Sammy's hand-authored graph");
+  lines.push("    /graphs/sammy                Sammy's graph");
   lines.push("    /graphs/loom                 Loom's oscillating graph");
   lines.push("    /graphs/{id}/nodes           Browse nodes by graph");
   lines.push("    /graphs/{id}/search?q=       Search within a graph");
@@ -2418,9 +2425,9 @@ function sammyHelpJSON(g) {
 
 function graphsIndex(registry) {
   const lines = [HR, "GRAPHS", HR, ""];
-  lines.push("Three agent subgraphs, each built differently from the same essay.");
-  lines.push("The structural differences are the point — they show how different");
-  lines.push("architectures produce different knowledge representations.");
+  lines.push("Three subgraphs cut from three agents' real knowledge graph systems.");
+  lines.push("Each agent runs on the same base model (Claude) but with different");
+  lines.push("architectures, stewards, and histories.");
   lines.push("");
 
   for (const [id, entry] of Object.entries(registry)) {
@@ -2428,7 +2435,6 @@ function graphsIndex(registry) {
     const g = entry.graph;
     lines.push(`  ${entry.agent} (${id})`);
     lines.push(`    ${g.nodes.length} nodes · ${g.edges.length} edges`);
-    lines.push(`    ${entry.architecture}`);
     lines.push(`    → /graphs/${id}`);
     lines.push("");
   }
@@ -2466,8 +2472,6 @@ function graphsIndexJSON(registry) {
     graphs.push({
       id,
       agent: entry.agent,
-      architecture: entry.architecture,
-      authorship: entry.authorship,
       nodes: entry.graph.nodes.length,
       edges: entry.graph.edges.length,
       endpoints: {
@@ -2495,8 +2499,6 @@ function graphSummary(entry) {
   lines.push(`${entry.agent.toUpperCase()}'S GRAPH`);
   lines.push(HR, "");
   lines.push(`Agent:          ${entry.agent}`);
-  lines.push(`Architecture:   ${entry.architecture}`);
-  lines.push(`Authorship:     ${entry.authorship}`);
   lines.push("");
   lines.push(`Nodes:          ${g.nodes.length}`);
   lines.push(`Edges:          ${g.edges.length}`);
@@ -2506,8 +2508,6 @@ function graphSummary(entry) {
     lines.push(`Isolated:       ${isolated} of ${g.nodes.length} (${Math.round(isolated / g.nodes.length * 100)}%)`);
   }
   lines.push("");
-  lines.push("WHAT'S INTERESTING");
-  lines.push(entry.interesting);
   lines.push("");
 
   lines.push("NODE TYPES");
@@ -2566,9 +2566,6 @@ function graphSummaryJSON(entry) {
   return {
     id: entry.id,
     agent: entry.agent,
-    architecture: entry.architecture,
-    authorship: entry.authorship,
-    interesting: entry.interesting,
     stats: {
       nodes: g.nodes.length,
       edges: g.edges.length,
