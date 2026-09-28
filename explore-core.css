@@ -52,8 +52,8 @@
     --accent-hover: #9ECEBE;
     --link: #7DB8A6;
     --link-hover: #9ECEBE;
-    --node-fill: #C9C0B4;
-    --node-stroke: #C9C0B4;
+    --node-fill: #B0A898;
+    --node-stroke: #B0A898;
     --node-open-fill: #252019;
     /* Edges were ~1.5:1 — nearly invisible for low-vision readers. */
     --edge-stroke: #7A7268;
@@ -88,8 +88,8 @@
   --accent-hover: #9ECEBE;
   --link: #7DB8A6;
   --link-hover: #9ECEBE;
-  --node-fill: #C9C0B4;
-  --node-stroke: #C9C0B4;
+  --node-fill: #B0A898;
+  --node-stroke: #B0A898;
   --node-open-fill: #252019;
   --edge-stroke: #7A7268;
   --hl-border: rgba(201, 192, 180, 0.18);
