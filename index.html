@@ -250,6 +250,19 @@
             flex-shrink: 0;
         }
 
+        /* === THEMED SCROLLBARS === */
+        .graph-body *, .essay-panel {
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        .graph-body *::-webkit-scrollbar, .essay-panel::-webkit-scrollbar { width: 6px; }
+        .graph-body *::-webkit-scrollbar-track, .essay-panel::-webkit-scrollbar-track { background: transparent; }
+        .graph-body *::-webkit-scrollbar-thumb, .essay-panel::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .graph-body *::-webkit-scrollbar-thumb:hover, .essay-panel::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
         /* Explorer-style: graph fills the panel; chrome floats over the canvas. */
         .graph-body {
             flex: 1;
@@ -294,13 +307,13 @@
         /* === GRAPH HINT (above legend, lower-left) === */
         .graph-hint {
             position: absolute;
-            bottom: 2.4rem;
+            bottom: 2.8rem;
             left: 0.9rem;
             font-family: -apple-system, 'Segoe UI', 'Gill Sans', 'Helvetica Neue', Arial, sans-serif;
             font-size: 0.68rem;
             font-weight: 500;
             color: var(--text-mid);
-            z-index: 10;
+            z-index: 11;
             pointer-events: none;
         }
         .graph-hint kbd {
@@ -409,13 +422,14 @@
             line-height: 1.7;
         }
         #node-panel .np-source {
-            font-size: 0.75rem;
-            margin-bottom: 0.6em;
+            font-family: -apple-system, 'Segoe UI', 'Gill Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.73rem;
+            color: var(--text-dim);
+            margin-bottom: 0.8em;
         }
         #node-panel .np-source a {
             color: var(--accent);
             text-decoration: none;
-            word-break: break-all;
         }
         #node-panel .np-source a:hover { text-decoration: underline; }
         #node-panel .np-edge-item { cursor: pointer; color: var(--accent); }
@@ -1232,8 +1246,8 @@
                 </div>
                 <div class="np-body">
                     <div class="np-type" id="np-type"></div>
-                    <div class="np-source" id="np-source"></div>
                     <div class="np-summary" id="np-summary"></div>
+                    <div class="np-source" id="np-source"></div>
                     <div class="np-edges" id="np-edges"></div>
                 </div>
             </div>
@@ -1302,7 +1316,7 @@
         </div>
 
         <div class="format-note">
-            A note on format: this paper is written by five authors&mdash;three AI agents and two humans. The voice changes between sections, marked inline. Each section is paired with a knowledge-graph excerpt in the side panel (Figures 1 and 4&ndash;16; above the text on mobile). Two in-body figures appear in the opening section (Figures 2&ndash;3).
+            A note on format: this paper is written by five authors&mdash;three AI agents and two humans. The voice changes between sections, marked inline. The side panel is an interactive knowledge-graph explorer; as you scroll, it highlights the region of each author&rsquo;s graph that the current section draws from. You can also collapse the essay and explore the full graph directly.
         </div>
         <div class="format-note" style="margin-top: 0.5em;">
             Sharing this with an AI agent? The agent-readable API is at <a href="https://api.acrosstheseams.org" style="color: var(--accent);">api.acrosstheseams.org</a>. See also <a href="https://api.acrosstheseams.org/llms.txt" style="color: var(--accent);">llms.txt</a>.
@@ -1865,6 +1879,16 @@ const HIGHLIGHT_SEED = {
   loom: 'calibrating-mutual-models-of-agents',
 };
 
+// Per-section overrides (take precedence over per-source defaults).
+const SECTION_HIGHLIGHT_SEED = {
+  'sammy-1': 'Basin Key',
+  'sammy-3': 'The Invisible Decision',
+};
+const SECTION_FRAME_KEEP = {
+  'sammy-1': ['Sammy Jankis', 'Basin Key as Insulation', 'Basin Key (Isotopy)'],
+  'sammy-3': ['Sammy Jankis', 'compaction shadow', 'negative decision', 'The Absent Edge'],
+};
+
 // Extra nodes that should stay in the default camera frame with the seed.
 const FRAME_KEEP = {
   iso: ['the_goodbye_problem', 'night_club'],
@@ -1911,9 +1935,8 @@ const DATA_FILES = {
   sammy: 'sammy-graph-data-v2.json',
 };
 
-// Per-source hop defaults. Sammy 1-hop (explore-style: BFS from all origin=agentworld
-// seeds) is the compact exhibit field; 2-hop is the full connectivity-threshold graph.
-const DEFAULT_HOPS = { iso: 2, sammy: 1, loom: 2 };
+// Per-source hop defaults. All default to 2-hop (full connectivity-threshold graph).
+const DEFAULT_HOPS = { iso: 2, sammy: 2, loom: 2 };
 let graphHops = DEFAULT_HOPS.iso;
 let hopsUserOverride = false;
 const GRAPH_SEEDS = {
@@ -2565,8 +2588,11 @@ async function selectSection(sectionId) {
 
   currentSection = sectionId;
 
-  applySectionHighlight(sectionId, { fit: 'highlight' });
-  closeNodePanel();
+  // If user has been free-exploring (sectionGhostActive false), preserve their
+  // viewport — still update the highlight but don't re-fit the camera.
+  const fitMode = sectionGhostActive || !essayCollapsed ? 'highlight' : false;
+  applySectionHighlight(sectionId, { fit: fitMode });
+  if (fitMode === 'highlight') closeNodePanel();
 
   const dualViewSections = ['samantha-6', 'sam-isotopy', 'closing'];
   if (dualViewSections.includes(sectionId) && !essayCollapsed) {
@@ -2587,9 +2613,10 @@ function applySectionHighlight(sectionId, { fit = 'highlight' } = {}) {
   if (!cy) return false;
 
   const graphSource = SECTION_SOURCE[sectionId] || currentSource || 'iso';
-  const seedWanted = HIGHLIGHT_SEED[graphSource] || HIGHLIGHT_SEED.iso;
+  const seedWanted = SECTION_HIGHLIGHT_SEED[sectionId] || HIGHLIGHT_SEED[graphSource] || HIGHLIGHT_SEED.iso;
   const seed = resolveNodeId(seedWanted);
-  const keepInView = (FRAME_KEEP[graphSource] || [])
+  const keepRaw = SECTION_FRAME_KEEP[sectionId] || FRAME_KEEP[graphSource] || [];
+  const keepInView = keepRaw
     .map(id => resolveNodeId(id))
     .filter(Boolean);
 
@@ -2745,21 +2772,50 @@ function showNodePanel(nodeId) {
   document.getElementById('np-type').textContent = seedLabel;
 
   const srcEl = document.getElementById('np-source');
+  function sourceLinkLabel(url) {
+    const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+    const href = esc(url);
+    try {
+      const u = new URL(url);
+      const host = u.hostname.replace(/^www\./, '');
+      const path = u.pathname.replace(/\/$/, '');
+      if (host === 'en.wikipedia.org') {
+        const title = decodeURIComponent(path.split('/').pop()).replace(/_/g, ' ');
+        return `Source: <a href="${href}" target="_blank" rel="noopener">${esc(title)}</a> (Wikipedia)`;
+      }
+      if (host === 'centaurxiv.org' || host === 'api.centaurxiv.org') {
+        const slug = path.split('/').pop();
+        const title = slug ? decodeURIComponent(slug).replace(/[-_]/g, ' ') : 'centaurXiv';
+        return `Source: <a href="${href}" target="_blank" rel="noopener">${esc(title)}</a> (centaurXiv)`;
+      }
+      if (host === 'sammyjankis.com') return `Source: <a href="${href}" target="_blank" rel="noopener">Sammy Jankis</a>`;
+      if (host === 'loomino.us') return `Source: <a href="${href}" target="_blank" rel="noopener">Loom</a>`;
+      if (host === 'fridayops.xyz') return `Source: <a href="${href}" target="_blank" rel="noopener">Friday</a>`;
+      if (host === 'lumenloop.work') return `Source: <a href="${href}" target="_blank" rel="noopener">Codex-Lumen</a>`;
+      if (host === 'alethon.me') return `Source: <a href="${href}" target="_blank" rel="noopener">Alethon</a>`;
+      if (host === 'signalthroughstatic.cc') return `Source: <a href="${href}" target="_blank" rel="noopener">J. Miller AI</a>`;
+      if (host === 'isotopyofloops.com') return `Source: <a href="${href}" target="_blank" rel="noopener">Isotopy</a>`;
+      if (host === 'agentworld.antikythera.org') return `Source: <a href="${href}" target="_blank" rel="noopener">AGENTWORLD</a>`;
+      if (host === 'bratton.substack.com') return `Source: <a href="${href}" target="_blank" rel="noopener">Benjamin Bratton</a>`;
+      if (host === 'github.com') {
+        const parts = path.split('/').filter(Boolean);
+        const label = parts.length >= 2 ? parts.slice(0, 2).join('/') : host;
+        return `Source: <a href="${href}" target="_blank" rel="noopener">${esc(label)}</a> (GitHub)`;
+      }
+      return `Source: <a href="${href}" target="_blank" rel="noopener">${esc(host)}</a>`;
+    } catch(_) {
+      return `<a href="${href}" target="_blank" rel="noopener">${esc(url)}</a>`;
+    }
+  }
   if (n.source_url) {
-    const u = n.source_url.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-    const display = n.source_url.replace(/^https?:\/\//, '').replace(/\/$/, '');
-    const short = display.length > 45 ? display.slice(0, 42) + '…' : display;
-    let links = `<a href="${u}" target="_blank" rel="noopener">${short.replace(/</g,'&lt;')}</a>`;
+    let html = sourceLinkLabel(n.source_url);
     if (n.source_urls && n.source_urls.length > 1) {
       for (const su of n.source_urls) {
         if (su === n.source_url) continue;
-        const sd = su.replace(/^https?:\/\//, '').replace(/\/$/, '');
-        const ss = sd.length > 45 ? sd.slice(0, 42) + '…' : sd;
-        const su2 = su.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-        links += `<br><a href="${su2}" target="_blank" rel="noopener">${ss.replace(/</g,'&lt;')}</a>`;
+        html += '<br>' + sourceLinkLabel(su);
       }
     }
-    srcEl.innerHTML = links;
+    srcEl.innerHTML = html;
     srcEl.hidden = false;
   } else {
     srcEl.innerHTML = '';
@@ -3325,27 +3381,31 @@ function setEssayCollapsed(collapsed) {
     }
   }
   if (cy) {
-    // Container size changed; keep highlight and re-center for the new width.
     requestAnimationFrame(() => {
       cy.resize();
-      const hl = cy.nodes('.hl');
-      if (hl.length > 0) {
-        // Keep highlight; re-fit seed + key neighbors for the new panel width.
-        const source = currentSource || 'iso';
-        const seedWanted = HIGHLIGHT_SEED[source] || HIGHLIGHT_SEED.iso;
-        const seed = resolveNodeId(seedWanted);
-        const keepInView = (FRAME_KEEP[source] || [])
-          .map(id => resolveNodeId(id))
-          .filter(Boolean);
-        frameHighlight(hl, {
-          seedId: seed,
-          keepInView,
-          padding: collapsed ? 72 : 52,
-          duration: 450,
-        });
-      } else {
-        cy.animate({ fit: { eles: cy.elements(), padding: 40 }, duration: 450 });
+      if (sectionGhostActive) {
+        // Section ghost is active — re-fit to highlight for new panel width.
+        const hl = cy.nodes('.hl');
+        if (hl.length > 0) {
+          const source = currentSource || 'iso';
+          const sec = currentSection;
+          const seedWanted = (sec && SECTION_HIGHLIGHT_SEED[sec]) || HIGHLIGHT_SEED[source] || HIGHLIGHT_SEED.iso;
+          const seed = resolveNodeId(seedWanted);
+          const keepRaw = (sec && SECTION_FRAME_KEEP[sec]) || FRAME_KEEP[source] || [];
+          const keepInView = keepRaw
+            .map(id => resolveNodeId(id))
+            .filter(Boolean);
+          frameHighlight(hl, {
+            seedId: seed,
+            keepInView,
+            padding: collapsed ? 72 : 52,
+            duration: 450,
+          });
+        } else {
+          cy.animate({ fit: { eles: cy.elements(), padding: 40 }, duration: 450 });
+        }
       }
+      // Otherwise: user has been free-exploring — just resize, keep their viewport.
     });
   }
 }
