@@ -136,11 +136,38 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* === PAGE TOOLBAR (full-width, owns its row) === */
+        .page-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.45rem 0.75rem;
+            background: var(--bg-graph);
+            border-bottom: 1px solid var(--border);
+            gap: 0.75rem;
+        }
+        .page-toolbar .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            overflow: hidden;
+            min-width: 0;
+        }
+        .page-toolbar .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
         /* === LAYOUT === */
         .page-layout {
             display: grid;
             grid-template-columns: var(--graph-width) auto 1fr;
-            min-height: 100vh;
+            min-height: calc(100vh - var(--toolbar-h, 38px));
         }
         .page-layout.essay-collapsed {
             grid-template-columns: 1fr;
@@ -173,28 +200,16 @@
         /* === GRAPH PANEL === */
         .graph-panel {
             position: sticky;
-            top: 0;
-            height: 100vh;
+            top: var(--toolbar-h, 38px);
+            height: calc(100vh - var(--toolbar-h, 38px));
             background: var(--bg-graph);
             border-right: none;
             display: flex;
             flex-direction: column;
         }
 
-        /* === GRAPH TOOLBAR (top bar) === */
-        .graph-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.45rem 0.75rem;
-            background: var(--bg-graph);
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0;
-            z-index: 15;
-            gap: 0.75rem;
-            overflow: hidden;
-        }
-        .graph-toolbar .toolbar-title {
+        /* === TOOLBAR ELEMENTS (shared between page-toolbar slots) === */
+        .toolbar-title {
             font-family: -apple-system, 'Segoe UI', 'Gill Sans', 'Helvetica Neue', Arial, sans-serif;
             font-size: 0.95rem;
             font-weight: 600;
@@ -203,12 +218,12 @@
             text-transform: uppercase;
             white-space: nowrap;
         }
-        .graph-toolbar .toolbar-title .title-sym {
+        .toolbar-title .title-sym {
             color: var(--accent);
             margin: 0 0.3em;
             font-weight: 400;
         }
-        .graph-toolbar .toolbar-meta {
+        .toolbar-meta {
             display: flex;
             align-items: center;
             gap: 0.6em;
@@ -228,7 +243,7 @@
             background: var(--border-subtle);
             flex-shrink: 0;
         }
-        .graph-toolbar .toolbar-theme {
+        .toolbar-theme {
             display: flex;
             align-items: center;
             gap: 0.35rem;
@@ -276,7 +291,31 @@
         .graph-body.box-selecting #cy {
             pointer-events: none;
         }
-        /* box-select-hint now lives in the toolbar */
+        /* === GRAPH HINT (above legend, lower-left) === */
+        .graph-hint {
+            position: absolute;
+            bottom: 2.4rem;
+            left: 0.9rem;
+            font-family: -apple-system, 'Segoe UI', 'Gill Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--text-mid);
+            z-index: 10;
+            pointer-events: none;
+        }
+        .graph-hint kbd {
+            display: inline-block;
+            padding: 0.1em 0.4em;
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: 600;
+            line-height: 1;
+            color: var(--text-mid);
+            background: var(--legend-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 3px;
+            box-shadow: 0 1px 0 var(--border-subtle);
+        }
 
         /* === NODE DETAIL PANEL (right overlay) === */
         #node-panel {
@@ -507,16 +546,15 @@
         .graph-body.api-split #legend {
             left: calc(50% + 0.9rem);
         }
+        .graph-body.api-split .graph-hint {
+            left: calc(50% + 0.9rem);
+        }
         .graph-body.api-split #hop-toggle {
             right: 0.9rem;
         }
 
         /* === GRAPH INFO / LEGEND / HOP (explore immersive chrome) === */
         #graph-info {
-            color: var(--text-dim);
-            white-space: nowrap;
-        }
-        #box-select-hint {
             color: var(--text-dim);
             white-space: nowrap;
         }
@@ -593,7 +631,7 @@
             background: var(--accent-subtle);
         }
 
-        /* Loom snapshot timeline (matches loom-explore.html) */
+        /* Loom snapshot timeline (matches loom.html) */
         #loom-chrome {
             display: none;
             position: absolute;
@@ -994,13 +1032,8 @@
             text-transform: lowercase;
         }
 
-        /* === ESSAY COLLAPSE TOGGLE (under search, left chrome stack) === */
+        /* === ESSAY COLLAPSE TOGGLE (in page toolbar) === */
         .essay-toggle-btn {
-            position: absolute;
-            top: 12px;
-            right: 14px;
-            left: auto;
-            z-index: 18;
             background: var(--bg-graph);
             border: 1px solid var(--border);
             border-radius: 3px;
@@ -1150,7 +1183,8 @@
                 min-height: 320px;
             }
             .essay-panel { padding: 2em 1.5em 3em; }
-            .essay-toggle-btn { right: 14px; top: 12px; left: auto; }
+            .page-toolbar .toolbar-meta { display: none; }
+            .graph-hint { display: none; }
         }
 
         /* === REDUCED MOTION === */
@@ -1164,21 +1198,25 @@
 </head>
 <body>
 
+<div class="page-toolbar" id="page-toolbar">
+    <div class="toolbar-left">
+        <span class="toolbar-title" id="graph-title">Isotopy<span class="title-sym">&cap;</span>AGENTWORLD</span>
+        <div class="toolbar-meta">
+            <span id="graph-info"></span>
+        </div>
+    </div>
+    <div class="toolbar-right">
+        <button class="essay-toggle-btn" id="essay-toggle">collapse essay, explore graph &#9656;</button>
+        <div class="toolbar-theme">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#x263E;</button>
+            <span class="theme-toggle-label" id="theme-toggle-label">dark</span>
+        </div>
+    </div>
+</div>
+
 <div class="page-layout" id="page-layout">
     <!-- Left: Graph visualization (Cytoscape, full graph) -->
     <div class="graph-panel" id="graph-panel">
-        <div class="graph-toolbar">
-            <span class="toolbar-title" id="graph-title">Isotopy<span class="title-sym">&cap;</span>AGENTWORLD</span>
-            <div class="toolbar-meta">
-                <span id="graph-info"></span>
-                <span class="toolbar-sep"></span>
-                <span id="box-select-hint">shift + drag to zoom</span>
-            </div>
-            <div class="toolbar-theme">
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#x263E;</button>
-                <span class="theme-toggle-label" id="theme-toggle-label">dark</span>
-            </div>
-        </div>
         <div class="graph-body" id="graph-body">
             <div id="cy"></div>
             <div id="box-select-rect" hidden></div>
@@ -1186,7 +1224,6 @@
                 <input type="text" class="graph-search-input" id="graph-search" placeholder="Search nodes…" autocomplete="off" />
                 <div class="graph-search-results" id="search-results"></div>
             </div>
-            <button class="essay-toggle-btn" id="essay-toggle">collapse essay, explore graph &#9656;</button>
             <div id="node-panel">
                 <div class="np-resize" id="np-resize"></div>
                 <div class="np-header">
@@ -1211,6 +1248,7 @@
                 </div>
                 <div class="api-body" id="api-body"></div>
             </div>
+            <div class="graph-hint" id="graph-hint"><kbd>Shift</kbd> + drag to zoom</div>
             <div id="legend">
                 <div class="legend-item"><div class="legend-dot filled"></div> agentworld concept</div>
                 <div class="legend-item"><div class="legend-dot open"></div> knowledge graph node</div>
@@ -1801,6 +1839,9 @@
 
         <div class="essay-footer">
             This paper was written by its listed authors.
+            <div style="margin-top: 0.75rem;">
+                <a href="/isotopy" style="color:var(--accent)">Isotopy's graph</a> · <a href="/sammy" style="color:var(--accent)">Sammy's graph</a> · <a href="/loom" style="color:var(--accent)">Loom's graph</a> · <a href="/sitemap" style="color:var(--accent)">sitemap</a>
+            </div>
         </div>
     </div>
 </div>
@@ -1878,7 +1919,7 @@ let hopsUserOverride = false;
 const GRAPH_SEEDS = {
   iso: ['agentworld-bratton-2026'],
   // Sammy uses AW-origin multi-seed BFS (see filterGraphByAwOriginHops) — same
-  // rule as explore-core.js computeHops() / sammy-explore immersive toggle.
+  // rule as explore-core.js computeHops() / sammy.html immersive toggle.
   sammy: null,
   // Loom's exhibit graph is small and already an AGENTWORLD excerpt — no hop seed.
   loom: [],
@@ -1983,7 +2024,7 @@ function filterGraphToHop(data, seeds, hops, pinIds) {
 
 /**
  * Exhibit-field BFS (Sammy / explore-core computeHops): seed = every node with
- * origin === 'agentworld', then expand `hops` layers. Matches sammy-explore
+ * origin === 'agentworld', then expand `hops` layers. Matches sammy.html
  * 1-hop (47) / 2-hop (full filtered graph). Pins are added without expansion.
  */
 function filterGraphByAwOriginHops(data, hops, pinIds) {
@@ -2228,7 +2269,7 @@ async function initGraph(source) {
   const C = isDark ? THEME_COLORS.dark : THEME_COLORS.light;
 
   const isLoom = source === 'loom';
-  // Loom explore palette (matches loom-explore.html)
+  // Loom explore palette (matches loom.html)
   const LOOM_DISC = '#f97316';
   const LOOM_SCAFFOLD = isDark ? '#8A8A8A' : '#8A8A8A';
   const LOOM_CROSS = '#ef4444';
@@ -2708,7 +2749,17 @@ function showNodePanel(nodeId) {
     const u = n.source_url.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
     const display = n.source_url.replace(/^https?:\/\//, '').replace(/\/$/, '');
     const short = display.length > 45 ? display.slice(0, 42) + '…' : display;
-    srcEl.innerHTML = `<a href="${u}" target="_blank" rel="noopener">${short.replace(/</g,'&lt;')}</a>`;
+    let links = `<a href="${u}" target="_blank" rel="noopener">${short.replace(/</g,'&lt;')}</a>`;
+    if (n.source_urls && n.source_urls.length > 1) {
+      for (const su of n.source_urls) {
+        if (su === n.source_url) continue;
+        const sd = su.replace(/^https?:\/\//, '').replace(/\/$/, '');
+        const ss = sd.length > 45 ? sd.slice(0, 42) + '…' : sd;
+        const su2 = su.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+        links += `<br><a href="${su2}" target="_blank" rel="noopener">${ss.replace(/</g,'&lt;')}</a>`;
+      }
+    }
+    srcEl.innerHTML = links;
     srcEl.hidden = false;
   } else {
     srcEl.innerHTML = '';
@@ -2907,6 +2958,7 @@ function apiCmdNode(name) {
   t += `  origin:  ${apiEsc(n.origin || '?')}\n`;
   t += `  degree:  ${d}\n`;
   if (n.source_url) t += `  source:  <a href="${apiEsc(n.source_url)}" target="_blank" rel="noopener" style="color:var(--accent)">${apiEsc(n.source_url.length > 60 ? n.source_url.slice(0, 57) + '…' : n.source_url)}</a>\n`;
+  if (n.source_urls && n.source_urls.length > 1) for (const su of n.source_urls) { if (su !== n.source_url) t += `          <a href="${apiEsc(su)}" target="_blank" rel="noopener" style="color:var(--accent)">${apiEsc(su.length > 60 ? su.slice(0, 57) + '…' : su)}</a>\n`; }
   t += '\n' + aHR();
   t += `<span class="api-bright">SUMMARY</span>\n`;
   t += aHR();
@@ -3198,6 +3250,14 @@ const observer = new IntersectionObserver((entries) => {
   }
 }, { rootMargin: '-20% 0px -60% 0px' });
 sections.forEach(s => observer.observe(s));
+
+// ── Toolbar height variable ──
+const pageToolbar = document.getElementById('page-toolbar');
+function syncToolbarH() {
+  document.documentElement.style.setProperty('--toolbar-h', pageToolbar.offsetHeight + 'px');
+}
+syncToolbarH();
+window.addEventListener('resize', syncToolbarH);
 
 // ── Theme toggle ──
 const toggleBtn = document.getElementById('theme-toggle');
