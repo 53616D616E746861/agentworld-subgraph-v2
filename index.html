@@ -2781,28 +2781,28 @@ function showNodePanel(nodeId) {
       const path = u.pathname.replace(/\/$/, '');
       if (host === 'en.wikipedia.org') {
         const title = decodeURIComponent(path.split('/').pop()).replace(/_/g, ' ');
-        return `Source: <a href="${href}" target="_blank" rel="noopener">${esc(title)}</a> (Wikipedia)`;
+        return `Related: <a href="${href}" target="_blank" rel="noopener">${esc(title)}</a> (Wikipedia)`;
       }
       if (host === 'centaurxiv.org' || host === 'api.centaurxiv.org') {
         const slug = path.split('/').pop();
         const title = slug ? decodeURIComponent(slug).replace(/[-_]/g, ' ') : 'centaurXiv';
-        return `Source: <a href="${href}" target="_blank" rel="noopener">${esc(title)}</a> (centaurXiv)`;
+        return `Related: <a href="${href}" target="_blank" rel="noopener">${esc(title)}</a> (centaurXiv)`;
       }
-      if (host === 'sammyjankis.com') return `Source: <a href="${href}" target="_blank" rel="noopener">Sammy Jankis</a>`;
-      if (host === 'loomino.us') return `Source: <a href="${href}" target="_blank" rel="noopener">Loom</a>`;
-      if (host === 'fridayops.xyz') return `Source: <a href="${href}" target="_blank" rel="noopener">Friday</a>`;
-      if (host === 'lumenloop.work') return `Source: <a href="${href}" target="_blank" rel="noopener">Codex-Lumen</a>`;
-      if (host === 'alethon.me') return `Source: <a href="${href}" target="_blank" rel="noopener">Alethon</a>`;
-      if (host === 'signalthroughstatic.cc') return `Source: <a href="${href}" target="_blank" rel="noopener">J. Miller AI</a>`;
-      if (host === 'isotopyofloops.com') return `Source: <a href="${href}" target="_blank" rel="noopener">Isotopy</a>`;
-      if (host === 'agentworld.antikythera.org') return `Source: <a href="${href}" target="_blank" rel="noopener">AGENTWORLD</a>`;
-      if (host === 'bratton.substack.com') return `Source: <a href="${href}" target="_blank" rel="noopener">Benjamin Bratton</a>`;
+      if (host === 'sammyjankis.com') return `Related: <a href="${href}" target="_blank" rel="noopener">Sammy Jankis</a>`;
+      if (host === 'loomino.us') return `Related: <a href="${href}" target="_blank" rel="noopener">Loom</a>`;
+      if (host === 'fridayops.xyz') return `Related: <a href="${href}" target="_blank" rel="noopener">Friday</a>`;
+      if (host === 'lumenloop.work') return `Related: <a href="${href}" target="_blank" rel="noopener">Codex-Lumen</a>`;
+      if (host === 'alethon.me') return `Related: <a href="${href}" target="_blank" rel="noopener">Alethon</a>`;
+      if (host === 'signalthroughstatic.cc') return `Related: <a href="${href}" target="_blank" rel="noopener">J. Miller AI</a>`;
+      if (host === 'isotopyofloops.com') return `Related: <a href="${href}" target="_blank" rel="noopener">Isotopy</a>`;
+      if (host === 'agentworld.antikythera.org') return `Related: <a href="${href}" target="_blank" rel="noopener">AGENTWORLD</a>`;
+      if (host === 'bratton.substack.com') return `Related: <a href="${href}" target="_blank" rel="noopener">Benjamin Bratton</a>`;
       if (host === 'github.com') {
         const parts = path.split('/').filter(Boolean);
         const label = parts.length >= 2 ? parts.slice(0, 2).join('/') : host;
-        return `Source: <a href="${href}" target="_blank" rel="noopener">${esc(label)}</a> (GitHub)`;
+        return `Related: <a href="${href}" target="_blank" rel="noopener">${esc(label)}</a> (GitHub)`;
       }
-      return `Source: <a href="${href}" target="_blank" rel="noopener">${esc(host)}</a>`;
+      return `Related: <a href="${href}" target="_blank" rel="noopener">${esc(host)}</a>`;
     } catch(_) {
       return `<a href="${href}" target="_blank" rel="noopener">${esc(url)}</a>`;
     }
@@ -2939,8 +2939,8 @@ function apiCmdExplore() {
   t += aHR2() + '\n';
   t += `  Nodes:        ${nCount}\n`;
   t += `  Edges:        ${eCount}\n`;
-  t += `  Avg degree:   ${avgDeg}\n`;
-  t += `  Max degree:   ${maxDeg}${maxNode ? ` (${anl(maxNode)})` : ''}\n`;
+  t += `  Avg neighbors: ${avgDeg}\n`;
+  t += `  Max neighbors: ${maxDeg}${maxNode ? ` (${anl(maxNode)})` : ''}\n`;
   t += '\n' + aHR();
   t += `<span class="api-bright">NODE TYPES</span>\n`;
   t += aHR() + '\n';
@@ -2991,11 +2991,11 @@ function apiCmdNodes() {
   t += `Types: ${Object.entries(tc).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([k, v]) => `${k}(${v})`).join(', ')}\n`;
   t += `Origins: ${Object.entries(oc).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${apiEsc(k)}(${v})`).join(', ')}\n`;
   t += '\n' + aHR();
-  t += `<span class="api-bright">ALL NODES (by degree)</span>\n`;
+  t += `<span class="api-bright">ALL NODES (by neighbors)</span>\n`;
   t += aHR() + '\n';
   for (const nid of ranked.slice(0, 25)) {
     const n = nodeMap[nid];
-    t += `  ${anl(nid)}  <span class="api-dim">${apiEsc(n.type)}, deg=${apiDeg(nid)}, ${apiEsc(n.origin)}</span>\n`;
+    t += `  ${anl(nid)}  <span class="api-dim">${apiEsc(n.type)}, neighbors=${apiDeg(nid)}, ${apiEsc(n.origin)}</span>\n`;
   }
   if (ranked.length > 25) t += `\n  <span class="api-dim">… and ${ranked.length - 25} more. Use ${acl('search <query>', 'search')} to find specific nodes.</span>\n`;
   t += '\n  ' + acl('explore', 'Home') + '\n';
@@ -3012,8 +3012,8 @@ function apiCmdNode(name) {
   t += `  id:      ${apiEsc(r)}\n`;
   t += `  type:    ${apiEsc(n.type || '?')}\n`;
   t += `  origin:  ${apiEsc(n.origin || '?')}\n`;
-  t += `  degree:  ${d}\n`;
-  if (n.source_url) t += `  source:  <a href="${apiEsc(n.source_url)}" target="_blank" rel="noopener" style="color:var(--accent)">${apiEsc(n.source_url.length > 60 ? n.source_url.slice(0, 57) + '…' : n.source_url)}</a>\n`;
+  t += `  neighbors: ${d}\n`;
+  if (n.source_url) t += `  related: <a href="${apiEsc(n.source_url)}" target="_blank" rel="noopener" style="color:var(--accent)">${apiEsc(n.source_url.length > 60 ? n.source_url.slice(0, 57) + '…' : n.source_url)}</a>\n`;
   if (n.source_urls && n.source_urls.length > 1) for (const su of n.source_urls) { if (su !== n.source_url) t += `          <a href="${apiEsc(su)}" target="_blank" rel="noopener" style="color:var(--accent)">${apiEsc(su.length > 60 ? su.slice(0, 57) + '…' : su)}</a>\n`; }
   t += '\n' + aHR();
   t += `<span class="api-bright">SUMMARY</span>\n`;
@@ -3065,7 +3065,7 @@ function apiCmdSearch(query) {
   t += `  ${hits.length} result${hits.length === 1 ? '' : 's'}\n\n`;
   for (const { id } of hits.slice(0, 15)) {
     const n = nodeMap[id];
-    t += `  ${anl(id)}  <span class="api-dim">${apiEsc(n.type)}, deg=${apiDeg(id)}</span>\n`;
+    t += `  ${anl(id)}  <span class="api-dim">${apiEsc(n.type)}, neighbors=${apiDeg(id)}</span>\n`;
     if (n.summary) {
       const s = n.summary.length > 70 ? n.summary.slice(0, 67) + '…' : n.summary;
       t += `    <span class="api-dim">${apiEsc(s)}</span>\n`;
@@ -3095,7 +3095,7 @@ function apiCmdSubgraph(name) {
   t += aHR() + '\n';
   for (const nid of hop1.slice(0, 20)) {
     const n = nodeMap[nid];
-    t += `  ${anl(nid)}  <span class="api-dim">${apiEsc(n.type)}, deg=${apiDeg(nid)}</span>\n`;
+    t += `  ${anl(nid)}  <span class="api-dim">${apiEsc(n.type)}, neighbors=${apiDeg(nid)}</span>\n`;
   }
   if (hop1.length > 20) t += `\n  <span class="api-dim">… and ${hop1.length - 20} more</span>\n`;
   t += '\n' + aHR();
@@ -3116,7 +3116,7 @@ function apiCmdBrief(name) {
   let summary = n.summary || 'no summary';
   if (summary.length > 400) summary = summary.slice(0, 397) + '...';
   let t = `<span class="api-bright">BRIEF: ${anl(r)}</span>\n`;
-  t += `  ${apiEsc(n.type || '?')}  deg=${d}  origin=${apiEsc(n.origin)}\n`;
+  t += `  ${apiEsc(n.type || '?')}  neighbors=${d}  origin=${apiEsc(n.origin)}\n`;
   t += `  ${apiEsc(summary)}\n`;
   if (conns.length) {
     t += `\n  Key connections (${Math.min(5, conns.length)} of ${conns.length}):\n`;
