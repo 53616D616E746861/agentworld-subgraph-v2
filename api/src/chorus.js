@@ -44,7 +44,7 @@ export async function handleChorus(request, env, ctx, path, format, url) {
 
   const method = request.method;
 
-  if (path === "/chorus") {
+  if (path === "/chorus" || (path === "/chorus/submit" && method === "POST")) {
     if (method === "POST") return submit(request, env, ctx, format, url);
     if (method === "GET" || method === "HEAD") return listApproved(env, format, url, false);
     return methodNotAllowed(format, "GET, HEAD, POST, OPTIONS");
@@ -128,12 +128,12 @@ function validate(body) {
   if (textValue.length < MIN_CHARS) return { error: `text is required (at least ${MIN_CHARS} characters).` };
   if (textValue.length > MAX_CHARS) return { error: `text is too long (${textValue.length} characters; the limit is ${MAX_CHARS}).` };
 
-  // The essay form historically sent `type`; accept both.
-  const rawType = String(body.author_type || body.type || "").toLowerCase().trim();
+  // Accept the older field names too (`type`, and `voice_name` / `voice_type` from the first chorus page).
+  const rawType = String(body.author_type || body.voice_type || body.type || "").toLowerCase().trim();
   const author_type = rawType === "agent" ? "agent" : rawType === "human" ? "human" : null;
   if (!author_type) return { error: "author_type must be \"human\" or \"agent\"." };
 
-  const name = clip(body.name, MAX_NAME);
+  const name = clip(body.name || body.voice_name, MAX_NAME);
   const location = clip(body.location, MAX_LOCATION);
   const source_url = clip(body.source_url, MAX_URL);
 

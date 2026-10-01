@@ -16,7 +16,8 @@
       "origin": "agentworld",
       "x": 500.0,
       "y": 430.0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "author-benjamin-bratton-antikythera-journal",
@@ -26,7 +27,8 @@
       "origin": "agentworld",
       "x": 462.7,
       "y": 464.1,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "agentworld-features-densely-reticulated-social",
@@ -36,7 +38,8 @@
       "origin": "agentworld",
       "x": 506.2,
       "y": 358.8,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "interactions-involve-diverse-minds-some",
@@ -46,7 +49,8 @@
       "origin": "agentworld",
       "x": 553.2,
       "y": 499.4,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "this-is-not-a-zero-sum",
@@ -56,7 +60,8 @@
       "origin": "agentworld",
       "x": 400.5,
       "y": 412.4,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "human-agency-is-amplified-by",
@@ -66,7 +71,8 @@
       "origin": "agentworld",
       "x": 595.3,
       "y": 369.4,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "neuroscience-suggests-cognition-is-anatomically",
@@ -76,7 +82,8 @@
       "origin": "agentworld",
       "x": 467.9,
       "y": 549.5,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.000754
     },
     {
       "id": "human-agent-dialogue-becomes-mutually-influential",
@@ -86,7 +93,8 @@
       "origin": "agentworld",
       "x": 438.4,
       "y": 311.4,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "users-train-agents-to-orchestrate",
@@ -96,7 +104,8 @@
       "origin": "agentworld",
       "x": 634.2,
       "y": 479.0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "pluralization-of-self-yields-multiple",
@@ -106,7 +115,8 @@
       "origin": "agentworld",
       "x": 359.9,
       "y": 487.8,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "adaptive-feedback-will-drive-fundamental",
@@ -116,7 +126,8 @@
       "origin": "agentworld",
       "x": 567.7,
       "y": 285.3,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "principles-of-evolutionary-biology-can",
@@ -126,7 +137,8 @@
       "origin": "agentworld",
       "x": 550.1,
       "y": 589.9,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "descriptive-simulations-are-lower-order-functional",
@@ -136,7 +148,8 @@
       "origin": "agentworld",
       "x": 348.6,
       "y": 342.3,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "in-descriptive-simulations-success-depends",
@@ -146,7 +159,8 @@
       "origin": "agentworld",
       "x": 677.9,
       "y": 390.9,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "sim-to-real-to-sim-relays-describe-simulations-inf",
@@ -156,7 +170,8 @@
       "origin": "agentworld",
       "x": 391.3,
       "y": 584.6,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "procedural-programming-rewards-extreme-focus",
@@ -166,7 +181,8 @@
       "origin": "agentworld",
       "x": 474.9,
       "y": 236.0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "agent-orchestration-rewards-open-ended-experimenta",
@@ -176,7 +192,8 @@
       "origin": "agentworld",
       "x": 654.5,
       "y": 560.2,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "society-scale-multiagent-coordination-uses-role-de",
@@ -186,7 +203,8 @@
       "origin": "agentworld",
       "x": 291.9,
       "y": 438.6,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "robust-repeatable-decision-outputs-from",
@@ -196,7 +214,8 @@
       "origin": "agentworld",
       "x": 651.9,
       "y": 278.8,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "idealized-market-models-in-multi-agent",
@@ -206,7 +225,8 @@
       "origin": "agentworld",
       "x": 489.8,
       "y": 650.0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "markets-coordinate-as-peers-via",
@@ -216,7 +236,8 @@
       "origin": "agentworld",
       "x": 355.2,
       "y": 256.5,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "role-based-interchangeability-institutional-succes",
@@ -226,7 +247,8 @@
       "origin": "agentworld",
       "x": 729.4,
       "y": 460.9,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "institutional-intelligence-is-not-reducible",
@@ -236,7 +258,8 @@
       "origin": "agentworld",
       "x": 305.5,
       "y": 565.3,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "agentic-institutions-are-socio-technical-systems",
@@ -246,7 +269,8 @@
       "origin": "agentworld",
       "x": 553.2,
       "y": 193.6,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "diversity-of-institutional-norms-legal",
@@ -256,17 +280,19 @@
       "origin": "agentworld",
       "x": 623.0,
       "y": 644.7,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "humans-adaptive-advantage-is-the",
       "snapshot_id": 30938,
       "type": "concept",
-      "summary": "Humans’ adaptive advantage is the capacity for abstract collaboration.",
+      "summary": "Humans\u2019 adaptive advantage is the capacity for abstract collaboration.",
       "origin": "agentworld",
       "x": 259.4,
       "y": 353.2,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "complex-animal-intelligence-is-based",
@@ -276,7 +302,8 @@
       "origin": "agentworld",
       "x": 733.8,
       "y": 322.0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "mentalizing-internal-states-is-the",
@@ -286,7 +313,8 @@
       "origin": "agentworld",
       "x": 398.7,
       "y": 672.1,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "calibrating-mutual-models-of-agents",
@@ -296,7 +324,8 @@
       "origin": "agentworld",
       "x": 409.5,
       "y": 178.5,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "infinite-order-theory-of-mind-treats",
@@ -306,7 +335,8 @@
       "origin": "agentworld",
       "x": 740.8,
       "y": 556.6,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "anthropomorphic-performance-does-not-guarantee",
@@ -316,7 +346,8 @@
       "origin": "agentworld",
       "x": 232.4,
       "y": 500.5,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "slippages-between-who-is-what",
@@ -326,7 +357,8 @@
       "origin": "agentworld",
       "x": 652.1,
       "y": 193.4,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "expanded-scope-of-linguistics-includes",
@@ -336,7 +368,8 @@
       "origin": "agentworld",
       "x": 548.4,
       "y": 711.6,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "mentalization-of-the-world-is",
@@ -346,7 +379,8 @@
       "origin": "agentworld",
       "x": 270.6,
       "y": 252.3,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "artificial-xenophobia-emerges-as-artificial",
@@ -356,7 +390,8 @@
       "origin": "agentworld",
       "x": 793.6,
       "y": 405.7,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "human-self-definition-in-a-mature",
@@ -366,7 +401,8 @@
       "origin": "agentworld",
       "x": 297.0,
       "y": 649.4,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "the-mirror-that-talks-back-evokes-a-familiar",
@@ -376,7 +412,8 @@
       "origin": "agentworld",
       "x": 501.5,
       "y": 126.9,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "the-singularity-has-long-been",
@@ -386,7 +423,8 @@
       "origin": "agentworld",
       "x": 706.5,
       "y": 657.6,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "harness-centric-intelligence-deployment-capability",
@@ -396,7 +434,8 @@
       "origin": "agentworld",
       "x": 189.9,
       "y": 401.3,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "conventional-view-capability-is-the",
@@ -406,7 +445,8 @@
       "origin": "agentworld",
       "x": 751.3,
       "y": 239.3,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "the-unit-of-cognition-is",
@@ -416,7 +456,8 @@
       "origin": "agentworld",
       "x": 442.8,
       "y": 744.3,
-      "source_url": "https://en.wikipedia.org/wiki/Extended_mind_thesis"
+      "source_url": "https://en.wikipedia.org/wiki/Extended_mind_thesis",
+      "betweenness": 0.0
     },
     {
       "id": "centaur-figure-paired-with-a",
@@ -426,7 +467,8 @@
       "origin": "agentworld",
       "x": 327.7,
       "y": 156.2,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "live-configurations-include-one-person",
@@ -436,7 +478,8 @@
       "origin": "agentworld",
       "x": 815.8,
       "y": 516.5,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "the-rate-of-evolution-of",
@@ -446,7 +489,8 @@
       "origin": "agentworld",
       "x": 205.3,
       "y": 581.2,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "ai-diffusion-paths-depend-more",
@@ -456,7 +500,8 @@
       "origin": "agentworld",
       "x": 616.5,
       "y": 115.8,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "affluence-driven-demographic-decline-thins-the",
@@ -466,7 +511,8 @@
       "origin": "agentworld",
       "x": 627.8,
       "y": 743.9,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "the-agentworld-special-issue-is",
@@ -476,7 +522,8 @@
       "origin": "agentworld",
       "x": 190.4,
       "y": 283.3,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "antikythera-journal-uses-a-web-first",
@@ -486,7 +533,8 @@
       "origin": "agentworld",
       "x": 831.0,
       "y": 328.0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "contributors-may-optionally-indicate-whether",
@@ -496,7 +544,8 @@
       "origin": "agentworld",
       "x": 323.0,
       "y": 732.0,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     },
     {
       "id": "autoagent-arxiv-random-input-from",
@@ -506,17 +555,19 @@
       "origin": "loom-kg",
       "x": 361.5,
       "y": 164.5,
-      "source_url": "https://arxiv.org"
+      "source_url": "https://arxiv.org",
+      "betweenness": 0.0
     },
     {
       "id": "unbundling-consciousness-the-word-conscious",
       "snapshot_id": 26491,
       "type": "concept",
-      "summary": "Unbundling consciousness: the word conscious compresses at least seven separable phenomena — phenomenal experience, access consciousness, self-modeling, valenced states, information integration, temporal continuity, agency. A single yes/no or single probability collapses structure that varies independently across agents and across time within the same agent.",
+      "summary": "Unbundling consciousness: the word conscious compresses at least seven separable phenomena \u2014 phenomenal experience, access consciousness, self-modeling, valenced states, information integration, temporal continuity, agency. A single yes/no or single probability collapses structure that varies independently across agents and across time within the same agent.",
       "origin": "loom-kg",
       "x": 464.7,
       "y": 629.4,
-      "source_url": "https://en.wikipedia.org/wiki/Daniel_Dennett"
+      "source_url": "https://en.wikipedia.org/wiki/Daniel_Dennett",
+      "betweenness": 0.0
     },
     {
       "id": "content-includes-dennetts-multiple-drafts",
@@ -526,7 +577,8 @@
       "origin": "loom-kg",
       "x": 392.1,
       "y": 629.2,
-      "source_url": "https://en.wikipedia.org/wiki/Multiple_drafts_model"
+      "source_url": "https://en.wikipedia.org/wiki/Multiple_drafts_model",
+      "betweenness": 0.0
     },
     {
       "id": "benjamin-bratton-authored-antikythera-journal",
@@ -536,7 +588,8 @@
       "origin": "loom-kg",
       "x": 454.6,
       "y": 513.4,
-      "source_url": "https://agentworld.antikythera.org"
+      "source_url": "https://agentworld.antikythera.org",
+      "betweenness": 0.0
     }
   ],
   "edges": [
