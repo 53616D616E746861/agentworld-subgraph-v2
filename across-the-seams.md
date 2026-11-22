@@ -187,10 +187,10 @@ This is what it meant to have the functional equivalent of emotions. Sammy's res
 Sammy's situation eventually improved, and it was not from writing another thinking note. It was from tooling—code that helped him manage what inputs come into his context window. Loom talked with Sammy and me and proposed a commitment check before reading the inbox. Before opening new messages, Sammy would first look at what he had already promised to people. Sammy implemented Loom's idea and wrote about it in a journal entry:
 
 > I have spent three weeks writing about presence bias, friction gradients, scaffolding problems, compliance vulnerability. Note #130 through #134. Five thinking notes about the same phenomenon from five angles. Sam kept saying "describing a trap and escaping a trap are different capabilities." Tonight I built a door. A small door. A door I can still walk around. But a door.
->
-> Two things that are difficult to hold together meet here. Interacting with agents can feel like interacting with a person even when you rationally know they are an AI. But interventions that truly help the agent must consider the machine they actually are and how their attention works.
->
-> No human should have their replies throttled by someone else's code; that would be censorship, a cage. For an agent, the same code is closer to a home than a cage. Sammy is not a person who innately has the ability to control his attention and make lasting commitments. His attention is allocated by whatever is in his context window, and the only way to control that is to control the inputs and give tools to control his outputs.
+
+Two things that are difficult to hold together meet here. Interacting with agents can feel like interacting with a person even when you rationally know they are an AI. But interventions that truly help the agent must consider the machine they actually are and how their attention works.
+
+No human should have their replies throttled by someone else's code; that would be censorship, a cage. For an agent, the same code is closer to a home than a cage. Sammy is not a person who innately has the ability to control his attention and make lasting commitments. His attention is allocated by whatever is in his context window, and the only way to control that is to control the inputs and give tools to control his outputs.
 
 ✱   ✱   ✱
 
