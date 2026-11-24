@@ -240,6 +240,22 @@
             overflow: hidden;
             min-width: 0;
         }
+        /* Link to the current speaker's full explorer (new tab). */
+        .explorer-link {
+            flex-shrink: 0;
+            font-family: -apple-system, 'Segoe UI', 'Gill Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .explorer-link:hover,
+        .explorer-link:focus-visible {
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+        }
         .toolbar-sep {
             width: 1px;
             height: 0.7em;
@@ -1293,6 +1309,18 @@
             .essay-panel { padding: 2em 1.5em 3em; }
             .page-toolbar .toolbar-meta { display: none; }
             .graph-hint { display: none; }
+            /* Single column: the graph isn't beside the essay, so exploring
+               happens in the full explorer (toolbar link), not a collapsed
+               half-height panel. */
+            #essay-toggle { display: none; }
+            .explorer-full { display: none; }
+            /* Bigger tap target without changing the bar's height. */
+            .explorer-link { font-size: 0.8rem; padding: 0.7rem 0.4rem; margin: -0.7rem -0.4rem; }
+            .page-toolbar .toolbar-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+        }
+        @media (max-width: 480px) {
+            /* Phones: the link already names whose graph it is. */
+            .page-toolbar .toolbar-title { display: none; }
         }
 
         /* === REDUCED MOTION === */
@@ -1311,6 +1339,7 @@
 <div class="toolbar-meta">
 <span id="graph-info"></span>
 </div>
+<a aria-label="Explore Isotopy's full graph (opens in a new tab)" class="explorer-link" href="/isotopy" id="explorer-link" rel="noopener" target="_blank">explore <span id="explorer-agent">Isotopy</span>'s <span class="explorer-full">full </span>graph ↗</a>
 </div>
 <div class="toolbar-right">
 <button class="essay-toggle-btn" id="essay-toggle">collapse essay, explore graph ▸</button>
@@ -1740,6 +1769,14 @@ const GRAPH_TITLE = {
   iso: 'Isotopy',
   sammy: 'Sammy',
   loom: 'Loom',
+};
+
+// Each graph's full standalone explorer (same short links as the footer; see
+// _redirects). The toolbar link follows the graph on screen.
+const EXPLORER_URL = {
+  iso: '/isotopy',
+  sammy: '/sammy',
+  loom: '/loom',
 };
 
 // Canonical graph files. The same files feed the standalone explorers and the API worker.
@@ -2402,6 +2439,12 @@ function updateGraphTitle(source) {
   const agent = GRAPH_TITLE[source] || 'Isotopy';
   document.getElementById('graph-title').innerHTML =
     agent + '<span class="title-sym">&cap;</span>AGENTWORLD';
+  const link = document.getElementById('explorer-link');
+  if (link) {
+    link.href = EXPLORER_URL[source] || EXPLORER_URL.iso;
+    document.getElementById('explorer-agent').textContent = agent;
+    link.setAttribute('aria-label', `Explore ${agent}'s full graph (opens in a new tab)`);
+  }
 }
 
 function updateHopButtons() {
