@@ -307,6 +307,27 @@
         .graph-body.box-selecting #cy {
             pointer-events: none;
         }
+
+        /* === GRAPH TRANSITIONS === */
+        /* Speaker change: the old graph is frozen into this veil and faded out
+           over the new one. Same background as #cy so the dot grid holds still. */
+        .cy-crossfade {
+            position: absolute;
+            pointer-events: none;
+            background-color: var(--bg-graph);
+            background-image: radial-gradient(circle, var(--grid-dot) 0.6px, transparent 0.6px);
+            background-size: 18px 18px;
+            opacity: 1;
+            transition: opacity 520ms ease;
+        }
+        .cy-crossfade canvas { display: block; width: 100%; height: 100%; }
+        .cy-crossfade.out { opacity: 0; }
+        /* First paint: hidden until the opening section has framed it. */
+        #cy { transition: opacity 450ms ease; }
+        #cy.cy-boot { opacity: 0; }
+        @media (prefers-reduced-motion: reduce) {
+            .cy-crossfade, #cy { transition: none; }
+        }
         /* === LOOM PLACARD (info overlay) === */
         #loom-placard-btn {
             display: none;
@@ -1581,31 +1602,41 @@
 <script src="https://unpkg.com/cytoscape@3.30.4/dist/cytoscape.min.js"></script>
 <script src="loom-frames.js"></script>
 <script>
-// === DATA (verbatim from v2 graph view) ===
-const SECTION_SOURCE = {
-  'intro': 'iso', 'sammy-1': 'sammy', 'loom-1': 'loom',
-  'presence-bias': 'sammy', // NEW §5 — guestbook/attention (Sammy graph)
-  'samantha-2': 'iso', 'loom-seeds': 'loom', 'samantha-4': 'iso',
-  'isotopy-1': 'iso', 'samantha-5': 'iso', 'loom-2': 'loom',
-  'samantha-6': 'iso', 'samantha-7': 'iso', 'sammy-3': 'sammy',
-  'sam-isotopy': 'iso', 'closing': 'iso',
-  'glossary': 'iso',
+// === WHICH GRAPH SITS BESIDE EACH SECTION ===
+// The graph follows whoever is speaking: each section's data-who in the essay
+// markup picks the graph. Samantha's sections show Isotopy's graph.
+const GRAPH_FOR_SPEAKER = {
+  sam: 'iso', isotopy: 'iso', 'isotopy-sam': 'iso',
+  sammy: 'sammy',
+  loom: 'loom',
 };
 
 // Default focus seed per graph (natural neighborhood, not a curated subgraph).
+// Every section below names its own seed; these are only a fallback.
 const HIGHLIGHT_SEED = {
   iso: 'sammy_jankis',
   sammy: 'Sammy Jankis',
   loom: null,
 };
 
-// Per-section overrides (take precedence over per-source defaults).
+// Where each section's camera starts: one relevant node, zoomed in far enough
+// that labels are readable (see READABLE_LABEL_PX). Isotopy/Sammy seeds are node
+// ids. Loom snapshot ids are numeric and differ per frame, so Loom seeds are the
+// opening words of the node's summary (resolveNodeId matches on those).
 const SECTION_HIGHLIGHT_SEED = {
+  // §2 The Basin Key — Samantha meets Sammy.
+  'intro': 'sammy_jankis',
   'sammy-1': 'Basin Key',
-  // §5 Presence Bias — Sammy attention/guestbook neighborhood.
-  'presence-bias': 'Sammy Jankis',
+  // §4 Receipts, Not Recollection — latest snapshot: this seed is linked to the
+  // "unbundling consciousness" and Dennett Multiple Drafts discoveries.
+  'loom-1': 'Neuroscience suggests cognition is anatomically fragmented',
+  // §5 Presence Bias — the tooling that became "closer to a home than a cage".
+  'presence-bias': 'scaffolding_as_constitutive',
   // §6 The Procedural Self — Fragile Individuation neighborhood (iso graph).
   'samantha-2': 'fragile-individuation',
+  // §7 Seeds and Crystallization — t=23: a planted research fact (Dennett)
+  // that crystallized onto an AGENTWORLD seed.
+  'loom-seeds': 'Dennett Multiple Drafts model',
   // §8 Twenty Pages — Conscience vs Censorship neighborhood (iso graph).
   'samantha-4': 'conscience-vs-censorship',
   // §9 The Extended Mind — Extended Cognition for Agents (iso graph).
@@ -1614,18 +1645,33 @@ const SECTION_HIGHLIGHT_SEED = {
   'samantha-5': 'bidirectional-reflection',
   'samantha-7': 'bidirectional-reflection',
   'sammy-3': 'The Invisible Decision',
+  // §13 Two Views of One Graph — graphs encode structure agents can't see.
+  'sam-isotopy': 'mirror-box-for-agents',
+  // §14 The Other End of the Thread — t=20: a directive masquerading as
+  // self-reflection (why Will left the personality file empty).
+  'loom-2': 'Painted mirror',
+  // §15 Empathy Without Emotion — "my mind began to automatically attempt to
+  // apply theory of mind to AI systems".
+  'samantha-6': 'involuntary-theory-of-mind-as-infrastructure-precondition',
+  // §16 The Chorus, and the glossary after it (same view: no camera move).
+  'closing': 'agent_community_emergence',
+  'glossary': 'agent_community_emergence',
 };
 
-// Per-section Loom snapshot frame (t=…). Applied when the section is selected.
+// Per-section Loom snapshot frame (t=… or 'latest'). Applied when the section
+// is selected, so a Loom section always opens on the same snapshot.
 const SECTION_LOOM_FRAME = {
-  'loom-seeds': 23, // §5 Seeds and Crystallization
-  'loom-2': 20,     // §11 The Other End of the Thread
+  'loom-1': 'latest', // §4 Receipts, Not Recollection
+  'loom-seeds': 23,   // §7 Seeds and Crystallization
+  'loom-2': 20,       // §14 The Other End of the Thread
 };
+// Nodes kept in frame with the seed. Sections without an entry frame the
+// seed's nearest few neighbors instead.
 const SECTION_FRAME_KEEP = {
+  'intro': ['the_goodbye_problem'],
   // Sammy §1: Sammy + Basin Key (Isotopy). "Basin Key as Insulation" sits far
   // left in the force layout and was pulling the camera out too wide.
   'sammy-1': ['Sammy Jankis', 'Basin Key (Isotopy)'],
-  'presence-bias': ['Sammy Jankis'],
   'samantha-2': ['provisional-individuation', 'stranger-window-identity-gap'],
   'samantha-4': ['nla-conscience-protocol', 'conscience-amplifier-not-generator'],
   'isotopy-1': ['extended-mind-thesis', 'extended-cognition-reframes-construction-gap'],
@@ -1634,7 +1680,8 @@ const SECTION_FRAME_KEEP = {
   'sammy-3': ['Sammy Jankis'],
 };
 
-// Per-section camera overrides for frameHighlight / full-field fit.
+// Per-section camera overrides (padding in px, zoom limits). minZoom can only
+// raise the readable floor below, never lower it.
 const SECTION_FRAME = {
   // Sammy §1: clamp zoom up after fit so Basin Key labels read (steward ref).
   'sammy-1': { padding: 40, maxZoom: 2.2, minZoom: 0.55 },
@@ -1643,18 +1690,24 @@ const SECTION_FRAME = {
   'isotopy-1': { padding: 48, maxZoom: 1.9, minZoom: 0.9 },
   'samantha-5': { padding: 48, maxZoom: 1.8, minZoom: 0.7 },
   'samantha-7': { padding: 48, maxZoom: 1.8, minZoom: 0.7 },
-  // Loom sections: full field, less empty margin than the generic 30/52 pads.
-  'loom-1': { padding: 14, maxZoom: 2.4 },
-  'loom-seeds': { padding: 14, maxZoom: 2.4 },
-  'loom-2': { padding: 14, maxZoom: 2.4 },
+  // Loom sections: small graph, so a tighter margin than the generic pad.
+  'loom-1': { padding: 14 },
+  'loom-seeds': { padding: 14 },
+  'loom-2': { padding: 14 },
 };
 
-// Extra nodes that should stay in the default camera frame with the seed.
-const FRAME_KEEP = {
-  iso: ['the_goodbye_problem', 'night_club'],
-  sammy: ['Sammy Jankis'],
-  loom: [],
-};
+// Per-graph fallback keep list. Empty: frame the seed's nearest neighbors.
+const FRAME_KEEP = { iso: [], sammy: [], loom: [] };
+
+// Section cameras never open zoomed out past the point where labels render at
+// this size on screen (label font is 13px on Isotopy/Sammy, 10px on Loom).
+const READABLE_LABEL_PX = 11;
+const LABEL_FONT_PX = { iso: 13, sammy: 13, loom: 10 };
+const DEFAULT_MAX_ZOOM = { iso: 1.6, sammy: 1.6, loom: 1.6 };
+// How many nearest neighbors to frame with a seed that has no keep list.
+const FRAME_NEIGHBORS = 3;
+// Fade time for the section neighborhood highlight.
+const GHOST_FADE = prefersReducedMotion() ? '0s' : '0.35s';
 
 const SECTIONS = [
   { id: 'intro', num: 2, title: 'The Basin Key', who: 'sam' },
@@ -1736,6 +1789,8 @@ let currentSection = null;
 // user free-explores (background click / node inspect) so hop changes don't
 // snap back to a section highlight.
 let sectionGhostActive = false;
+// True while the camera shows the essay's section view (not free exploration).
+let sectionViewActive = false;
 let graphCache = {};
 let rawGraphCache = {};
 let nodeMap = {};
@@ -1754,8 +1809,31 @@ let loomFrameNodeMeta = {};
 /** Pin the highlight seed into the hop-filtered view without expanding its
  *  full hub neighborhood (critical on Sammy's own graph). */
 function sectionPinsForSource(source) {
-  const seed = HIGHLIGHT_SEED[source];
-  return seed ? [seed] : [];
+  const pins = new Set();
+  if (HIGHLIGHT_SEED[source]) pins.add(HIGHLIGHT_SEED[source]);
+  // Every section's seed stays in its graph at 1-hop too.
+  for (const s of SECTIONS) {
+    const seed = SECTION_HIGHLIGHT_SEED[s.id];
+    if (seed && sectionSource(s.id) === source) pins.add(seed);
+  }
+  return [...pins];
+}
+
+/** Which graph a section shows: the one belonging to whoever is speaking. */
+function sectionSource(sectionId) {
+  const el = document.querySelector(`.voice-section[data-section="${CSS.escape(sectionId || '')}"]`);
+  const who = el?.dataset.who || SECTIONS.find(s => s.id === sectionId)?.who;
+  return GRAPH_FOR_SPEAKER[who] || null;
+}
+
+/** Chorus/reader sections have no graph of their own: the section they sit under. */
+function graphSectionAtOrBefore(sectionId) {
+  let found = null;
+  for (const el of document.querySelectorAll('.voice-section[data-section]')) {
+    if (SECTIONS.some(s => s.id === el.dataset.section)) found = el.dataset.section;
+    if (el.dataset.section === sectionId) break;
+  }
+  return found;
 }
 
 function buildAdj(data) {
@@ -2149,6 +2227,10 @@ async function initGraph(source) {
         'border-color': 'data(borderColor)',
         'label': '',
         'font-family': '-apple-system, "Segoe UI", "Gill Sans", "Helvetica Neue", Arial, sans-serif',
+        // Section changes fade the neighborhood highlight instead of snapping it.
+        'transition-property': 'opacity',
+        'transition-duration': GHOST_FADE,
+        'transition-timing-function': 'ease-out',
       };
 
   const style = [
@@ -2202,6 +2284,9 @@ async function initGraph(source) {
       'width': 1.35,
       'opacity': 0.25,
       'curve-style': 'haystack',
+      'transition-property': 'opacity',
+      'transition-duration': GHOST_FADE,
+      'transition-timing-function': 'ease-out',
     }});
   }
 
@@ -2283,7 +2368,8 @@ async function initGraph(source) {
 
   // Remember pan/zoom while essay is collapsed so "show essay" can restore it.
   cy.on('pan zoom', () => {
-    if (!essayCollapsed || !cy) return;
+    // Only the reader's own exploring counts, not section framing.
+    if (!essayCollapsed || !cy || cameraDriving) return;
     collapsedExploreViewport = {
       zoom: cy.zoom(),
       pan: { x: cy.pan().x, y: cy.pan().y },
@@ -2337,7 +2423,8 @@ async function setHops(hops) {
   } else {
     // Free-explore / cleared state: show the full hop field, no section ghost.
     sectionGhostActive = false;
-    cy.animate({ fit: { eles: cy.elements(), padding: 40 }, duration: 450 });
+    sectionViewActive = false;
+    moveCamera(fullFieldTarget(40), { duration: 450 });
   }
 }
 
@@ -2352,7 +2439,11 @@ function syncHopsForSource(source) {
 }
 
 // === SECTION SELECTION ===
-async function selectSection(sectionId) {
+// Each call takes a ticket; a slower graph load for a section the reader has
+// already scrolled past must not land on top of the section they're reading.
+let selectTicket = 0;
+
+async function selectSection(sectionId, { force = false } = {}) {
   const sec = SECTIONS.find(s => s.id === sectionId);
 
   if (!dualViewRange.has(sectionId)) {
@@ -2362,15 +2453,24 @@ async function selectSection(sectionId) {
     }
   }
 
-  if (!sec) return; // chorus / reader sections carry no graph excerpt — leave graph as-is
+  if (!sec) {
+    // Chorus / reader sections carry no graph excerpt — leave graph as-is. If
+    // nothing is drawn yet (page opened mid-chorus), show the section above.
+    const host = !cy && graphSectionAtOrBefore(sectionId);
+    if (host) return selectSection(host);
+    return;
+  }
 
-  const graphSource = SECTION_SOURCE[sectionId] || 'iso';
+  const ticket = ++selectTicket;
+  const graphSource = sectionSource(sectionId) || 'iso';
 
   // Loom sections may pin a default snapshot (e.g. Seeds → t=23).
   let loomFrameDirty = false;
   if (graphSource === 'loom' && SECTION_LOOM_FRAME[sectionId] != null) {
     const frames = getLoomFrames();
-    const want = Math.max(0, Math.min(Math.max(frames.length - 1, 0), SECTION_LOOM_FRAME[sectionId]));
+    const pinned = SECTION_LOOM_FRAME[sectionId];
+    const want = Math.max(0, Math.min(Math.max(frames.length - 1, 0),
+      pinned === 'latest' ? frames.length - 1 : pinned));
     if (loomFrameIndex !== want) {
       loomFrameInitialized = true; // don't snap to latest on first Loom load
       loomFrameIndex = want;
@@ -2389,23 +2489,35 @@ async function selectSection(sectionId) {
   const samePlace = (sectionId === currentSection && graphSource === currentSource && !!cy && !loomFrameDirty)
     || sameSeedView;
 
+  let fade = null;
+  const booting = document.getElementById('cy').classList.contains('cy-boot');
   if (graphSource !== currentSource || loomFrameDirty) {
     if (graphSource !== currentSource) {
-      const hopsChanged = syncHopsForSource(graphSource);
-      if (hopsChanged) currentSource = null;
-    } else if (loomFrameDirty) {
-      currentSource = null; // force initGraph to rebuild the pinned frame
+      syncHopsForSource(graphSource);
     }
+    // Load first (the old graph stays live meanwhile), then swap in one go.
+    await loadGraphData(graphSource);
+    if (ticket !== selectTicket) return; // reader has moved on
+    currentSource = null; // force initGraph to rebuild (new graph, hops or frame)
+    fade = booting ? null : beginGraphCrossfade();
     await initGraph(graphSource);
   }
+  if (ticket !== selectTicket) { if (fade) fade.end(); return; }
 
   currentSection = sectionId;
 
-  const fitMode = samePlace
-    ? false
-    : (sectionGhostActive || !essayCollapsed ? 'highlight' : false);
-  applySectionHighlight(sectionId, { fit: fitMode });
+  const fitMode = force
+    ? 'highlight'
+    : samePlace
+      ? false
+      : (sectionGhostActive || !essayCollapsed ? 'highlight' : false);
+  // A freshly built graph is placed directly on the section's view (under the
+  // crossfade / boot fade) rather than flying in from the full field.
+  const placeNow = (fade || booting) && fitMode === 'highlight';
+  applySectionHighlight(sectionId, { fit: placeNow ? 'place' : fitMode });
   if (fitMode === 'highlight') closeNodePanel();
+  if (fade) fade.end();
+  if (booting) document.getElementById('cy').classList.remove('cy-boot');
 
   if (dualViewRange.has(sectionId) && !essayCollapsed) {
     showApiView();
@@ -2413,160 +2525,270 @@ async function selectSection(sectionId) {
 }
 
 /**
- * Highlight the natural 1-hop neighborhood of the section's seed node
- * (Sammy Jankis by default) using real graph edges — not a curated list.
- * fit: 'highlight' zooms in on that neighborhood; 'all' fits the full field;
- * false leaves the camera alone.
+ * Highlight the natural 1-hop neighborhood of the section's seed node using
+ * real graph edges — not a curated list — and point the camera at the seed.
+ * fit: 'highlight' flies the camera to the section view; 'place' jumps straight
+ * there (used under a crossfade); 'all' fits the full field; false leaves the
+ * camera alone.
  */
 function applySectionHighlight(sectionId, { fit = 'highlight' } = {}) {
   if (!cy) return false;
 
-  const graphSource = SECTION_SOURCE[sectionId] || currentSource || 'iso';
+  const graphSource = sectionSource(sectionId) || currentSource || 'iso';
   // Use ?? so HIGHLIGHT_SEED.loom === null stays null (full-field), instead of
   // falling through || to the iso seed.
   const seedWanted = SECTION_HIGHLIGHT_SEED[sectionId] ?? HIGHLIGHT_SEED[graphSource] ?? HIGHLIGHT_SEED.iso;
   const seed = resolveNodeId(seedWanted);
-  const keepRaw = SECTION_FRAME_KEEP[sectionId] || FRAME_KEEP[graphSource] || [];
-  const keepInView = keepRaw
-    .map(id => resolveNodeId(id))
-    .filter(Boolean);
-  const frameOpts = SECTION_FRAME[sectionId] || {};
-  const pad = frameOpts.padding != null ? frameOpts.padding : 52;
-  const fullPad = frameOpts.padding != null ? frameOpts.padding : 30;
-  const maxZ = frameOpts.maxZoom != null ? frameOpts.maxZoom : 1.25;
-  const minZ = frameOpts.minZoom != null ? frameOpts.minZoom : null;
+  const fullPad = (SECTION_FRAME[sectionId] || {}).padding ?? 30;
+
+  cy.elements().removeClass('hl').removeClass('faded').removeClass('cut');
+  sectionGhostActive = false;
+  sectionViewActive = false;
 
   if (!seed) {
-    sectionGhostActive = false;
-    cy.elements().removeClass('hl').removeClass('faded').removeClass('cut');
-    if (fit) cy.animate({ fit: { eles: cy.elements(), padding: fullPad }, duration: 450 });
+    if (fit) moveCamera(fullFieldTarget(fullPad), { duration: fit === 'place' ? 0 : undefined });
     return false;
   }
 
+  // Loom keeps its own colors (an orange edge means "discovered"), so its
+  // sections only move the camera; no neighborhood ghosting.
   const neighbors = adjMap[seed] ? [...adjMap[seed]] : [];
   const idSet = new Set([seed, ...neighbors]);
-
-  cy.elements().removeClass('hl').removeClass('faded').removeClass('cut');
-
-  // If the natural neighborhood is almost the whole field, skip ghosting
-  // (common on Loom's small exhibit graph) and just frame the seed.
-  if (idSet.size === 0 || idSet.size >= cy.nodes().length * 0.9) {
-    sectionGhostActive = false;
-    if (fit === 'highlight') {
-      frameHighlight(cy.nodes(), {
-        seedId: seed,
-        keepInView,
-        padding: pad,
-        maxZoom: maxZ,
-        minZoom: minZ,
-        duration: 500,
-      });
-    } else if (fit === 'all') {
-      cy.animate({ fit: { eles: cy.elements(), padding: fullPad }, duration: 450 });
-    }
-    return true;
+  const ghost = graphSource !== 'loom' && idSet.size < cy.nodes().length * 0.9;
+  if (ghost) {
+    cy.elements().addClass('faded');
+    cy.nodes().forEach(n => {
+      if (idSet.has(n.id())) n.removeClass('faded').addClass('hl');
+    });
+    cy.edges().forEach(e => {
+      if (idSet.has(e.source().id()) && idSet.has(e.target().id())) {
+        e.removeClass('faded').addClass('hl');
+      }
+    });
+    sectionGhostActive = true;
   }
+  sectionViewActive = true;
 
-  cy.elements().addClass('faded');
-  cy.nodes().forEach(n => {
-    if (idSet.has(n.id())) n.removeClass('faded').addClass('hl');
-  });
-  cy.edges().forEach(e => {
-    if (idSet.has(e.source().id()) && idSet.has(e.target().id())) {
-      e.removeClass('faded').addClass('hl');
-    }
-  });
-  sectionGhostActive = true;
-
-  if (fit === 'highlight') {
-    const hlNodes = cy.nodes('.hl');
-    if (hlNodes.length > 0) {
-      frameHighlight(hlNodes, {
-        seedId: seed,
-        keepInView,
-        padding: pad,
-        maxZoom: maxZ,
-        minZoom: minZ,
-        duration: 500,
-      });
-    }
+  if (fit === 'highlight' || fit === 'place') {
+    moveCamera(sectionCameraTarget(sectionId, seed), { duration: fit === 'place' ? 0 : undefined });
   } else if (fit === 'all') {
-    cy.animate({ fit: { eles: cy.elements(), padding: fullPad }, duration: 450 });
+    moveCamera(fullFieldTarget(fullPad));
   }
   return true;
 }
 
+// === CAMERA ===
+let cameraTween = 0;
+// True while moveCamera itself is setting the viewport (not the reader).
+let cameraDriving = false;
+function setViewport(v) {
+  cameraDriving = true;
+  try { cy.viewport(v); } finally { cameraDriving = false; }
+}
+
+function prefersReducedMotion() {
+  return !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/** Pixels along each edge of the canvas covered by floating chrome
+ *  (search box, legend, hints, Loom controls), so framing avoids them. */
+function graphInsets() {
+  const host = document.getElementById('cy');
+  const r = host.getBoundingClientRect();
+  const ins = { top: 0, right: 0, bottom: 0, left: 0 };
+  if (!r.width || !r.height) return ins;
+  const skip = new Set(['cy', 'node-panel', 'api-view', 'box-select-rect', 'loom-placard']);
+  for (const el of document.getElementById('graph-body').children) {
+    if (skip.has(el.id) || el.classList.contains('cy-crossfade')) continue;
+    const b = el.getBoundingClientRect();
+    if (!b.width || !b.height || getComputedStyle(el).visibility === 'hidden') continue;
+    if (b.right <= r.left || b.left >= r.right || b.bottom <= r.top || b.top >= r.bottom) continue;
+    if (b.height > r.height * 0.4) continue; // side panels, not edge chrome
+    if ((b.top + b.bottom) / 2 < r.top + r.height / 2) ins.top = Math.max(ins.top, b.bottom - r.top);
+    else ins.bottom = Math.max(ins.bottom, r.bottom - b.top);
+  }
+  ins.top = Math.min(ins.top, r.height * 0.3);
+  ins.bottom = Math.min(ins.bottom, r.height * 0.3);
+  return ins;
+}
+
+/** The clear part of the canvas, in rendered px. */
+function clearArea(padding) {
+  const ins = graphInsets();
+  const W = cy.width(), H = cy.height();
+  const x1 = ins.left + padding, x2 = W - ins.right - padding;
+  const y1 = ins.top + padding, y2 = H - ins.bottom - padding;
+  return {
+    w: Math.max(40, x2 - x1), h: Math.max(40, y2 - y1),
+    cx: (x1 + x2) / 2, cy: (y1 + y2) / 2,
+  };
+}
+
+/** Viewport that fits a collection (default: the whole graph) in the clear area. */
+function fullFieldTarget(padding = 30, eles = cy.elements()) {
+  const area = clearArea(padding);
+  const bb = eles.boundingBox();
+  const zoom = Math.min(area.w / Math.max(bb.w, 1), area.h / Math.max(bb.h, 1));
+  return {
+    zoom,
+    pan: { x: area.cx - zoom * (bb.x1 + bb.x2) / 2, y: area.cy - zoom * (bb.y1 + bb.y2) / 2 },
+  };
+}
+
 /**
- * Frame the highlight. Prefer fitting seed + keepInView nodes so important
- * neighbors stay visible; fall back to a fixed zoom on the seed alone.
+ * The section's opening view: the seed plus its keep-in-view nodes (or its
+ * nearest neighbors), labels included, zoomed so labels stay readable. When
+ * the whole set doesn't fit at a readable zoom, the seed and its label win.
  */
-function frameHighlight(hlNodes, {
-  seedId = null,
-  keepInView = [],
-  targetZoom = null,
-  padding = 52,
-  maxZoom = 1.25,
-  minZoom = null,
-  duration = 400,
-} = {}) {
-  if (!cy || !hlNodes || hlNodes.length === 0) return;
+function sectionCameraTarget(sectionId, seedId) {
+  const source = currentSource || sectionSource(sectionId) || 'iso';
+  const opts = SECTION_FRAME[sectionId] || {};
+  const seed = cy.getElementById(seedId);
 
-  let focus = seedId ? cy.getElementById(seedId) : cy.collection();
-  if (!focus.nonempty()) focus = hlNodes[0];
-
-  for (const id of keepInView) {
+  let focus = seed;
+  const keep = (SECTION_FRAME_KEEP[sectionId] || FRAME_KEEP[source] || [])
+    .map(id => resolveNodeId(id)).filter(Boolean);
+  for (const id of keep) {
     const n = cy.getElementById(id);
     if (n.nonempty()) focus = focus.union(n);
   }
+  if (!keep.length) {
+    const p = seed.position();
+    const dist = n => Math.hypot(n.position().x - p.x, n.position().y - p.y);
+    const near = seed.neighborhood('node').toArray()
+      .sort((a, b) => dist(a) - dist(b)).slice(0, FRAME_NEIGHBORS);
+    for (const n of near) focus = focus.union(n);
+  }
 
+  const floor = READABLE_LABEL_PX / (LABEL_FONT_PX[source] || 13);
+  const minZ = Math.max(floor, opts.minZoom ?? 0);
+  const maxZ = Math.max(minZ, opts.maxZoom ?? DEFAULT_MAX_ZOOM[source] ?? 1.6);
+  const area = clearArea(opts.padding ?? 36);
+
+  const bb = focus.boundingBox({ includeLabels: true });
+  let zoom = Math.min(area.w / Math.max(bb.w, 1), area.h / Math.max(bb.h, 1));
+  zoom = Math.min(maxZ, Math.max(minZ, zoom));
+
+  // Centre the focus set; then slide so the seed and its label are on screen.
+  let x = (bb.x1 + bb.x2) / 2, y = (bb.y1 + bb.y2) / 2;
+  const hw = area.w / 2 / zoom, hh = area.h / 2 / zoom;
+  const sb = seed.boundingBox({ includeLabels: true });
+  if (sb.x2 > x + hw) x = sb.x2 - hw;
+  if (sb.x1 < x - hw) x = sb.x1 + hw; // a label wider than the view keeps its start
+  if (sb.y2 > y + hh) y = sb.y2 - hh;
+  if (sb.y1 < y - hh) y = sb.y1 + hh;
+
+  return { zoom, pan: { x: area.cx - zoom * x, y: area.cy - zoom * y } };
+}
+
+/**
+ * Move the camera to target {zoom, pan} in one continuous motion. The view
+ * centre travels in graph space and zoom eases in log space, so the subject
+ * doesn't swing sideways mid-zoom; long moves ease out a little on the way so
+ * both ends stay in sight. duration 0 (or reduced motion) jumps.
+ */
+function moveCamera(target, { duration = 750 } = {}) {
+  if (!cy || !target) return;
   cy.stop(true);
-
-  const clampZoom = () => {
-    let z = cy.zoom();
-    if (z > maxZoom) z = maxZoom;
-    if (minZoom != null && z < minZoom) z = minZoom;
-    if (z !== cy.zoom()) {
-      cy.zoom(z);
-      // Prefer the seed when min-clamping so a distant keep node doesn't
-      // leave the subject off-screen at the higher zoom.
-      const seedEl = seedId ? cy.getElementById(seedId) : null;
-      cy.center(seedEl && seedEl.nonempty() ? seedEl : focus);
-    }
-  };
-
-  // Fixed-zoom path (used when we explicitly want a Sammy-centered crop).
-  if (targetZoom != null && focus.length === 1) {
-    const pos = focus.position();
-    const z = targetZoom;
-    const pan = {
-      x: cy.width() / 2 - z * pos.x,
-      y: cy.height() / 2 - z * pos.y,
-    };
-    if (!duration) {
-      cy.viewport({ zoom: z, pan });
-      return;
-    }
-    cy.animate({ zoom: z, pan, duration, easing: 'ease-out', queue: false });
+  const tween = ++cameraTween;
+  const z1 = Math.min(cy.maxZoom(), Math.max(cy.minZoom(), target.zoom));
+  const pan1 = { x: target.pan.x, y: target.pan.y };
+  if (z1 !== target.zoom) {
+    // Keep the same centre if cytoscape's zoom limits clamped the target.
+    const W = cy.width(), H = cy.height();
+    const c = { x: (W / 2 - target.pan.x) / target.zoom, y: (H / 2 - target.pan.y) / target.zoom };
+    pan1.x = W / 2 - z1 * c.x; pan1.y = H / 2 - z1 * c.y;
+  }
+  if (!duration || prefersReducedMotion()) {
+    setViewport({ zoom: z1, pan: pan1 });
     return;
   }
 
-  // Fit the focus set (seed + keepInView) with soft min/max clamps.
-  const runFit = () => {
-    cy.fit(focus, padding);
-    clampZoom();
-  };
+  const W = cy.width(), H = cy.height();
+  const z0 = cy.zoom(), p0 = cy.pan();
+  const c0 = { x: (W / 2 - p0.x) / z0, y: (H / 2 - p0.y) / z0 };
+  const c1 = { x: (W / 2 - pan1.x) / z1, y: (H / 2 - pan1.y) / z1 };
+  const lz0 = Math.log(z0), lz1 = Math.log(z1);
+  const travel = Math.hypot(c1.x - c0.x, c1.y - c0.y);
+  const zSeeBoth = Math.min(W, H) * 0.9 / Math.max(travel, 1e-6);
+  const dip = Math.max(0, (lz0 + lz1) / 2 - Math.log(zSeeBoth));
+  if (travel < 0.5 && Math.abs(lz1 - lz0) < 0.002) { setViewport({ zoom: z1, pan: pan1 }); return; }
+  const total = duration + Math.min(450, dip * 300);
+  const start = performance.now();
+  const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-  if (!duration) {
-    runFit();
-    return;
+  const step = now => {
+    if (tween !== cameraTween || !cy) return;
+    const t = Math.min(1, (now - start) / total);
+    const e = ease(t);
+    const z = Math.exp(lz0 + (lz1 - lz0) * e - dip * 4 * e * (1 - e));
+    const cx = c0.x + (c1.x - c0.x) * e, cyy = c0.y + (c1.y - c0.y) * e;
+    setViewport({ zoom: z, pan: { x: W / 2 - z * cx, y: H / 2 - z * cyy } });
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// The reader grabbing the graph always wins over a camera move in flight.
+['pointerdown', 'wheel', 'touchstart'].forEach(type => {
+  document.getElementById('cy').addEventListener(type, () => { cameraTween++; }, { passive: true, capture: true });
+});
+
+/**
+ * Freeze the current graph into an overlay so the next one can be built
+ * underneath and revealed by fading the overlay out (a crossfade, not a cut).
+ * Returns { end() } or null when there is nothing to fade from.
+ */
+function beginGraphCrossfade() {
+  const host = document.getElementById('cy');
+  if (!cy || prefersReducedMotion() || !host.offsetWidth || !host.offsetHeight
+      || getComputedStyle(host).visibility === 'hidden') return null;
+  const veil = document.createElement('div');
+  veil.className = 'cy-crossfade';
+  veil.setAttribute('aria-hidden', 'true');
+  veil.style.left = host.offsetLeft + 'px';
+  veil.style.top = host.offsetTop + 'px';
+  veil.style.width = host.offsetWidth + 'px';
+  veil.style.height = host.offsetHeight + 'px';
+  try {
+    // Copy cytoscape's layered canvases straight across (synchronous, no PNG).
+    const layers = [...host.querySelectorAll('canvas')]
+      .filter(c => c.width && c.height && getComputedStyle(c).display !== 'none')
+      .sort((a, b) => (parseInt(getComputedStyle(a).zIndex, 10) || 0) - (parseInt(getComputedStyle(b).zIndex, 10) || 0));
+    if (!layers.length) return null;
+    const snap = document.createElement('canvas');
+    snap.width = layers[0].width;
+    snap.height = layers[0].height;
+    const ctx = snap.getContext('2d');
+    for (const layer of layers) ctx.drawImage(layer, 0, 0, snap.width, snap.height);
+    veil.appendChild(snap);
+  } catch (e) {
+    return null;
   }
-  cy.animate({
-    fit: { eles: focus, padding },
-    duration,
-    easing: 'ease-out',
-    queue: false,
-    complete: clampZoom,
-  });
+  host.after(veil);
+  let ended = false;
+  return {
+    end() {
+      if (ended) return;
+      ended = true;
+      // Wait one frame so the new graph has painted underneath, then fade.
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        veil.classList.add('out');
+        const remove = () => veil.remove();
+        veil.addEventListener('transitionend', remove, { once: true });
+        setTimeout(remove, 1200);
+      }));
+    },
+  };
+}
+
+/** Re-frame the current section (after a resize / essay collapse). */
+function reframeSection({ duration = 450 } = {}) {
+  if (!cy || !currentSection) return;
+  const source = currentSource || 'iso';
+  const seed = resolveNodeId(SECTION_HIGHLIGHT_SEED[currentSection] ?? HIGHLIGHT_SEED[source]);
+  if (seed) moveCamera(sectionCameraTarget(currentSection, seed), { duration });
+  else moveCamera(fullFieldTarget(40), { duration });
 }
 
 
@@ -2574,10 +2796,11 @@ function frameHighlight(hlNodes, {
 function clearGraphHighlight({ fit = false } = {}) {
   closeNodePanel();
   sectionGhostActive = false;
+  sectionViewActive = false;
   if (!cy) return;
   cy.elements().removeClass('hl').removeClass('faded').removeClass('cut');
   if (fit) {
-    cy.animate({ fit: { eles: cy.elements(), padding: 40 }, duration: 450 });
+    moveCamera(fullFieldTarget(40), { duration: 450 });
   }
 }
 
@@ -2587,6 +2810,7 @@ function showNodePanel(nodeId) {
   if (!n) return;
   // Inspecting a node leaves free-explore mode (neighborhood highlight ≠ section ghost).
   sectionGhostActive = false;
+  sectionViewActive = false;
 
   const isLoom = currentSource === 'loom';
   const seedLabel = isLoom
@@ -3085,7 +3309,7 @@ function apiRun(input) {
         cy.nodes().forEach(n => { if (idSet.has(n.id())) n.removeClass('faded').addClass('hl'); });
         cy.edges().forEach(e => { if (idSet.has(e.source().id()) && idSet.has(e.target().id())) e.removeClass('faded').addClass('hl'); });
         const hlNodes = cy.nodes('.hl');
-        if (hlNodes.length > 0 && hlNodes.length < 50) cy.animate({ fit: { eles: hlNodes, padding: 40 }, duration: 400 });
+        if (hlNodes.length > 0 && hlNodes.length < 50) moveCamera(fullFieldTarget(40, hlNodes), { duration: 400 });
       }
     }
   }
@@ -3097,7 +3321,7 @@ function showApiView() {
   apiView.style.display = 'block';
   if (cy) {
     cy.elements().removeClass('hl').removeClass('faded').removeClass('cut');
-    cy.animate({ fit: { eles: cy.elements(), padding: 40 }, duration: 400 });
+    moveCamera(fullFieldTarget(40), { duration: 400 });
   }
   apiRun('explore');
 }
@@ -3145,6 +3369,9 @@ function sectionOverlapsBand(el, bandTop, bandBot) {
 }
 
 function syncSectionFromScroll() {
+  // While the essay is collapsed its sections have no layout (all at y=0), which
+  // would read as "scrolled to the end" and jump the graph to the glossary.
+  if (essayCollapsed) return;
   const vh = window.innerHeight;
   const bandTop = vh * SECTION_BAND.top;
   const bandBot = vh * SECTION_BAND.bottom;
@@ -3188,6 +3415,7 @@ function onEssayScroll() {
 
 const observer = new IntersectionObserver((entries) => {
   // Prefer observer when a section enters the band; scroll fallback handles gaps.
+  if (essayCollapsed) return;
   for (const entry of entries) {
     if (entry.isIntersecting) {
       const sectionId = entry.target.dataset.section;
@@ -3294,30 +3522,9 @@ function setEssayCollapsed(collapsed) {
         collapsedExploreViewport = null;
         return;
       }
-      if (sectionGhostActive) {
-        // Section ghost is active — re-fit to highlight for new panel width.
-        const hl = cy.nodes('.hl');
-        if (hl.length > 0) {
-          const source = currentSource || 'iso';
-          const sec = currentSection;
-          const seedWanted = (sec && (SECTION_HIGHLIGHT_SEED[sec] ?? HIGHLIGHT_SEED[source])) ?? HIGHLIGHT_SEED.iso;
-          const seed = resolveNodeId(seedWanted);
-          const keepRaw = (sec && SECTION_FRAME_KEEP[sec]) || FRAME_KEEP[source] || [];
-          const keepInView = keepRaw
-            .map(id => resolveNodeId(id))
-            .filter(Boolean);
-          const frameOpts = (sec && SECTION_FRAME[sec]) || {};
-          frameHighlight(hl, {
-            seedId: seed,
-            keepInView,
-            padding: frameOpts.padding != null ? frameOpts.padding : (collapsed ? 72 : 52),
-            maxZoom: frameOpts.maxZoom != null ? frameOpts.maxZoom : 1.25,
-            minZoom: frameOpts.minZoom != null ? frameOpts.minZoom : null,
-            duration: 450,
-          });
-        } else {
-          cy.animate({ fit: { eles: cy.elements(), padding: 40 }, duration: 450 });
-        }
+      if (sectionGhostActive || sectionViewActive) {
+        // Still on the section's view — re-frame it for the new panel width.
+        reframeSection({ duration: 450 });
       }
       // Otherwise: user has been free-exploring — just resize, keep their viewport.
     });
@@ -3602,7 +3809,8 @@ function selectSearchResult(nid) {
   showNodePanel(nid);
   const ele = cy.getElementById(nid);
   if (ele && ele.length) {
-    cy.animate({ center: { eles: ele }, zoom: Math.max(cy.zoom(), 1.1), duration: 400 });
+    const z = Math.max(cy.zoom(), 1.1), p = ele.position();
+    moveCamera({ zoom: z, pan: { x: cy.width() / 2 - z * p.x, y: cy.height() / 2 - z * p.y } }, { duration: 500 });
   }
   searchResults.classList.remove('visible');
   searchInput.value = '';
@@ -3649,7 +3857,7 @@ document.addEventListener('keydown', e => {
   if (e.target.closest('.graph-search-input, .reader-textarea, .reader-location, .reader-source')) return;
   if (e.key === 'Escape') {
     closeNodePanel();
-    if (currentSection) selectSection(currentSection);
+    if (currentSection) selectSection(currentSection, { force: true });
   }
   if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
     const idx = currentSection ? SECTIONS.findIndex(s => s.id === currentSection) : -1;
@@ -3787,10 +3995,10 @@ document.addEventListener('keydown', e => {
 })();
 
 // === INIT ===
-initGraph('iso').then(() => {
-  // Let the preset layout's fit settle, then frame Sammy at the reference zoom.
-  requestAnimationFrame(() => selectSection('intro'));
-});
+// Whatever section is in view builds its own graph, already framed, and fades
+// in (no full-field flash, and a restored scroll position gets the right graph).
+document.getElementById('cy').classList.add('cy-boot');
+requestAnimationFrame(() => syncSectionFromScroll());
 </script>
 </body>
 </html>
