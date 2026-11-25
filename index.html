@@ -3406,6 +3406,64 @@ const sections = document.querySelectorAll('.voice-section[data-section]');
 // and the graph looks "gone". syncSectionFromScroll() covers that gap.
 const SECTION_BAND = { top: 0.2, bottom: 0.4 };
 
+// ── Keep the reader's place when the essay column changes width ──
+// Narrowing the essay reflows it taller while the page keeps its scroll offset,
+// so the text under the reader slides back a section or two (and the graph
+// follows it to an earlier speaker). Browsers don't fix this here: Safari has
+// no scroll anchoring and Chrome anchors on the sticky graph panel. So: note
+// the block at the reading line, change the layout, put that block back.
+const READING_LINE = (SECTION_BAND.top + SECTION_BAND.bottom) / 2;
+const READING_BLOCKS = '.essay-panel :is(p, h2, h3, blockquote, li, figure, .voice-label-inline, .section-break, .chorus-divider)';
+let readingAnchor = null;
+// True while the reader drags the divider: section tracking waits until release.
+let essayReflowing = false;
+
+function captureReadingAnchor() {
+  if (essayCollapsed) return (readingAnchor = null);
+  const line = innerHeight * READING_LINE;
+  let straddle = null, straddleH = Infinity, below = null, belowTop = Infinity;
+  for (const el of document.querySelectorAll(READING_BLOCKS)) {
+    const r = el.getBoundingClientRect();
+    if (!r.height) continue;
+    if (r.top <= line && r.bottom > line && r.height < straddleH) { straddle = el; straddleH = r.height; }
+    else if (r.top > line && r.top < belowTop) { below = el; belowTop = r.top; }
+  }
+  if (straddle) {
+    const r = straddle.getBoundingClientRect();
+    readingAnchor = { el: straddle, frac: (line - r.top) / r.height };
+  } else if (below) {
+    readingAnchor = { el: below, px: line - below.getBoundingClientRect().top };
+  } else {
+    readingAnchor = null;
+  }
+  return readingAnchor;
+}
+
+function restoreReadingAnchor(anchor = readingAnchor) {
+  if (!anchor || !anchor.el.isConnected || essayCollapsed) return;
+  const r = anchor.el.getBoundingClientRect();
+  const line = innerHeight * READING_LINE;
+  const wantTop = line - (anchor.frac != null ? anchor.frac * r.height : anchor.px);
+  const dy = r.top - wantTop;
+  if (Math.abs(dy) > 0.5) window.scrollBy(0, dy);
+}
+
+/** Run a layout change without moving the text the reader is on. */
+function keepReadingPlace(changeLayout) {
+  const anchor = captureReadingAnchor();
+  changeLayout();
+  restoreReadingAnchor(anchor);
+}
+
+// Track the reading position as the reader scrolls, so a window resize
+// (which can't be caught beforehand) can restore it.
+let readingAnchorTimer = 0;
+window.addEventListener('scroll', () => {
+  clearTimeout(readingAnchorTimer);
+  readingAnchorTimer = setTimeout(() => { if (!essayReflowing) captureReadingAnchor(); }, 150);
+}, { passive: true });
+window.addEventListener('resize', () => restoreReadingAnchor());
+
 function sectionOverlapsBand(el, bandTop, bandBot) {
   const r = el.getBoundingClientRect();
   return Math.min(r.bottom, bandBot) > Math.max(r.top, bandTop);
@@ -3414,7 +3472,8 @@ function sectionOverlapsBand(el, bandTop, bandBot) {
 function syncSectionFromScroll() {
   // While the essay is collapsed its sections have no layout (all at y=0), which
   // would read as "scrolled to the end" and jump the graph to the glossary.
-  if (essayCollapsed) return;
+  // Mid-drag of the divider the text is reflowing; wait for the release.
+  if (essayCollapsed || essayReflowing) return;
   const vh = window.innerHeight;
   const bandTop = vh * SECTION_BAND.top;
   const bandBot = vh * SECTION_BAND.bottom;
@@ -3458,7 +3517,7 @@ function onEssayScroll() {
 
 const observer = new IntersectionObserver((entries) => {
   // Prefer observer when a section enters the band; scroll fallback handles gaps.
-  if (essayCollapsed) return;
+  if (essayCollapsed || essayReflowing) return;
   for (const entry of entries) {
     if (entry.isIntersecting) {
       const sectionId = entry.target.dataset.section;
@@ -3581,15 +3640,19 @@ const panelExpand = document.getElementById('panel-expand');
 let savedGraphWidth = null;
 function collapseGraphPanel() {
   savedGraphWidth = graphPanel.getBoundingClientRect().width;
-  graphPanel.classList.add('collapsed');
-  pageLayout.style.gridTemplateColumns = '36px auto 1fr';
+  keepReadingPlace(() => {
+    graphPanel.classList.add('collapsed');
+    pageLayout.style.gridTemplateColumns = '36px auto 1fr';
+  });
 }
 function expandGraphPanel() {
-  graphPanel.classList.remove('collapsed');
-  if (savedGraphWidth) {
-    pageLayout.style.setProperty('--graph-width', savedGraphWidth + 'px');
-  }
-  pageLayout.style.gridTemplateColumns = '';
+  keepReadingPlace(() => {
+    graphPanel.classList.remove('collapsed');
+    if (savedGraphWidth) {
+      pageLayout.style.setProperty('--graph-width', savedGraphWidth + 'px');
+    }
+    pageLayout.style.gridTemplateColumns = '';
+  });
   if (cy) requestAnimationFrame(() => cy.resize());
 }
 panelExpand.addEventListener('click', expandGraphPanel);
@@ -3601,6 +3664,8 @@ divider.addEventListener('mousedown', (e) => {
   if (e.button !== 0) return;
   e.preventDefault();
   dividerDragging = true;
+  essayReflowing = true;
+  captureReadingAnchor();
   divider.classList.add('dragging');
   document.body.style.cursor = 'col-resize';
   document.body.style.userSelect = 'none';
@@ -3611,11 +3676,15 @@ document.addEventListener('mousemove', (e) => {
   const maxW = window.innerWidth - 300;
   const w = Math.min(Math.max(e.clientX, minW), maxW);
   pageLayout.style.setProperty('--graph-width', w + 'px');
+  restoreReadingAnchor();
   if (cy) cy.resize();
 });
 document.addEventListener('mouseup', () => {
   if (!dividerDragging) return;
   dividerDragging = false;
+  restoreReadingAnchor();
+  essayReflowing = false;
+  syncSectionFromScroll();
   divider.classList.remove('dragging');
   document.body.style.cursor = '';
   document.body.style.userSelect = '';
