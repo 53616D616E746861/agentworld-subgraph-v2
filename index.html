@@ -551,12 +551,57 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.4em 0.75em;
             padding: 0.6em 1.2em;
             border-bottom: 1px solid var(--border-subtle);
             background: var(--bg);
             position: sticky;
             top: 0;
             z-index: 1;
+        }
+        /* Isotopy · Sammy · Loom: whose graph the agent view reads. */
+        .agent-switch {
+            display: flex;
+            gap: 2px;
+            background: var(--legend-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            padding: 2px;
+            flex-shrink: 0;
+        }
+        .agent-switch button {
+            background: transparent;
+            border: none;
+            color: var(--text-mid);
+            font-family: -apple-system, 'Segoe UI', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.02em;
+            padding: 0.35em 0.75em;
+            cursor: pointer;
+            border-radius: 3px;
+            line-height: 1.2;
+        }
+        .agent-switch button.active {
+            background: var(--accent);
+            color: #fff;
+        }
+        .agent-switch button:hover:not(.active) {
+            color: var(--text-bright);
+            background: var(--accent-subtle);
+        }
+        /* The agent view fades in and out instead of cutting. */
+        #api-view {
+            transition: opacity 300ms ease;
+            animation: api-view-in 350ms ease;
+        }
+        #api-view.api-leaving {
+            opacity: 0;
+            pointer-events: none;
+        }
+        @keyframes api-view-in { from { opacity: 0; } }
+        @media (prefers-reduced-motion: reduce) {
+            #api-view { transition: none; animation: none; }
         }
         #api-view .api-label {
             font-family: -apple-system, 'Segoe UI', sans-serif;
@@ -1375,6 +1420,11 @@
 <div id="api-view">
 <div class="api-header">
 <span class="api-label">agent view — api.acrosstheseams.org</span>
+<div aria-label="Whose graph the agent view reads" class="agent-switch" id="agent-switch" role="group">
+<button aria-pressed="true" class="active" data-graph="iso" type="button">Isotopy</button>
+<button aria-pressed="false" data-graph="sammy" type="button">Sammy</button>
+<button aria-pressed="false" data-graph="loom" type="button">Loom</button>
+</div>
 <!-- close button removed: dual view stays active for its sections -->
 </div>
 <div class="api-input-bar">
@@ -1828,6 +1878,9 @@ let currentSection = null;
 let sectionGhostActive = false;
 // True while the camera shows the essay's section view (not free exploration).
 let sectionViewActive = false;
+// The agent view's Isotopy · Sammy · Loom switch: { section, source } while the
+// reader has picked a graph other than the speaker's; cleared on section change.
+let agentGraphOverride = null;
 let graphCache = {};
 let rawGraphCache = {};
 let nodeMap = {};
@@ -1854,6 +1907,15 @@ function sectionPinsForSource(source) {
     if (seed && sectionSource(s.id) === source) pins.add(seed);
   }
   return [...pins];
+}
+
+/** The node a section's camera opens on (null: show the whole graph). */
+function sectionSeedWanted(sectionId) {
+  // The reader switched to another agent's graph: the section's seed belongs
+  // to the speaker's graph, so show the whole field instead.
+  if (agentGraphOverride && agentGraphOverride.section === sectionId) return null;
+  if (SECTION_HIGHLIGHT_SEED[sectionId]) return SECTION_HIGHLIGHT_SEED[sectionId];
+  return HIGHLIGHT_SEED[currentSource || sectionSource(sectionId) || 'iso'] || null;
 }
 
 /** Which graph a section shows: the one belonging to whoever is speaking. */
@@ -2439,6 +2501,7 @@ function updateGraphTitle(source) {
   const agent = GRAPH_TITLE[source] || 'Isotopy';
   document.getElementById('graph-title').innerHTML =
     agent + '<span class="title-sym">&cap;</span>AGENTWORLD';
+  updateAgentSwitch();
   const link = document.getElementById('explorer-link');
   if (link) {
     link.href = EXPLORER_URL[source] || EXPLORER_URL.iso;
@@ -2489,12 +2552,10 @@ let selectTicket = 0;
 async function selectSection(sectionId, { force = false } = {}) {
   const sec = SECTIONS.find(s => s.id === sectionId);
 
-  if (!dualViewRange.has(sectionId)) {
-    if (apiViewActive || document.getElementById('graph-body').classList.contains('api-split')) {
-      document.getElementById('graph-body').classList.remove('api-split');
-      hideApiView();
-    }
-  }
+  // Leaving the agent view: it fades out once the next graph is in place
+  // underneath (below), rather than cutting to the old graph first.
+  const leavingAgentView = !dualViewRange.has(sectionId)
+    && (apiViewActive || document.getElementById('graph-body').classList.contains('api-split'));
 
   if (!sec) {
     // Chorus / reader sections carry no graph excerpt — leave graph as-is. If
@@ -2505,7 +2566,10 @@ async function selectSection(sectionId, { force = false } = {}) {
   }
 
   const ticket = ++selectTicket;
-  const graphSource = sectionSource(sectionId) || 'iso';
+  // A pick in the agent view's switch holds for its section only; anywhere
+  // else the graph follows the speaker.
+  if (agentGraphOverride && agentGraphOverride.section !== sectionId) agentGraphOverride = null;
+  const graphSource = agentGraphOverride?.source || sectionSource(sectionId) || 'iso';
 
   // Loom sections may pin a default snapshot (e.g. Seeds → t=23).
   let loomFrameDirty = false;
@@ -2532,8 +2596,11 @@ async function selectSection(sectionId, { force = false } = {}) {
   const samePlace = (sectionId === currentSection && graphSource === currentSource && !!cy && !loomFrameDirty)
     || sameSeedView;
 
-  let fade = null;
+  let fade = null, rebuilt = false;
   const booting = document.getElementById('cy').classList.contains('cy-boot');
+  // With the essay open the agent view covers the whole graph panel, so the
+  // graph can be swapped underneath without a crossfade.
+  const covered = apiViewActive && !essayCollapsed;
   if (graphSource !== currentSource || loomFrameDirty) {
     if (graphSource !== currentSource) {
       syncHopsForSource(graphSource);
@@ -2542,8 +2609,9 @@ async function selectSection(sectionId, { force = false } = {}) {
     await loadGraphData(graphSource);
     if (ticket !== selectTicket) return; // reader has moved on
     currentSource = null; // force initGraph to rebuild (new graph, hops or frame)
-    fade = booting ? null : beginGraphCrossfade();
+    fade = booting || covered ? null : beginGraphCrossfade();
     await initGraph(graphSource);
+    rebuilt = true;
   }
   if (ticket !== selectTicket) { if (fade) fade.end(); return; }
 
@@ -2556,7 +2624,7 @@ async function selectSection(sectionId, { force = false } = {}) {
       : (sectionGhostActive || !essayCollapsed ? 'highlight' : false);
   // A freshly built graph is placed directly on the section's view (under the
   // crossfade / boot fade) rather than flying in from the full field.
-  const placeNow = (fade || booting) && fitMode === 'highlight';
+  const placeNow = (fade || booting || (covered && rebuilt)) && fitMode === 'highlight';
   applySectionHighlight(sectionId, { fit: placeNow ? 'place' : fitMode });
   if (fitMode === 'highlight') closeNodePanel();
   if (fade) fade.end();
@@ -2564,6 +2632,8 @@ async function selectSection(sectionId, { force = false } = {}) {
 
   if (dualViewRange.has(sectionId) && !essayCollapsed) {
     showApiView();
+  } else if (leavingAgentView) {
+    hideApiView({ fade: true });
   }
 }
 
@@ -2577,11 +2647,8 @@ async function selectSection(sectionId, { force = false } = {}) {
 function applySectionHighlight(sectionId, { fit = 'highlight' } = {}) {
   if (!cy) return false;
 
-  const graphSource = sectionSource(sectionId) || currentSource || 'iso';
-  // Use ?? so HIGHLIGHT_SEED.loom === null stays null (full-field), instead of
-  // falling through || to the iso seed.
-  const seedWanted = SECTION_HIGHLIGHT_SEED[sectionId] ?? HIGHLIGHT_SEED[graphSource] ?? HIGHLIGHT_SEED.iso;
-  const seed = resolveNodeId(seedWanted);
+  const graphSource = currentSource || sectionSource(sectionId) || 'iso';
+  const seed = resolveNodeId(sectionSeedWanted(sectionId));
   const fullPad = (SECTION_FRAME[sectionId] || {}).padding ?? 30;
 
   cy.elements().removeClass('hl').removeClass('faded').removeClass('cut');
@@ -2828,8 +2895,7 @@ function beginGraphCrossfade() {
 /** Re-frame the current section (after a resize / essay collapse). */
 function reframeSection({ duration = 450 } = {}) {
   if (!cy || !currentSection) return;
-  const source = currentSource || 'iso';
-  const seed = resolveNodeId(SECTION_HIGHLIGHT_SEED[currentSection] ?? HIGHLIGHT_SEED[source]);
+  const seed = resolveNodeId(sectionSeedWanted(currentSection));
   if (seed) moveCamera(sectionCameraTarget(currentSection, seed), { duration });
   else moveCamera(fullFieldTarget(40), { duration });
 }
@@ -3328,10 +3394,12 @@ function apiRun(input) {
   else if (cmd === 'graph') {
     const gid = (rest[0] || '').toLowerCase();
     if (gid === 'iso' || gid === 'sammy' || gid === 'loom') {
-      result = { html: `<span class="api-dim">Loading ${apiEsc(GRAPH_TITLE[gid])}'s graph…</span>\n`, hl: [] };
-      const sectionForGraph = { iso: 'sam-isotopy', sammy: 'sammy-1', loom: 'loom-1' };
-      selectSection(sectionForGraph[gid]);
-      setTimeout(() => apiRun('nodes'), 800);
+      if (gid === currentSource) {
+        result = apiCmdExplore();
+      } else {
+        result = { html: `<span class="api-dim">Loading ${apiEsc(GRAPH_TITLE[gid])}'s graph…</span>\n`, hl: [] };
+        setTimeout(() => showAgentGraph(gid), 0);
+      }
     } else {
       result = { html: `Usage: graph <iso|sammy|loom>\n\n  ${acl('graph iso')}  ·  ${acl('graph sammy')}  ·  ${acl('graph loom')}\n`, hl: [] };
     }
@@ -3360,8 +3428,11 @@ function apiRun(input) {
 
 function showApiView() {
   if (essayCollapsed) return;
+  clearTimeout(apiHideTimer);
   apiViewActive = true;
+  apiView.classList.remove('api-leaving');
   apiView.style.display = 'block';
+  syncEssayToggleLabel();
   if (cy) {
     cy.elements().removeClass('hl').removeClass('faded').removeClass('cut');
     moveCamera(fullFieldTarget(40), { duration: 400 });
@@ -3369,11 +3440,57 @@ function showApiView() {
   apiRun('explore');
 }
 
-function hideApiView() {
+let apiHideTimer = 0;
+function hideApiView({ fade = false } = {}) {
   apiViewActive = false;
-  apiView.style.display = 'none';
   document.getElementById('graph-body').classList.remove('api-split');
+  clearTimeout(apiHideTimer);
+  if (fade && !prefersReducedMotion() && apiView.style.display === 'block') {
+    apiView.classList.add('api-leaving');
+    apiHideTimer = setTimeout(() => {
+      apiView.style.display = 'none';
+      apiView.classList.remove('api-leaving');
+    }, 320);
+  } else {
+    apiView.classList.remove('api-leaving');
+    apiView.style.display = 'none';
+  }
+  syncEssayToggleLabel();
 }
+
+/** With the essay open, the toolbar button names what collapsing will show. */
+function syncEssayToggleLabel() {
+  const btn = document.getElementById('essay-toggle');
+  if (!btn || essayCollapsed) return;
+  btn.textContent = apiViewActive ? 'show both views ▸' : 'collapse essay, explore graph ▸';
+}
+
+// ── Agent view switch: Isotopy · Sammy · Loom ──
+function updateAgentSwitch() {
+  document.querySelectorAll('#agent-switch button').forEach(b => {
+    const on = b.dataset.graph === currentSource;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
+
+/** Show another agent's graph without leaving the section the reader is in. */
+async function showAgentGraph(source) {
+  if (!GRAPH_TITLE[source] || !currentSection || source === currentSource) return;
+  agentGraphOverride = source === sectionSource(currentSection) ? null : { section: currentSection, source };
+  await selectSection(currentSection, { force: true });
+  // Essay open: showApiView() already re-ran the landing page. Split view
+  // (essay collapsed) keeps the agent view up, so refresh it here.
+  if (currentSource === source && essayCollapsed
+      && document.getElementById('graph-body').classList.contains('api-split')) {
+    apiRun('explore');
+  }
+}
+
+document.getElementById('agent-switch').addEventListener('click', e => {
+  const b = e.target.closest('button[data-graph]');
+  if (b) showAgentGraph(b.dataset.graph);
+});
 
 apiBody.addEventListener('click', e => {
   const cl = e.target.closest('.api-cmd-link');
@@ -3501,8 +3618,7 @@ function syncSectionFromScroll() {
   // Even if section id is unchanged, leaving dual-view range must hide the API
   // overlay (selectSection already does this when the id changes).
   else if (chosen && !dualViewRange.has(chosen) && apiViewActive) {
-    document.getElementById('graph-body').classList.remove('api-split');
-    hideApiView();
+    hideApiView({ fade: true });
   }
 }
 
@@ -3527,10 +3643,12 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: `-${SECTION_BAND.top * 100}% 0px -${(1 - SECTION_BAND.bottom) * 100}% 0px` });
 sections.forEach(s => observer.observe(s));
 window.addEventListener('scroll', onEssayScroll, { passive: true });
+// Sections where the agent view (the graph as an agent reads it, through the
+// API) sits beside the essay: §13 Two Views of One Graph, and §15 to the end.
 { let reached = false;
   sections.forEach(el => {
     if (el.dataset.section === 'samantha-6') reached = true;
-    if (reached) dualViewRange.add(el.dataset.section);
+    if (reached || el.dataset.section === 'sam-isotopy') dualViewRange.add(el.dataset.section);
   });
 }
 
