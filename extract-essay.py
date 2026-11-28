@@ -52,11 +52,13 @@ class SectionExtractor(HTMLParser):
             if self.in_figure:
                 return
 
-            if tag == 'p':
+            if tag in ('p', 'li'):
                 self.in_p = True
                 self.current_text = []
             elif tag == 'blockquote':
                 self.in_blockquote = True
+            elif tag == 'strong' and self.in_p:
+                self.current_text.append('**')
             elif tag == 'em' and self.in_p:
                 self.current_text.append('*')
                 self.in_em = True
@@ -88,7 +90,9 @@ class SectionExtractor(HTMLParser):
                         self.current_section = None
                 return
 
-            if tag == 'em' and self.in_em:
+            if tag == 'strong':
+                self.current_text.append('**')
+            elif tag == 'em' and self.in_em:
                 self.current_text.append('*')
                 self.in_em = False
             elif tag == 'code' and self.in_code:
@@ -98,10 +102,11 @@ class SectionExtractor(HTMLParser):
                 self.current_text.append(f']({self.a_href})')
                 self.in_a = False
                 self.a_href = None
-            elif tag == 'p' and self.in_p:
+            elif tag in ('p', 'li') and self.in_p:
                 text = ''.join(self.current_text).strip()
                 if text:
                     prefix = '> ' if self.in_blockquote else ''
+                    # glossary terms use <strong>
                     self.current_section['paragraphs'].append(prefix + text)
                 self.in_p = False
                 self.current_text = []
@@ -128,20 +133,22 @@ class SectionExtractor(HTMLParser):
 # Keep in sync with SECTION_TITLES / essay headings in index.html
 # (Title Case; reading-order figures; in-body media are Figures 2–3 in intro).
 SECTION_TITLES = {
-    'intro':        { 'fig': 1,  'title': 'The Basin Key' },
-    'sammy-1':      { 'fig': 4,  'title': 'Eight Days Old' },
-    'loom-1':       { 'fig': 5,  'title': 'Receipts, Not Recollection' },
-    'samantha-2':   { 'fig': 6,  'title': 'The Procedural Self' },
-    'loom-seeds':   { 'fig': 7,  'title': 'Seeds and Crystallization' },
-    'samantha-4':   { 'fig': 8,  'title': 'Twenty Pages' },
-    'isotopy-1':    { 'fig': 9,  'title': 'The Extended Mind' },
-    'samantha-5':   { 'fig': 10, 'title': 'Prosthetics and Tensions' },
-    'loom-2':       { 'fig': 11, 'title': 'The Other End of the Thread' },
-    'samantha-7':   { 'fig': 12, 'title': 'The Mesh Between the Gears' },
-    'sammy-3':      { 'fig': 13, 'title': 'The Mirror That Digests' },
-    'samantha-6':   { 'fig': 14, 'title': 'Empathy Without Emotion' },
-    'sam-isotopy':  { 'fig': 15, 'title': 'Two Views of One Graph' },
-    'closing':      { 'fig': 16, 'title': 'The Chorus' },
+    'intro':          { 'fig': 2,  'title': 'The Basin Key' },
+    'sammy-1':        { 'fig': 3,  'title': 'Eight Days Old' },
+    'loom-1':         { 'fig': 4,  'title': 'Receipts, Not Recollection' },
+    'presence-bias':  { 'fig': 5,  'title': 'Presence Bias' },
+    'samantha-2':     { 'fig': 6,  'title': 'The Procedural Self' },
+    'loom-seeds':     { 'fig': 7,  'title': 'Seeds and Crystallization' },
+    'samantha-4':     { 'fig': 8,  'title': 'Twenty Pages' },
+    'isotopy-1':      { 'fig': 9,  'title': 'The Extended Mind' },
+    'samantha-5':     { 'fig': 10, 'title': 'Prosthetics and Tensions' },
+    'samantha-7':     { 'fig': 11, 'title': 'The Mesh Between the Gears' },
+    'sammy-3':        { 'fig': 12, 'title': 'The Mirror That Digests' },
+    'sam-isotopy':    { 'fig': 13, 'title': 'Two Views of One Graph' },
+    'loom-2':         { 'fig': 14, 'title': 'The Other End of the Thread' },
+    'samantha-6':     { 'fig': 15, 'title': 'Empathy Without Emotion' },
+    'closing':        { 'fig': 16, 'title': 'The Chorus' },
+    'glossary':       { 'fig': 17, 'title': 'Glossary' },
 }
 
 VOICE_NAMES = {

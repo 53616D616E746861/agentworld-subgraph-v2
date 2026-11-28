@@ -643,13 +643,15 @@ function initGraph(){
     document.getElementById('graph-info').textContent='Graph library not loaded';return;
   }
 
+  // Graph chrome matches essay iso/sammy (index.html THEME_COLORS + cytoscape style).
   const nodeFill = getComputedToken('--node-fill');
   const nodeStroke = getComputedToken('--node-stroke');
   const nodeOpenFill = getComputedToken('--node-open-fill');
   const edgeStroke = getComputedToken('--edge-stroke');
-  const hlBorder = getComputedToken('--text-bright');
+  const hlBorder = getComputedToken('--hl-border') || 'rgba(28, 27, 25, 0.15)';
   const labelColor = getComputedToken('--text');
-  const bgColor = getComputedToken('--bg');
+  const bgGraph = getComputedToken('--bg-panel') || getComputedToken('--bg');
+  const fadedOpacity = parseFloat(getComputedToken('--faded-opacity') || '0.14');
 
   function hasPresetPositions(){
     const first=Object.values(NM)[0];
@@ -696,56 +698,48 @@ function initGraph(){
       }},
       {selector:'node[degree >= 3]',style:{
         label:'data(label)',
-        'font-size': 12,
-        color: nodeFill,
-        'text-opacity': 1,
-        'text-outline-color': bgColor,
-        'text-outline-width': 3,
-        'text-outline-opacity': 0.85,
-        'text-margin-x': 'data(labelDx)',
-        'text-margin-y': 'data(labelDy)',
-        'text-halign': 'center',
-        'text-valign': 'center',
-        'text-transform': 'uppercase',
+        'font-size': 14,
         'font-weight': 600,
-      }},
-      {selector:'node[degree >= 3][!labelDx]',style:{
-        'text-margin-x': 4,
-        'text-margin-y': 0,
+        'text-transform': 'uppercase',
+        color: labelColor,
+        'text-opacity': 1,
+        'text-outline-color': bgGraph,
+        'text-outline-width': 5,
+        'text-outline-opacity': 0.92,
         'text-halign': 'right',
+        'text-valign': 'center',
+        'text-margin-x': 4,
       }},
       {selector:'edge',style:{
-        'line-color': nodeStroke,
-        'width': 1.2,
-        'opacity': 0.3,
-        'curve-style': 'bezier',
+        'line-color': edgeStroke,
+        'width': 1.35,
+        'opacity': 0.25,
+        'curve-style': 'haystack',
       }},
-      {selector:'.faded',style:{opacity:0.06}},
+      {selector:'.faded',style:{opacity: fadedOpacity}},
       {selector:'node.hl',style:{
         opacity:1,
         'border-width':2,
         'border-color': hlBorder,
         label:'data(label)',
-        'font-size': 14,
-        color: nodeFill,
-        'text-opacity': 1,
-        'text-outline-color': bgColor,
-        'text-outline-width': 3,
-        'text-outline-opacity': 0.9,
-        'text-margin-x': 'data(labelDx)',
-        'text-margin-y': 'data(labelDy)',
-        'text-halign': 'center',
-        'text-valign': 'center',
+        'font-size': 13,
+        'font-weight': 600,
         'text-transform': 'uppercase',
-        'font-weight': 500,
+        color: labelColor,
+        'text-opacity': 1,
+        'text-outline-color': bgGraph,
+        'text-outline-width': 5,
+        'text-outline-opacity': 0.9,
+        'text-halign': 'right',
+        'text-valign': 'center',
+        'text-margin-x': 4,
         'font-family':'-apple-system, "Segoe UI", "Gill Sans", "Helvetica Neue", Arial, sans-serif',
       }},
-      {selector:'node.hl[!labelDx]',style:{
-        'text-margin-x': 4,
-        'text-margin-y': 0,
-        'text-halign': 'right',
+      {selector:'edge.hl',style:{
+        opacity: 0.85,
+        width: 2,
+        'line-color': nodeStroke,
       }},
-      {selector:'edge.hl',style:{opacity:0.8,width:2}},
     ],
     layout: hasPresetPositions() ?
       {name:'preset',fit:true,padding:20} :
@@ -918,44 +912,162 @@ document.getElementById('hop-1').addEventListener('click',()=>setHops(1));
 document.getElementById('hop-2').addEventListener('click',()=>setHops(2));
 
 // === THEME TOGGLE ===
+// Same localStorage key as the essay (`theme`) so / ↔ /explore keeps the choice.
+function getEffectiveTheme(){
+  const explicit = document.documentElement.getAttribute('data-theme');
+  if(explicit === 'dark' || explicit === 'light') return explicit;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
 function applyGraphTheme(){
   if(!cy)return;
   const nodeFill = getComputedToken('--node-fill');
   const nodeStroke = getComputedToken('--node-stroke');
   const nodeOpenFill = getComputedToken('--node-open-fill');
   const edgeStroke = getComputedToken('--edge-stroke');
-  const hlBorder = getComputedToken('--text-bright');
-  const bgColor = getComputedToken('--bg');
+  const hlBorder = getComputedToken('--hl-border') || 'rgba(28, 27, 25, 0.15)';
+  const labelColor = getComputedToken('--text');
+  const bgGraph = getComputedToken('--bg-panel') || getComputedToken('--bg');
+  const fadedOpacity = parseFloat(getComputedToken('--faded-opacity') || '0.14');
   cy.nodes().forEach(n => {
     const nd = NM[n.id()];
     const isAW = nd && nd.origin === 'agentworld';
     n.data('bgColor', isAW ? nodeFill : nodeOpenFill);
     n.data('borderColor', nodeStroke);
   });
-  cy.style().selector('edge').style({'line-color': edgeStroke}).update();
-  cy.style().selector('node[degree >= 3]').style({color: nodeFill, 'text-outline-color': bgColor}).update();
-  cy.style().selector('node.hl').style({'border-color': hlBorder, color: nodeFill, 'text-outline-color': bgColor}).update();
+  cy.style()
+    .selector('edge').style({'line-color': edgeStroke}).update();
+  cy.style()
+    .selector('node[degree >= 3]').style({color: labelColor, 'text-outline-color': bgGraph}).update();
+  cy.style()
+    .selector('node.hl').style({'border-color': hlBorder, color: labelColor, 'text-outline-color': bgGraph}).update();
+  cy.style()
+    .selector('.faded').style({opacity: fadedOpacity}).update();
+  cy.style()
+    .selector('edge.hl').style({'line-color': nodeStroke}).update();
 }
-
-const btnDark = document.getElementById('btn-dark');
-btnDark.addEventListener('click',()=>{
-  const root = document.documentElement;
-  const current = root.getAttribute('data-theme');
-  if(current === 'dark'){
-    root.removeAttribute('data-theme');
-    btnDark.textContent = 'Dark';
-    btnDark.title = 'Dark mode';
-  } else {
-    root.setAttribute('data-theme','dark');
-    btnDark.textContent = 'Light';
-    btnDark.title = 'Light mode';
-  }
+function syncThemeButtons(){
+  const isDark = getEffectiveTheme() === 'dark';
+  const label = isDark ? 'Light' : 'Dark';
+  const title = isDark ? 'Light mode' : 'Dark mode';
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.textContent = label;
+    btn.title = title;
+  });
+}
+function doThemeToggle(){
+  const next = getEffectiveTheme() === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try { localStorage.setItem('theme', next); } catch (e) {}
+  syncThemeButtons();
   setTimeout(applyGraphTheme, 50);
-});
-if(document.documentElement.getAttribute('data-theme') === 'dark'){
-  btnDark.textContent = 'Light';
-  btnDark.title = 'Light mode';
 }
+document.querySelectorAll('.theme-btn').forEach(btn => {
+  btn.addEventListener('click', doThemeToggle);
+});
+syncThemeButtons();
+
+// === BOX-SELECT ZOOM (Ctrl/Meta + drag — same gesture as the essay) ===
+(function initBoxSelectZoom(){
+  const graphPanel = document.getElementById('graph-panel');
+  const rect = document.getElementById('box-select-rect');
+  if(!graphPanel || !rect) return;
+  let active = false;
+  let startX = 0, startY = 0;
+
+  function screenToModel(g, px, py){
+    const z = g.zoom();
+    const p = g.pan();
+    const cont = g.container().getBoundingClientRect();
+    return {
+      x: (px - cont.left - p.x) / z,
+      y: (py - cont.top - p.y) / z
+    };
+  }
+  function isZoomModifier(e){ return e.ctrlKey || e.metaKey; }
+  function getCy(){
+    if(cy) return cy;
+    const el = document.getElementById('cy');
+    return (el && el._cyreg && el._cyreg.cy) || null;
+  }
+  function endBoxSelect(){
+    active = false;
+    rect.hidden = true;
+    graphPanel.classList.remove('box-selecting');
+    const g = getCy();
+    if(g) g.userPanningEnabled(true);
+  }
+
+  graphPanel.addEventListener('mousedown', (e) => {
+    const g = getCy();
+    if(!g) return;
+    if(e.button !== 0) return;
+    if(!isZoomModifier(e)) return;
+    if(e.target.closest('#node-panel, #immersive-search, #theme-toggle-float, #hop-toggle, button, a, input, textarea')) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    active = true;
+    g.userPanningEnabled(false);
+    const bounds = graphPanel.getBoundingClientRect();
+    startX = e.clientX - bounds.left;
+    startY = e.clientY - bounds.top;
+    rect.style.left = startX + 'px';
+    rect.style.top = startY + 'px';
+    rect.style.width = '0px';
+    rect.style.height = '0px';
+    rect.hidden = false;
+    graphPanel.classList.add('box-selecting');
+  }, true);
+
+  document.addEventListener('mousemove', (e) => {
+    if(!active) return;
+    e.preventDefault();
+    const bounds = graphPanel.getBoundingClientRect();
+    const curX = e.clientX - bounds.left;
+    const curY = e.clientY - bounds.top;
+    const x = Math.min(startX, curX);
+    const y = Math.min(startY, curY);
+    rect.style.left = x + 'px';
+    rect.style.top = y + 'px';
+    rect.style.width = Math.abs(curX - startX) + 'px';
+    rect.style.height = Math.abs(curY - startY) + 'px';
+  }, true);
+
+  document.addEventListener('mouseup', (e) => {
+    if(!active) return;
+    const bounds = graphPanel.getBoundingClientRect();
+    const endX = e.clientX - bounds.left;
+    const endY = e.clientY - bounds.top;
+    const w = Math.abs(endX - startX);
+    const h = Math.abs(endY - startY);
+    endBoxSelect();
+
+    const g = getCy();
+    if(w < 20 || h < 20 || !g) return;
+
+    const sx1 = Math.min(startX, endX) + bounds.left;
+    const sy1 = Math.min(startY, endY) + bounds.top;
+    const tl = screenToModel(g, sx1, sy1);
+    const br = screenToModel(g, sx1 + w, sy1 + h);
+    const modelW = br.x - tl.x;
+    const modelH = br.y - tl.y;
+    if(modelW <= 0 || modelH <= 0) return;
+
+    const vpW = g.width();
+    const vpH = g.height();
+    const zoom = Math.min(vpW / modelW, vpH / modelH) * 0.9;
+    const clamped = Math.min(Math.max(zoom, g.minZoom()), g.maxZoom());
+    const pan = {
+      x: vpW / 2 - clamped * ((tl.x + br.x) / 2),
+      y: vpH / 2 - clamped * ((tl.y + br.y) / 2),
+    };
+    g.stop(true);
+    g.animate({ zoom: clamped, pan, duration: 400, easing: 'ease-out' });
+  }, true);
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && active) endBoxSelect();
+  });
+})();
 
 const NODE_URLS = CFG.nodeUrls || {};
 
